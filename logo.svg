@@ -1,0 +1,20 @@
+<svg width="50" height="50" id="logo" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-3 0 50 50" preserveAspectRatio="none">
+        <g>
+          {/*col-1*/}
+          <circle className="circle1" cx="10%" cy="30%" r="5%" fill="#E3CDA4"/>
+          <circle className="circle" cx="10%" cy="70%" r="5%" fill="#E3CDA4"/>
+          {/*col-2*/}
+          <circle className="circle1" cx="45%" cy="10%" r="5%" fill="#E3CDA4"/>
+          <circle className="circle" cx="45%" cy="50%" r="5%" fill="#E3CDA4"/>
+          <circle className="circle2" cx="45%" cy="90%" r="5%" fill="#E3CDA4"/>
+          {/*col-3*/}
+          <circle className="circle1" cx="80%" cy="30%" r="5%" fill="#E3CDA4"/>
+          <circle className="circle2" cx="80%" cy="70%" r="5%" fill="#E3CDA4"/>
+        </g>
+        {/*lines | starting from center*/}
+        <path className="line" d="M 22.5 25 L 5 35 L 5 15 L 22.5 05  L 40 15 L 40 35 L 22.5 45"
+              stroke="#E3CDA4"
+              fill="rgba(0,0,0,0)"
+              stroke-width="1.5"
+              vectorEffect="non-scaling-stroke"/>
+      </svg>
