@@ -6,7 +6,7 @@ const fs = require('fs');
 module.exports = {
     target: 'electron',
     devtool: 'cheap-module-eval-source-map',
-    entry: './app.js',
+    entry: './src/index.js',
     output: {
         path: resolve(__dirname, "dist/"),
         filename: 'bundle.js'

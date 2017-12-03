@@ -25,7 +25,7 @@ app.on('ready', () => {
         mainWindow.webContents.reloadIgnoringCache();
     });
 
-    mainWindow.loadURL('file://' + __dirname + '/index.html');
+    mainWindow.loadURL(path.resolve(__dirname, '../../index.html'));
 
     mainWindow.on('closed', () => {
         mainWindow = null;
