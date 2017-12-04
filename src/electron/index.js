@@ -5,13 +5,14 @@ const os = require('os');
 let mainWindow;
 
 app.on('ready', () => {
+
     mainWindow = new BrowserWindow(
         {
             width: 900,
             height: 600,
             resizable: false,
             frame: false,
-            icon: path.join(__dirname, 'assets/app-icon.png')
+            icon: path.resolve(__dirname, '../../assets/app-icon.png')
         }
     );
     

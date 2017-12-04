@@ -21,8 +21,8 @@ class Footer extends Component {
         }
         return(
             <div className="footer">
-                HearthLounge ⓒ 2017 <br/>
-                Works on: <span style={style}> {this.state.platformName} </span>
+                <p className="center-vertically"> HearthLounge ⓒ 2018 <br/>
+                Works on: <span style={style}> {this.state.platformName} </span></p>
             </div>
         );
     }
