@@ -1,48 +1,49 @@
 import React, { Component } from 'react';
 const path = require('path');
 import { connect } from 'react-redux';
-import { getYsera } from '../actions/index';
+import { getYsera, selectComponent } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import Welcome from './Welcome';
 import _ from 'lodash';
+import Deck from './Deck';
+import Menu from './Menu';
+import DeckTracker from './DeckTracker';
+import LoungeArenaGuider from './LoungeArenaGuider';
  
 class Content extends Component {
 
-    componentDidMount() {
-        this.props.getYsera();
+    constructor(props) {
+        super(props);
+        let selectedComponent;
     }
 
-    renderYsera() {
 
-        if(_.isEmpty(this.props.ys)) {
-            console.log(path.resolve("assets/loading.gif"));
-            return <div><img src={path.resolve("assets/loading.gif")}/></div>
-        }
+    setSelectedComponent() {
+        console.log(this.props.selectedComponent)
+        return this.props.selectedComponent ? this.props.selectedComponent : <Welcome/>;
 
-        return(<div><img className="card-image" src={this.props.ys.imgGold}/></div>);
+        // switch(this.props.selectedComponent) {
+        //     case 'deckComponent': return this.selectedComponent = <Deck/>
+        //     case 'deckTrackerComponent': return this.selectedComponent = <DeckTracker/>
+        //     case 'LagComponent': return this.selectedComponent = <LoungeArenaGuider/>
+        //     default: return this.selectedComponent = <Welcome/>;
+        // }
     }
 
     render() {
 
         return(
-            <div className="content">
-                {this.renderYsera()}
-                <div className="contentPlaceholder">
-                    <div className="contentPlaceholderMessage">Welcome to our App!<br/>Please sign in and choose feature!</div>
-                </div>
+            <div>
+                {this.setSelectedComponent()}
             </div>
         );
     }
 }
 
-
-function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ getYsera }, dispatch);
-}
-
 function mapStateToProps(state) {
     return {
-        ys: state.Ysera
-    };
+        selectedComponent : state.SelectComponent
+    }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Content);
+export default connect(mapStateToProps)(Content);

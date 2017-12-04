@@ -21,3 +21,11 @@ export function getYsera() {
         payload: request
     };
 }
+
+export function selectComponent(componentName, comp) {
+    return {
+        type: componentName,
+        payload: comp
+    }
+}
+

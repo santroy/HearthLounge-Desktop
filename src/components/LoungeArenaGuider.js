@@ -11,7 +11,7 @@ class LoungeArenaGuider extends Component {
         return(
             <div className="content">
                 <div className="contentPlaceholder">
-                    <div className="contentPlaceholderMessage">Do your best!<br/>Craft the best deck!</div>
+                    <div className="contentPlaceholderMessage">Take my hand!<br/>Let's win this!</div>
                 </div>
             </div>
         );
