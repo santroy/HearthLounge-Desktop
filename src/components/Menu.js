@@ -29,7 +29,6 @@ class Menu extends Component {
     render() {
         return (
             <div>
-
                 <div className="menu">
                     <ul>
                         <li onClick={() => this.props.selectComponent(WELCOME_COMPONENT, <Welcome/>)}>Domek</li>

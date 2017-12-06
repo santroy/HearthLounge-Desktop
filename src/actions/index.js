@@ -29,3 +29,9 @@ export function selectComponent(componentName, comp) {
     }
 }
 
+export function valueAction(data) {
+    return {
+        type: 'VALUE_ACTION',
+        payload: data
+    }
+}
