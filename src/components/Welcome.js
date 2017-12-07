@@ -17,6 +17,8 @@ class Welcome extends Component {
             return <div><img src={path.resolve("assets/loading.gif")}/></div>
         }
 
+        console.log(this.props.ys);
+
         return(<div><img className="card-image" src={this.props.ys.imgGold}/></div>);
     }
 

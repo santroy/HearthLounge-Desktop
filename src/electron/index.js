@@ -46,6 +46,16 @@ app.on('ready', () => {
         mainWindow.minimize();
     });
 
-    new DeckTrackController(path.join('C:','Program Files (x86)','Hearthstone','Hearthstone_Data','output_log.txt')).startWatching(mainWindow);
+    const dtc = new DeckTrackController(path.join('C:','Program Files (x86)','Hearthstone','Hearthstone_Data','output_log.txt'));
+
+    ipcMain.on('deckTracker:start', () => {
+        dtc.startWatching(mainWindow);
+    });
+
+    ipcMain.on('deckTracker:stop', () => {
+        dtc.stopWatching();
+    });
+
+
 
 });

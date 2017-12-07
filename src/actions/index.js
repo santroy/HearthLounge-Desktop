@@ -30,9 +30,15 @@ export function selectFeatureMenu(componentName) {
 }
 
 export function collectDrewCards(data) {
-    console.log('AC:', data);
     return {
         type: TRACK_DREW_CARDS,
         payload: data
+    }
+}
+
+export function setTrackButton(buttonState) {
+    return {
+        type: 'BUTTON_STATE',
+        payload: buttonState
     }
 }

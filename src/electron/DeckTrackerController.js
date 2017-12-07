@@ -61,9 +61,12 @@ class DeckTrackerController {
         buffer.toString().split(os.EOL).forEach((line) => {
             const drewCard = this.regexs.draw.exec(line);
 
+            const ts = new Date();
+
             if(drewCard) {
                 const card = {
                     id : this.id++,
+                    timeStamp: { hour:  }
                     name: drewCard[1]
                 };
                 windowContext.webContents.send('drew-cards:response', card);

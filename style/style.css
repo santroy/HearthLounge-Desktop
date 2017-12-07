@@ -233,7 +233,7 @@ body:active,body:hover {
     box-sizing: border-box;
     margin-top: 10px;
     display: inline-block;
-    width: 160px;
+    width: 93%;
     height: 60px;
     line-height: 60px;
     opacity: 0.8;
@@ -277,4 +277,64 @@ body:active,body:hover {
     position: relative;
     top: 50%;
     transform: translateY(-50%); 
+}
+
+.deck-tracker-content {
+    width: 100%;
+    position: relative;
+}
+
+.deck-tracker-log {
+    font-family: Opti-Belwe;
+    font-size: 14px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: white;
+    -webkit-user-select: text;
+    line-height: 30px;
+    height: 85%;
+    float: left;
+    width: 70%;
+    box-sizing: border-box;
+    padding: 20px;
+    overflow: scroll;
+    word-wrap: break-word;
+
+}
+
+::-webkit-scrollbar { 
+    display: none; 
+}
+
+.deck-tracker-deck {
+    height: 100%;
+    float: right;
+    width: 30%;
+    box-sizing: border-box;
+
+}
+
+.toggle-track {
+    float: left;
+    height: 15%;
+    width: 70%;
+    box-sizing: border-box;
+}
+
+.toggle-track-button {
+    font-family: Opti-Belwe;
+    font-size: 16px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: white;
+    border: 1px black solid;
+    box-sizing: border-box;
+    /* margin: 0 auto; */
+    margin-left: 20px;
+    width: 40%;
+    display: block;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 60%;
+    background-color: Transparent;
+    cursor: pointer;
 }
