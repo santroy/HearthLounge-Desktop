@@ -1,12 +1,11 @@
 import { combineReducers } from 'redux';
-import Ysera from './show_cards';
-import SelectComponent from './select_component';
-import ValueReducer from './value_reducer';
-
+import Ysera from './ShowCard';
+import SelectFeatureMenu from './SelectFeatureMenu';
+import DrewCards from './DrewCards';
 
 const rootReducer = combineReducers({
-    ValueReducer,
-    SelectComponent,
+    DrewCards,
+    SelectFeatureMenu,
     Ysera
 });
 

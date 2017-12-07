@@ -1,40 +1,69 @@
 import React, { Component } from 'react';
-const path = require('path');
 import { connect } from 'react-redux';
 import { getYsera, selectComponent } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import Welcome from './Welcome';
 import _ from 'lodash';
-import Deck from './Deck';
+import DeckCreator from './DeckCreator';
 import Menu from './Menu';
 import DeckTracker from './DeckTracker';
 import LoungeArenaGuider from './LoungeArenaGuider';
+
+import { WELCOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../reducers/SelectFeatureMenu';
+
+const path = require('path');
  
 class Content extends Component {
 
     constructor(props) {
-        super(props);
-        let selectedComponent;
+        super(props); 
+
+        this.welcomeComponent = <Welcome/>;
+        this.deckComponent = null;
+        this.deckTrackerComponent = null;
+        this.loungeArenaGuiderComponent = null;
     }
 
+    takeIstanceOf(ComponentType) {
 
-    setSelectedComponent() {
-        console.log(this.props.selectedComponent)
-        return this.props.selectedComponent ? this.props.selectedComponent : <Welcome/>;
+        switch(ComponentType) {
+            case WELCOME_COMPONENT: {
+                if(!this.welcomeComponent) {
+                    this.welcomeComponent = <Welcome/>
+                }
+                return this.welcomeComponent;
+            }
+            case CREATE_DECK_COMPONENT: {
+                if(!this.deckComponent) {
+                    this.deckComponent = <DeckCreator/>
+                }
+                return this.deckComponent;
+            }
+            case DECK_TRACKER_COMPONENT: {
+                if(!this.deckTrackerComponent) {
+                    this.deckTrackerComponent = <DeckTracker/>
+                }
+                return this.deckTrackerComponent
+            }
+            case LOUNGE_ARENA_GUIDER_COMPONENT: {
+                if(!this.loungeArenaGuiderComponent) {
+                    this.loungeArenaGuiderComponent = <LoungeArenaGuider/>
+                }
+                return this.loungeArenaGuiderComponent;
+            }
+            default: return this.welcomeComponent;
+        }
 
-        // switch(this.props.selectedComponent) {
-        //     case 'deckComponent': return this.selectedComponent = <Deck/>
-        //     case 'deckTrackerComponent': return this.selectedComponent = <DeckTracker/>
-        //     case 'LagComponent': return this.selectedComponent = <LoungeArenaGuider/>
-        //     default: return this.selectedComponent = <Welcome/>;
-        // }
+    }
+
+    getSelectedComponent() {
+        return this.takeIstanceOf(this.props.selectedComponent);
     }
 
     render() {
-
         return(
             <div>
-                {this.setSelectedComponent()}
+                {this.getSelectedComponent()}
             </div>
         );
     }
@@ -42,7 +71,7 @@ class Content extends Component {
 
 function mapStateToProps(state) {
     return {
-        selectedComponent : state.SelectComponent
+        selectedComponent : state.SelectFeatureMenu
     }
 }
 

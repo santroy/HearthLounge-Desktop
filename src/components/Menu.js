@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { selectComponent } from '../actions' 
-import Deck from './Deck';
+import { selectFeatureMenu } from '../actions' 
+import DeckCreator from './DeckCreator';
 import DeckTracker from './DeckTracker';
 import LoungeArenaGuider from './LoungeArenaGuider';
 import Welcome from './Welcome';
 
-import { WELCOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../reducers/select_component';
+import { WELCOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../reducers/SelectFeatureMenu';
 
 class Menu extends Component {
     constructor(props) {
@@ -31,10 +31,10 @@ class Menu extends Component {
             <div>
                 <div className="menu">
                     <ul>
-                        <li onClick={() => this.props.selectComponent(WELCOME_COMPONENT, <Welcome/>)}>Domek</li>
-                        <li onClick={() => this.props.selectComponent(CREATE_DECK_COMPONENT, <Deck/>)}>Create Deck</li>
-                        <li onClick={() => this.props.selectComponent(DECK_TRACKER_COMPONENT, <DeckTracker/>)}>Deck Tracker</li>
-                        <li onClick={() => this.props.selectComponent(LOUNGE_ARENA_GUIDER_COMPONENT,<LoungeArenaGuider/>)}>LAG</li>
+                        <li onClick={() => this.props.selectFeatureMenu(WELCOME_COMPONENT)}>Domek</li>
+                        <li onClick={() => this.props.selectFeatureMenu(CREATE_DECK_COMPONENT)}>Create Deck</li>
+                        <li onClick={() => this.props.selectFeatureMenu(DECK_TRACKER_COMPONENT)}>Deck Tracker</li>
+                        <li onClick={() => this.props.selectFeatureMenu(LOUNGE_ARENA_GUIDER_COMPONENT)}>LAG</li>
                     </ul>
                 </div>
                 <div onClick={this.toggleMenu} className="toggle-menu"></div>
@@ -43,4 +43,4 @@ class Menu extends Component {
     }
 }
 
-export default connect(null, { selectComponent })(Menu);
+export default connect(null, { selectFeatureMenu })(Menu);

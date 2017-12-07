@@ -1,6 +1,8 @@
 const { app, BrowserWindow, ipcMain, globalShortcut } = require('electron');
 const path = require('path');
 const os = require('os');
+var fs = require('fs');
+const DeckTrackController = require('./DeckTrackerController');
 
 let mainWindow;
 
@@ -37,15 +39,13 @@ app.on('ready', () => {
     });
 
     ipcMain.on('closeApp', () => {
-        console.log("Zamykam program");
         mainWindow.close();
     });
 
     ipcMain.on('minimizeApp', () => {
-        console.log("Minimalizuje program");
         mainWindow.minimize();
     });
-    
 
+    new DeckTrackController(path.join('C:','Program Files (x86)','Hearthstone','Hearthstone_Data','output_log.txt')).startWatching(mainWindow);
 
 });

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-export const SHOW_CARDS = 'show_cards';
+import { SHOW_CARDS } from '../reducers/ShowCard';
+import { TRACK_DREW_CARDS } from '../reducers/DrewCards';
 
 const API_URL = 'https://omgvamp-hearthstone-v1.p.mashape.com/';
 const API_KEY = 'yxJgRqkjtrmsh9tZZnpXltWK1r15p1UbfmKjsnyCxiqZUZU0a1';
@@ -22,16 +23,16 @@ export function getYsera() {
     };
 }
 
-export function selectComponent(componentName, comp) {
+export function selectFeatureMenu(componentName) {
     return {
-        type: componentName,
-        payload: comp
+        type: componentName
     }
 }
 
-export function valueAction(data) {
+export function collectDrewCards(data) {
+    console.log('AC:', data);
     return {
-        type: 'VALUE_ACTION',
+        type: TRACK_DREW_CARDS,
         payload: data
     }
 }
