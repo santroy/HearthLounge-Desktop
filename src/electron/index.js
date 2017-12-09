@@ -10,7 +10,7 @@ app.on('ready', () => {
 
     mainWindow = new BrowserWindow(
         {
-            width: 900,
+            width: 1000,
             height: 600,
             resizable: false,
             frame: false,

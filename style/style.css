@@ -246,7 +246,7 @@ body:active,body:hover {
 
 .card-image {
     width: 100%;
-    max-width: 200px;
+    max-width: 150px;
 }
 
 
@@ -254,7 +254,7 @@ body:active,body:hover {
     box-sizing: border-box;
     display: block;
     float: left;
-    width: 20%;
+    width: 15%;
     height: 82%;
     background: linear-gradient(to bottom, rgba(112,48,48,1) 0%,rgba(47,52,59,1) 100%);
 }
@@ -262,7 +262,7 @@ body:active,body:hover {
 .toggle-menu {
 	cursor: pointer;
 	float: left;
-	width: 2%;
+	width: 1%;
     height: 100%;
     height: 82%;
     background-color: #2F343B;
@@ -357,4 +357,63 @@ body:active,body:hover {
     padding-left: 22px;
     overflow: scroll;
     word-wrap: break-word;
+}
+
+.deck-creator-card-results {
+    height: 100%;
+    width: 60%;
+    border-left: 1px black dashed;
+    border-right: 1px black dashed;
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: scroll;
+
+}
+.deck-creator-deck-choices {
+    height: 100%;
+    width: 20%;
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    font-size: 14px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+    box-sizing: border-box;
+}
+
+.deck-creator-search-inputs input {
+    display: block;
+    margin: 0 auto;
+    border: none;
+    text-align: center;
+    display: block;
+    width: 90%;
+    text-align: inherit;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+
+.deck-creator-search-inputs{
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.deck-creator-search-inputs p{
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+.deck-creator-card-search {
+    height: 100%;
+    width: 20%;
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    font-size: 14px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: white;
+    text-align: center;
+    padding-top: 20px;
+    box-sizing: border-box;
 }
