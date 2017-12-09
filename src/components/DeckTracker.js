@@ -3,33 +3,54 @@ const path = require('path');
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import { collectDrewCards, setTrackButton } from '../actions'
+import { collectLogs, setTrackButton, clearLogs} from '../actions'
 import { ipcRenderer } from 'electron';
  
 class DeckTracker extends Component {
 
-    componentWillMount() {
-        //ipcRenderer.removeListener('drew-cards:response', this.getCardDrewEventData);
-      }
-
     constructor(props) {
         super(props);
-        this.getCardDrewEventData = getCardDrewEventData.bind(this);
+        this.getLogsEventData = getLogsEventData.bind(this);
     }
 
 
-    renderDrewCards() {
-        return _.map(this.props.DrewCard, card => {
-            return(
-                <li key={card.id}><span style={{ color: "#e6e6e6" }}>[{printDate()}]</span> You received <span style={{color: "#99ff99"}} >{card.name}</span> to your hand.</li>
-            );
+    renderLogs() {
+        return _.map(this.props.logs, log => {
+
+            if(log.type === "players") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> A match between <span style={{color: "#ff9999"}}>{log.value[0].name}</span> and <span style={{color: "#ff9999"}}>{log.value[1].name}</span> is started.</li> );    
+            }
+
+            if(log.type === "card_drew_from_deck") {
+                return(
+                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> You received <span style={{color: "#99ff99"}} >{log.value}</span> to your hand from deck.</li>
+                );
+            }
+
+            if(log.type === "hero_power") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "#ff9999"}}>{log.value.player}</span> used Hero Power (<span style={{color: "#ff9999"}}>{log.value.name}</span>).</li> );    
+            }
+
+            if(log.type === "card_played") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "#ff9999"}}>{log.value.player}</span> played <span style={{color: "#ff9999"}}>{log.value.name}</span>.</li> );    
+            }
+
+            if(log.type === "game_over") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "#ff9999"}}>{log.value}</span></li> );    
+            }
+
+            if(log.type === "card_created_to_hand") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "#ff9999"}}>{log.value.name}</span> is generated to <span style={{color: "#ff9999"}}>{log.value.player}</span> hand.</li> );    
+            }
+
+            // if(log.type === "card_to_deck") {
+            //     return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> Putting <span style={{color: "#ff9999"}}>{log.value.name}</span> to my deck.</li> );    
+            // }
+
         });
     }
 
-
     render() {
-
-        console.log(this.props.DrewCard);
 
         return(
 
@@ -37,13 +58,16 @@ class DeckTracker extends Component {
                 <div className="deck-tracker-content">
                     <div className="deck-tracker-deck"></div>
                     <div className="toggle-track">
+                        <div className="toggle-track-buttons">
                         <button value={this.props.trackButton.value}
                             onClick={toggleTrack.bind(this)} className="toggle-track-button">{this.props.trackButton.text}</button>
+                        <button onClick={clearLogsData.bind(this)} className="toggle-track-button">Clear</button>
+                        </div>
                     </div>
+                    <div className="deck-tracker-bar">Game Log:</div>
                     <div className="deck-tracker-log">
-                    Game Log:
                     <ul>
-                        {this.renderDrewCards()}
+                        {this.renderLogs()}
                     </ul>
                     </div>
                 </div>
@@ -51,30 +75,24 @@ class DeckTracker extends Component {
         );
     }
 
-
-    componentWillUnmount() {
-        //ipcRenderer.removeListener('drew-cards:response', this.getCardDrewEventData);
-    }
-
 }
 
-function printDate() {
-    const date = new Date();
-    return `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+function clearLogsData() {
+    this.props.clearLogs();
 }
 
-function getCardDrewEventData(event, data) {
-    this.props.collectDrewCards(data);
+function getLogsEventData(event, data) {
+    this.props.collectLogs(data);
 }
 
 function toggleTrack(event) {
     if(this.props.trackButton.value === "off") 
     {   
         ipcRenderer.send('deckTracker:start');
-        ipcRenderer.on('drew-cards:response', this.getCardDrewEventData);
+        ipcRenderer.on('log:response', this.getLogsEventData);
         this.props.setTrackButton({ value : "on", text: "Turn off DeckTracker" });
     } else {
-        ipcRenderer.removeAllListeners('drew-cards:response');
+        ipcRenderer.removeAllListeners('log:response');
         ipcRenderer.send('deckTracker:stop');
         this.props.setTrackButton({ value : "off", text: "Turn on DeckTracker" });
     }
@@ -84,7 +102,7 @@ function toggleTrack(event) {
 function mapStateToProps(state) {
     return {
         trackButton: state.trackButton,
-        DrewCard: state.DrewCards,
+        logs: state.logs,
     }
 }
-export default connect(mapStateToProps, { collectDrewCards, setTrackButton })(DeckTracker);
+export default connect(mapStateToProps, { collectLogs, setTrackButton, clearLogs})(DeckTracker);

@@ -284,23 +284,6 @@ body:active,body:hover {
     position: relative;
 }
 
-.deck-tracker-log {
-    font-family: Opti-Belwe;
-    font-size: 14px;
-    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
-    color: white;
-    -webkit-user-select: text;
-    line-height: 30px;
-    height: 85%;
-    float: left;
-    width: 70%;
-    box-sizing: border-box;
-    padding: 20px;
-    overflow: scroll;
-    word-wrap: break-word;
-
-}
-
 ::-webkit-scrollbar { 
     display: none; 
 }
@@ -310,7 +293,6 @@ body:active,body:hover {
     float: right;
     width: 30%;
     box-sizing: border-box;
-
 }
 
 .toggle-track {
@@ -320,16 +302,10 @@ body:active,body:hover {
     box-sizing: border-box;
 }
 
-.toggle-track-button {
-    font-family: Opti-Belwe;
-    font-size: 16px;
-    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
-    color: white;
-    border: 1px black solid;
+.toggle-track-buttons {
     box-sizing: border-box;
     /* margin: 0 auto; */
-    margin-left: 20px;
-    width: 40%;
+    margin: 0 20px;
     display: block;
     position: relative;
     top: 50%;
@@ -337,4 +313,48 @@ body:active,body:hover {
     height: 60%;
     background-color: Transparent;
     cursor: pointer;
+}
+
+.toggle-track-button {
+    font-family: Opti-Belwe;
+    font-size: 16px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: white;
+    border: 1px black solid;
+    box-sizing: border-box;
+    height: 100%;
+    margin-right: 10px;
+    /* margin: 0 auto; */
+    background-color: Transparent;
+    cursor: pointer;
+}
+
+.deck-tracker-bar {
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    font-size: 16px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: white;
+    height: 5%;
+    float: left;
+    width: 70%;
+    padding-left: 22px;
+    box-sizing: border-box;
+}
+
+.deck-tracker-log {
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    font-size: 14px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    color: white;
+    -webkit-user-select: text;
+    line-height: 30px;
+    height: 80%;
+    float: left;
+    width: 70%;
+    box-sizing: border-box;
+    padding-left: 22px;
+    overflow: scroll;
+    word-wrap: break-word;
 }

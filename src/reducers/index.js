@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import Ysera from './ShowCard';
 import SelectFeatureMenu from './SelectFeatureMenu';
-import DrewCards from './DrewCards';
+import Logs from './Logs';
 import trackButton from './ButtonDeckTracker';
 
 const rootReducer = combineReducers({
     trackButton,
-    DrewCards,
+    logs: Logs,
     SelectFeatureMenu,
     Ysera
 });

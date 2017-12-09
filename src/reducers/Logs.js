@@ -1,10 +1,14 @@
-export const TRACK_DREW_CARDS = 'track_drew_cards';
+export const FETCH_LOGS = 'fetch_logs';
+export const CLEAR_LOGS = 'clear_logs';
 
 export default function(state = [], action) 
 {
     switch(action.type) 
     {
-        case TRACK_DREW_CARDS: 
+        case CLEAR_LOGS:
+            state = [];
+            return state;
+        case FETCH_LOGS: 
             return [ action.payload , ...state ];
         default: 
             return state;

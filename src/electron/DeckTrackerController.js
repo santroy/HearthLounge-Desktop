@@ -1,17 +1,29 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const _ = require('lodash');
 
 class DeckTrackerController {
 
     constructor(filePath) {
         this.filePath = filePath;
+        this.players = [];
+        //this.initialPlayerId = 0; // Number 1 is GameState
+        this.playersMatchDisplayed = false;
         this.fileSize = null;
         this.fileDiff = null;
         this.watchingInterval = null;
+        this.heroPowers = [];
         this.id = 0;
         this.regexs = {
-            draw : /\[Zone\] ZoneChangeList.ProcessChanges\(\).*TRANSITIONING card \[entityName=(.*) id=(.*) zone=HAND zonePos=(.*) cardId=(.*) player=(.*)\] to FRIENDLY HAND/
+            gameOver: /\[Power\] GameState.DebugPrintPower\(\).*-.*TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=FINAL_GAMEOVER/,
+            cardCreatedToHand : /\[Power\] PowerTaskList.DebugPrintPower\(\).*-.*TAG_CHANGE Entity=\[entityName=(.*) id=.* zone=SETASIDE zonePos=(.*) cardId=(.*) player=(.*)] tag=ZONE value=HAND/,
+            drawCardFromDeck : /\[Zone\].*ZoneChangeList.ProcessChanges\(\).*-.*id=.* local=False \[entityName=(.*) id=.* zone=(.*) zonePos=(.*) cardId=(.*) player=(.*)] zone from (FRIENDLY|OPPOSING) DECK -> FRIENDLY HAND/,
+            players: /\[Power\] PowerTaskList.DebugPrintPower\(\).*-.*TAG_CHANGE Entity=(.*) tag=PLAYSTATE value=PLAYING/,
+            heroPower: /\[Zone\] ZoneChangeList.ProcessChanges\(\).*-.*TRANSITIONING card \[entityName=(.*) id=(.*) zone=(.*) zonePos=(.*) cardId=(.*) player=(.*)\] to (FRIENDLY|OPPOSING) PLAY \(Hero Power\)/,
+            heroPowerCast: /\[Power\] GameState.DebugPrintPower\(\).*-.*BLOCK_START.*BlockType=PLAY Entity=\[entityName=(.*) id=(.*) zone=PLAY zonePos=0 cardId=(.*) player=(.*)] EffectCardId=(.*) EffectIndex=(.*) Target=(.*) SubOption=.*\s*?/,
+            cardToDeck: /\[Zone\] ZoneChangeList.ProcessChanges\(\) - TRANSITIONING card \[entityName=(.*) id=(.*) zone=DECK zonePos=(.*) cardId= player=(.*)] to FRIENDLY DECK/,
+            cardPlayed: /\[Zone\].*ZoneChangeList.ProcessChanges\(\).*cardId=(.*)name=(.*)\] tag=JUST_PLAYED.*zone=(.*) zon.*player=(\d+).*/
         }
     }
 
@@ -59,18 +71,85 @@ class DeckTrackerController {
 
     processBuffer(buffer, windowContext) {
         buffer.toString().split(os.EOL).forEach((line) => {
-            const drewCard = this.regexs.draw.exec(line);
+            const drewCardFromDeck = this.regexs.drawCardFromDeck.exec(line);
+            const player = this.regexs.players.exec(line);
+            const heroPower = this.regexs.heroPower.exec(line);
+            const heroPowerCast = this.regexs.heroPowerCast.exec(line);
+            const cardPlayed = this.regexs.cardPlayed.exec(line);
+            const gameOver = this.regexs.gameOver.exec(line);
+            const cardCreatedToHand = this.regexs.cardCreatedToHand.exec(line);
+            //const cardToDeck = this.regexs.cardToDeck.exec(line);
 
             const ts = new Date();
 
-            if(drewCard) {
-                const card = {
-                    id : this.id++,
-                    timeStamp: { hour:  }
-                    name: drewCard[1]
-                };
-                windowContext.webContents.send('drew-cards:response', card);
+            const logObject = {
+                id: this.id++,
+                type : "",
+                timeStamp: { hours: (("0" + ts.getHours()).slice(-2)), minutes: (("0" + ts.getMinutes()).slice(-2)), seconds : (("0" + ts.getSeconds()).slice(-2)) },
+                value: null 
             }
+
+            if(drewCardFromDeck) {
+
+                logObject.type = "card_drew_from_deck";
+                logObject.value = drewCardFromDeck[1];
+                windowContext.webContents.send('log:response', logObject);
+            }
+
+            if(player) {
+                this.players.push( { name: player[1], id: this.initialPlayerId++ } );
+            }
+
+            if(gameOver) {
+                logObject.type = "game_over";
+                logObject.value = "The game is over."
+                this.playersMatchDisplayed = false;
+                this.players = [];
+                windowContext.webContents.send('log:response', logObject);
+            }
+
+            if((this.players.length >= 2) && !(this.playersMatchDisplayed))  {
+                this.playersMatchDisplayed = true;
+                logObject.type = "players";
+                logObject.value = this.players;
+                windowContext.webContents.send('log:response', logObject);
+            }
+
+            if(heroPower) {
+                this.heroPowers.push( { id: heroPower[2], player: heroPower[6] } );
+            }
+
+            if(cardPlayed) {
+                logObject.type = "card_played";
+                logObject.value = { player: this.players[cardPlayed[4]-1].name, 
+                                    name: cardPlayed[2] };
+                windowContext.webContents.send('log:response', logObject);
+            }
+
+            if(!(_.isEmpty(this.heroPowers)) && heroPowerCast) {
+                if(_.some(this.heroPowers, { id: heroPowerCast[2] } )) {
+                    
+                    logObject.type = "hero_power";
+                    logObject.value = { id: heroPowerCast[2], name: heroPowerCast[1], player: this.players[[heroPowerCast[4]-1]].name };
+                    windowContext.webContents.send('log:response', logObject);
+
+                }
+
+            }
+
+            if(cardCreatedToHand) {
+                logObject.type = "card_created_to_hand";
+                logObject.value = { name: cardCreatedToHand[1], player: this.players[[cardCreatedToHand[4]-1]].name};
+                windowContext.webContents.send('log:response', logObject);
+            }
+
+            // if(cardToDeck) {
+            //     logObject.type = "card_to_deck";
+            //     logObject.value = { name: cardToDeck[1] }
+            //     windowContext.webContents.send('log:response', logObject);
+            // }
+
+
         });
     }
 

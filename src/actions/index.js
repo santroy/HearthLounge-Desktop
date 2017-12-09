@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 import { SHOW_CARDS } from '../reducers/ShowCard';
-import { TRACK_DREW_CARDS } from '../reducers/DrewCards';
+import { FETCH_LOGS, CLEAR_LOGS } from '../reducers/Logs';
 
 const API_URL = 'https://omgvamp-hearthstone-v1.p.mashape.com/';
 const API_KEY = 'yxJgRqkjtrmsh9tZZnpXltWK1r15p1UbfmKjsnyCxiqZUZU0a1';
@@ -29,10 +29,16 @@ export function selectFeatureMenu(componentName) {
     }
 }
 
-export function collectDrewCards(data) {
+export function collectLogs(data) {
     return {
-        type: TRACK_DREW_CARDS,
+        type: FETCH_LOGS,
         payload: data
+    }
+}
+
+export function clearLogs() {
+    return {
+        type: CLEAR_LOGS
     }
 }
 
