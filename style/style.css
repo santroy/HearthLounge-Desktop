@@ -12,7 +12,8 @@
 
 body {
     -webkit-user-select: none;
-    background-color: #E3CDA4
+    background-color: #E3CDA4;
+    color: white;
 }
 
 body{
@@ -382,7 +383,7 @@ body:active,body:hover {
     box-sizing: border-box;
 }
 
-.deck-creator-search-inputs input {
+.deck-creator-search-inputs input, .deck-creator-search-inputs select {
     display: block;
     margin: 0 auto;
     border: none;
@@ -416,4 +417,26 @@ body:active,body:hover {
     text-align: center;
     padding-top: 20px;
     box-sizing: border-box;
+}
+
+
+
+*:focus {
+    outline: none;
+}
+
+table td {
+    border: 1px black solid;
+    box-sizing: border-box;
+    padding: 3px;
+}
+
+.deck-creator-deck-list {
+    margin-top: 10px;
+    margin-left: 3px;
+
+}
+
+.deck-creator-deck-choices {
+    overflow: scroll;
 }

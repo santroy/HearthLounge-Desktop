@@ -6,13 +6,26 @@ export default function(state = [], action)
     switch(action.type) {
         case GET_ALL_COLLECTION:
 
-            const collection = _.mapKeys(action.payload.data['Basic'], (value, key) => {
+            let collectionArr = [];
+
+            for(const key in action.payload.data) {
+
+                if( !(key === "Hero Skins") && !(key === "Tavern Brawl") && !(key === "Debug") && !(key === "System") && !(key === "Credits")
+                && !(key === "Missions") && !(key === "Promo") )
+                {
+                    for(const k in action.payload.data[key]) {
+                        collectionArr.push(action.payload.data[key][k]);
+                    }
+                }
+
+            }
+            
+            collectionArr.splice(0,9);
+
+            const collection = _.mapKeys(collectionArr, (value, key) => {
                 return value.dbfId;
             });
-            
-            // for(const prop in action.payload.data) {
-            //     console.log(prop);
-            // }
+
 
             return collection;
         default:

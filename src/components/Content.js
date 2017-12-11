@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getYsera, selectComponent } from '../actions/index';
+import { getYsera, selectComponent, getAllCollection } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import Welcome from './Welcome';
 import _ from 'lodash';
@@ -15,6 +15,12 @@ const path = require('path');
  
 class Content extends Component {
 
+    componentDidMount() {
+        if(_.isEmpty(this.props.allCollection)) {
+            this.props.getAllCollection();
+        }
+    }
+
     constructor(props) {
         super(props); 
 
@@ -26,33 +32,37 @@ class Content extends Component {
 
     takeIstanceOf(ComponentType) {
 
-        switch(ComponentType) {
-            case WELCOME_COMPONENT: {
-                if(!this.welcomeComponent) {
-                    this.welcomeComponent = <Welcome/>
+        if(!(_.isEmpty(this.props.allCollection))) {
+
+            switch(ComponentType) {
+                case WELCOME_COMPONENT: {
+                    if(!this.welcomeComponent) {
+                        this.welcomeComponent = <Welcome/>
+                    }
+                    return this.welcomeComponent;
                 }
-                return this.welcomeComponent;
-            }
-            case CREATE_DECK_COMPONENT: {
-                if(!this.deckComponent) {
-                    this.deckComponent = <DeckCreator/>
+                case CREATE_DECK_COMPONENT: {
+                    if(!this.deckComponent) {
+                        this.deckComponent = <DeckCreator allCollection={this.props.allCollection} />
+                    }
+                    return this.deckComponent;
                 }
-                return this.deckComponent;
-            }
-            case DECK_TRACKER_COMPONENT: {
-                if(!this.deckTrackerComponent) {
-                    this.deckTrackerComponent = <DeckTracker/>
+                case DECK_TRACKER_COMPONENT: {
+                    if(!this.deckTrackerComponent) {
+                        this.deckTrackerComponent = <DeckTracker/>
+                    }
+                    return this.deckTrackerComponent
                 }
-                return this.deckTrackerComponent
-            }
-            case LOUNGE_ARENA_GUIDER_COMPONENT: {
-                if(!this.loungeArenaGuiderComponent) {
-                    this.loungeArenaGuiderComponent = <LoungeArenaGuider/>
+                case LOUNGE_ARENA_GUIDER_COMPONENT: {
+                    if(!this.loungeArenaGuiderComponent) {
+                        this.loungeArenaGuiderComponent = <LoungeArenaGuider/>
+                    }
+                    return this.loungeArenaGuiderComponent;
                 }
-                return this.loungeArenaGuiderComponent;
+                default: return this.welcomeComponent;
             }
-            default: return this.welcomeComponent;
-        }
+
+        } else return this.welcomeComponent;
 
     }
 
@@ -71,8 +81,9 @@ class Content extends Component {
 
 function mapStateToProps(state) {
     return {
-        selectedComponent : state.SelectFeatureMenu
+        selectedComponent : state.SelectFeatureMenu,
+        allCollection: state.AllCollection
     }
 }
 
-export default connect(mapStateToProps)(Content);
+export default connect(mapStateToProps, { getAllCollection })(Content);

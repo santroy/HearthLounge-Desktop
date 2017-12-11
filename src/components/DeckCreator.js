@@ -2,32 +2,51 @@ import React, { Component } from 'react';
 const path = require('path');
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllCollection } from '../actions';
+import { cardTermSearch, heroSearch, addCardToDeckList, deleteCardFromDeckList } from '../actions/index';
 import _ from 'lodash';
  
 class DeckCreator extends Component {
 
-    componentDidMount() {
-        if(_.isEmpty(this.props.allCollection)) {
-            this.props.getAllCollection();
-        }
+    constructor(props) {
+        super(props);
+        // this.state = {};
     }
 
-    renderBasic() {
-        if(!(_.isEmpty(this.props.allCollection)))
-        {
-            return _.map(this.props.allCollection, value => 
+    renderDeckList() {
+
+        return _.map(this.props.deckList, value => {
+            return(<tr key={value.dbfId} onClick={() => { console.log(value); this.props.deleteCardFromDeckList(value)} }><td>{value.cost}</td><td>{value.name}</td><td>{value.count}</td></tr>);
+        });
+
+    }
+
+
+    renderCards() {
+
+            const filteredCollection = _.filter(this.props.allCollection, value => {
+
+                let regexTyped = new RegExp(`.*${this.props.term}.*`, "i");
+
+                if(regexTyped.test(value.name) && (this.props.hero == value.playerClass || value.playerClass == "Neutral") ) {
+                   return value;
+                }
+
+            });
+
+            return _.map(filteredCollection, value => 
                 {
-                    return(<img onClick={() => console.log(value)} className="card-image" src={value.img}/>)
+                    return(<img key={value.dbfId} onClick={() => this.props.addCardToDeckList(value)} className="card-image" src={value.img}/>)
                 });
 
-        }
-
     }
 
-    disableInputs() {
-        return !_.isEmpty(this.props.allCollection) ? false : true;
-    }
+    // addToDeckList(card) {
+
+    //     console.log(card.name);
+
+    //         this.setState({ deckList: card.name });
+        
+    // }
 
     render() {
 
@@ -38,32 +57,58 @@ class DeckCreator extends Component {
                     <p>Search</p>
 
                     <div className="deck-creator-search-inputs">
+                        <label htmlFor="hero-name">Hero</label>
+                        <select onChange={(e) => this.props.heroSearch(e.target.value)} id="hero-name" name="hero-name">
+                            <option value="Mage">Mage</option>
+                            <option value="Warrior">Warrior</option>
+                            <option value="Shaman">Shaman</option>
+                            <option value="Warlock">Warlock</option>
+                            <option value="Paladin">Paladin</option>
+                            <option value="Hunter">Hunter</option>
+                            <option value="Druid">Druid</option>
+                            <option value="Rogue">Rogue</option>
+                            <option value="Priest">Priest</option>
+                        </select>
                         <label htmlFor="card-name">Card Name</label>
-                        <input type="text" name="card-name" id="card-name" disabled={this.disableInputs()} />
+                        <input value={this.props.term} onChange={(e) => this.props.cardTermSearch(e.target.value)} type="text" name="card-name" id="card-name"/>
                     </div>
 
 
                 </div>
                 <div className="deck-creator-card-results">      
-                        {this.renderBasic()}
+                        {this.renderCards()}
                 </div>
 
                 <div className="deck-creator-deck-choices">
                     Deck
 
+                    <div className="deck-creator-deck-list">
+
+                        <table>
+                        <tbody>
+                                
+                                { this.renderDeckList() }
+
+                        </tbody>
+                        </table>
+
+                    </div>
+
                 </div>
-                {/* <div className="contentPlaceholder">
-                    <div className="contentPlaceholderMessage">Do your best!<br/>Craft the best deck!</div>
-                </div> */}
             </div>
         );
     }
 }
 
 function mapStateToProps(state) {
+    const { term, hero } = state.FoundCollection;
     return {
-        allCollection: state.AllCollection
-    }
+        term,
+        hero,
+        deckList : state.DeckListCreator
+    };
 }
 
-export default connect(mapStateToProps, { getAllCollection })(DeckCreator);
+
+
+export default connect(mapStateToProps, { cardTermSearch, heroSearch, addCardToDeckList, deleteCardFromDeckList }) (DeckCreator);
