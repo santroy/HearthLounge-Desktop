@@ -30,7 +30,7 @@ body:active,body:hover {
 .title-bar {
     box-sizing: border-box;
     font-family: Opti-Belwe;
-    font-size: 16px;
+    font-size: 20px;
     display: block;
     width: 100%;
     height: 6%;
@@ -91,7 +91,7 @@ body:active,body:hover {
 .footer {
     text-align: center;
     padding: 5px;
-    font-size: 12px;
+    font-size: 14px;
     color: #E3CDA4;
     box-sizing: border-box;
     float: left;
@@ -228,6 +228,7 @@ body:active,body:hover {
 }
 
 .menu ul li {
+    font-size: 20px;
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     color: white;
     border: 2px #E3CDA4 solid;
@@ -247,7 +248,10 @@ body:active,body:hover {
 
 .card-image {
     width: 100%;
-    max-width: 150px;
+    max-width: 200px;
+    padding: 0px;
+    margin: 0px;
+    transform: scale(1.05);
 }
 
 
@@ -318,7 +322,7 @@ body:active,body:hover {
 
 .toggle-track-button {
     font-family: Opti-Belwe;
-    font-size: 16px;
+    font-size: 18px;
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     color: white;
     border: 1px black solid;
@@ -333,7 +337,7 @@ body:active,body:hover {
 .deck-tracker-bar {
     letter-spacing: 1px;
     font-family: Opti-Belwe;
-    font-size: 16px;
+    font-size: 18px;
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     color: white;
     height: 5%;
@@ -346,7 +350,7 @@ body:active,body:hover {
 .deck-tracker-log {
     letter-spacing: 1px;
     font-family: Opti-Belwe;
-    font-size: 14px;
+    font-size: 16px;
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     color: white;
     -webkit-user-select: text;
@@ -361,8 +365,9 @@ body:active,body:hover {
 }
 
 .deck-creator-card-results {
+    text-align: center;
     height: 100%;
-    width: 60%;
+    width: 68%;
     border-left: 1px black dashed;
     border-right: 1px black dashed;
     padding: 20px;
@@ -375,11 +380,10 @@ body:active,body:hover {
     width: 20%;
     letter-spacing: 1px;
     font-family: Opti-Belwe;
-    font-size: 14px;
+    font-size: 18px;
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     color: white;
     text-align: center;
-    padding-top: 20px;
     box-sizing: border-box;
 }
 
@@ -398,20 +402,20 @@ body:active,body:hover {
 
 .deck-creator-search-inputs{
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .deck-creator-search-inputs p{
     margin-top: 10px;
-    font-size: 12px;
+    font-size: 18px;
 }
 
 .deck-creator-card-search {
     height: 100%;
-    width: 20%;
+    width: 12%;
     letter-spacing: 1px;
     font-family: Opti-Belwe;
-    font-size: 14px;
+    font-size: 18px;
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     color: white;
     text-align: center;
@@ -425,18 +429,63 @@ body:active,body:hover {
     outline: none;
 }
 
-table td {
-    border: 1px black solid;
-    box-sizing: border-box;
-    padding: 3px;
-}
 
 .deck-creator-deck-list {
-    margin-top: 10px;
-    margin-left: 3px;
-
-}
-
-.deck-creator-deck-choices {
+    width: 100%;
+    height: 80%;
+    box-sizing: border-box;
     overflow: scroll;
 }
+
+.deck-creator-deck-string {
+    padding-top: 10px;
+    width: 100%;
+    height: 10%;
+    box-sizing: border-box;
+}
+
+.deck-creator-deck-list table {
+    margin: 0 auto;
+    width: 90%;
+    padding: 2px;
+    font-size: 14px;
+}
+
+.deck-creator-deck-list table td {
+    padding: 3px;
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+.deck-creator-deck-counter {
+    padding: 20px;
+
+    width: 100%;
+    height: 10%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.deck-creator-deck-string input {
+    width: 100%;
+    height: 20px;
+}
+
+.deck-creator-deck-copy-button {
+    width: 30px;
+    height: 20px;
+}
+.deck-creator-deck-string-control td, .deck-creator-deck-string-control tr, .deck-creator-deck-string-control table {
+    border: none;
+    padding: 0;
+    margin: 0;
+    text-align: center; /* center checkbox horizontally */
+    vertical-align: middle; /* center checkbox vertically */
+}
+.deck-creator-deck-string-control table {
+width: 90%;
+margin: 0 auto;
+ }

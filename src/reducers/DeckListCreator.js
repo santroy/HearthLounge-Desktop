@@ -6,36 +6,44 @@ export default function(state = [], action)
 
         case 'ADD_CARD_TO_DECK_LIST':
 
-        console.log(state);
-            if(!action.payload.count) {
-                action.payload.count = 1;
-                //return {...state, [action.payload.dbfId] : action.payload};
-                
-                return [...state, action.payload];
-            }    
 
-            if(action.payload.count < 2 && action.payload.rarity != "Legendary") {
-                action.payload.count++;
+            const oldState = [...state];
+
+            if( sumCards(state) < 30 ) 
+            {
+                if(!action.payload.count) {
+                    action.payload.count = 1;
+                    return _.sortBy([...state, action.payload], ['cost','name']);
+                }
+
+                if(action.payload.count < 2 && action.payload.rarity != "Legendary") {
+                    action.payload.count++;
+                    _.remove(oldState, (value) => value.dbfId == action.payload.dbfId);
+                    return _.sortBy([...oldState, action.payload], ['cost','name']);
+                }
+
+                if((action.payload.count >= 2 || action.payload.rarity == "Legendary")) {
+                    return state;
+                }
             }
 
-            //return {...state, [action.payload.dbfId] : action.payload};
-            return [...state, action.payload];
-            
 
         case 'DELETE_CARD_FROM_DECK_LIST':
             
-            console.log(action.payload);
+            const oldStateD = [...state];
+
             if(action.payload.count >= 2) {
                 action.payload.count--;
-                return {...state, [action.payload.dbfId] : action.payload};
-
-            } else 
-
-            {
-                action.payload.count = 0;
-                return _.omit(state, action.payload.dbfId);
-        
+                _.remove(oldStateD, (value) => value.dbfId == action.payload.dbfId );
+                return _.sortBy([...oldStateD, action.payload], ['cost','name']);
             }
+            
+            if(action.payload.count <= 1) {
+                _.remove(oldStateD, (value) => value.dbfId == action.payload.dbfId );
+                delete action.payload.count;
+            }
+
+            return oldStateD;
             
 
         default:
@@ -43,6 +51,9 @@ export default function(state = [], action)
     }
 }
 
-function sortState(a,b) {
+function sumCards(deck) {
 
+   let x = _.sumBy(deck, (value) => value.count);
+   console.log(x);
+   return x;
 }

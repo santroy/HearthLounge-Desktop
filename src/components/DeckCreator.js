@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { cardTermSearch, heroSearch, addCardToDeckList, deleteCardFromDeckList } from '../actions/index';
 import _ from 'lodash';
+import { encode, decode } from 'deckstrings';
+const { clipboard } = require('electron');
  
 class DeckCreator extends Component {
 
@@ -40,13 +42,6 @@ class DeckCreator extends Component {
 
     }
 
-    // addToDeckList(card) {
-
-    //     console.log(card.name);
-
-    //         this.setState({ deckList: card.name });
-        
-    // }
 
     render() {
 
@@ -80,19 +75,37 @@ class DeckCreator extends Component {
                 </div>
 
                 <div className="deck-creator-deck-choices">
-                    Deck
 
-                    <div className="deck-creator-deck-list">
-
-                        <table>
-                        <tbody>
-                                
-                                { this.renderDeckList() }
-
-                        </tbody>
-                        </table>
-
+                    <div className="deck-creator-deck-counter">
+                        Deck {_.sumBy(this.props.deckList, (value) => value.count)}/30
                     </div>
+                        
+
+                        <div className="deck-creator-deck-list">
+
+                            <table>
+                            <tbody>
+                                    
+                                    { this.renderDeckList() }
+
+                            </tbody>
+                            </table>
+
+                        </div>
+
+                        <div className="deck-creator-deck-string">
+                            Deckstring
+                            <div className="deck-creator-deck-string-control">
+                            <table>
+                            <tbody>
+                                <tr>
+                                <td><input id="dck" type="text" onChange={() => {return;}} value={deckListToDeckString(this.props.deckList)}/></td>
+                                <td><button className="deck-creator-deck-copy-button" onClick={() => { clipboard.writeText(document.querySelector("#dck").value) }} ></button></td>
+                                </tr>
+                            </tbody>
+                            </table>
+                            </div>
+                        </div>
 
                 </div>
             </div>
@@ -109,6 +122,18 @@ function mapStateToProps(state) {
     };
 }
 
+function deckListToDeckString(deckList) {
 
+    console.log(deckList);
+
+    const deckListFormat = { cards: [], heroes: [7], format: 2 };
+    _.each(deckList, (value) => 
+    { 
+        deckListFormat.cards.push([Number(value.dbfId),Number(value.count)]);
+     });
+
+     const encoded = encode(deckListFormat);
+     return encoded;
+}
 
 export default connect(mapStateToProps, { cardTermSearch, heroSearch, addCardToDeckList, deleteCardFromDeckList }) (DeckCreator);

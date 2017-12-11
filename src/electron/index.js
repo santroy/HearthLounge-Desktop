@@ -10,8 +10,8 @@ app.on('ready', () => {
 
     mainWindow = new BrowserWindow(
         {
-            width: 1000,
-            height: 600,
+            width: 1280,
+            height: 800,
             resizable: false,
             frame: false,
             icon: path.resolve(__dirname, '../../assets/app-icon.png')
