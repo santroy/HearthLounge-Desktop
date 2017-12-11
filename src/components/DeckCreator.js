@@ -16,8 +16,32 @@ class DeckCreator extends Component {
 
     renderDeckList() {
 
+        
+
         return _.map(this.props.deckList, value => {
-            return(<tr key={value.dbfId} onClick={() => { console.log(value); this.props.deleteCardFromDeckList(value)} }><td>{value.cost}</td><td>{value.name}</td><td>{value.count}</td></tr>);
+            if(value.rarity == "Legendary") {
+                return(
+                    <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
+                        <td>{value.cost}</td>
+                        <td style={ { color: rarityColor(value.rarity) } } >{value.name}</td>
+                        <td><img src="https://www.chronicle.com/forums/Themes/CHE/images/star.gif"/></td>
+                    </tr>);
+                    }
+            if(value.count == 1) {
+            return(
+                <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
+                    <td>{value.cost}</td>
+                    <td  colSpan="2" style={ { color: rarityColor(value.rarity) } } >{value.name}</td>
+                </tr>);
+                }
+            if(value.count == 2) {
+                return(
+                    <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
+                        <td>{value.cost}</td>
+                        <td style={ { color: rarityColor(value.rarity) } } >{value.name}</td>
+                        <td>{value.count}</td>
+                    </tr>);
+                    }
         });
 
     }
@@ -37,7 +61,9 @@ class DeckCreator extends Component {
 
             return _.map(filteredCollection, value => 
                 {
-                    return(<img key={value.dbfId} onClick={() => this.props.addCardToDeckList(value)} className="card-image" src={value.img}/>)
+                    return(<img key={value.dbfId} onClick={() => {
+                        console.log(value);
+                        this.props.addCardToDeckList(value)}} className="card-image" src={value.img}/>)
                 });
 
     }
@@ -121,6 +147,21 @@ function mapStateToProps(state) {
         deckList : state.DeckListCreator
     };
 }
+
+
+function rarityColor(rarity) {
+
+     let color = "white";
+    
+     if( rarity == "Common" ) color = "white";
+     if( rarity == "Rare" ) color = "#66ccff";
+     if( rarity == "Epic") color = "#ff66cc";
+     if( rarity == "Legendary") color = "#ffcc66";
+
+     return color;
+
+}
+
 
 function deckListToDeckString(deckList) {
 

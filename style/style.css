@@ -259,7 +259,7 @@ body:active,body:hover {
     box-sizing: border-box;
     display: block;
     float: left;
-    width: 15%;
+    width: 13%;
     height: 82%;
     background: linear-gradient(to bottom, rgba(112,48,48,1) 0%,rgba(47,52,59,1) 100%);
 }
@@ -412,7 +412,7 @@ body:active,body:hover {
 
 .deck-creator-card-search {
     height: 100%;
-    width: 12%;
+    width: 14%;
     letter-spacing: 1px;
     font-family: Opti-Belwe;
     font-size: 18px;
@@ -453,7 +453,6 @@ body:active,body:hover {
 
 .deck-creator-deck-list table td {
     padding: 3px;
-    border: 1px solid black;
     box-sizing: border-box;
 }
 
