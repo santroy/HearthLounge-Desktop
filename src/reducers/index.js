@@ -5,8 +5,10 @@ import trackButton from './ButtonDeckTracker';
 import AllCollection from './AllCollection';
 import FoundCollection from './FoundCollection';
 import DeckListCreator from './DeckListCreator';
+import GameInfo from './GameInfo';
 
 const rootReducer = combineReducers({
+    GameInfo,
     DeckListCreator,
     FoundCollection,
     AllCollection,

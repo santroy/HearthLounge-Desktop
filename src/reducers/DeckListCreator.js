@@ -25,7 +25,7 @@ export default function(state = [], action)
                 if((action.payload.count >= 2 || action.payload.rarity == "Legendary")) {
                     return state;
                 }
-            }
+            } return [...state];
 
 
         case 'DELETE_CARD_FROM_DECK_LIST':
@@ -54,6 +54,5 @@ export default function(state = [], action)
 function sumCards(deck) {
 
    let x = _.sumBy(deck, (value) => value.count);
-   console.log(x);
    return x;
 }

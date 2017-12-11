@@ -11,12 +11,11 @@ class DeckCreator extends Component {
 
     constructor(props) {
         super(props);
-        // this.state = {};
+        this.isHeroSeleced = isHeroSeleced.bind(this);
+        this.deckListToDeckString = deckListToDeckString.bind(this);
     }
 
     renderDeckList() {
-
-        
 
         return _.map(this.props.deckList, value => {
             if(value.rarity == "Legendary") {
@@ -80,18 +79,19 @@ class DeckCreator extends Component {
                     <div className="deck-creator-search-inputs">
                         <label htmlFor="hero-name">Hero</label>
                         <select onChange={(e) => this.props.heroSearch(e.target.value)} id="hero-name" name="hero-name">
-                            <option value="Mage">Mage</option>
-                            <option value="Warrior">Warrior</option>
-                            <option value="Shaman">Shaman</option>
-                            <option value="Warlock">Warlock</option>
-                            <option value="Paladin">Paladin</option>
-                            <option value="Hunter">Hunter</option>
-                            <option value="Druid">Druid</option>
-                            <option value="Rogue">Rogue</option>
-                            <option value="Priest">Priest</option>
+                            <option selected={this.isHeroSeleced("Mage")} value="Mage">Mage</option>
+                            <option selected={this.isHeroSeleced("Warrior")} value="Warrior">Warrior</option>
+                            <option selected={this.isHeroSeleced("Shaman")} value="Shaman">Shaman</option>
+                            <option selected={this.isHeroSeleced("Warlock")} value="Warlock">Warlock</option>
+                            <option selected={this.isHeroSeleced("Paladin")} value="Paladin">Paladin</option>
+                            <option selected={this.isHeroSeleced("Hunter")} value="Hunter">Hunter</option>
+                            <option selected={this.isHeroSeleced("Druid")} value="Druid">Druid</option>
+                            <option selected={this.isHeroSeleced("Rogue")} value="Rogue">Rogue</option>
+                            <option selected={this.isHeroSeleced("Priest")} value="Priest">Priest</option>
                         </select>
                         <label htmlFor="card-name">Card Name</label>
                         <input value={this.props.term} onChange={(e) => this.props.cardTermSearch(e.target.value)} type="text" name="card-name" id="card-name"/>
+
                     </div>
 
 
@@ -125,7 +125,7 @@ class DeckCreator extends Component {
                             <table>
                             <tbody>
                                 <tr>
-                                <td><input id="dck" type="text" onChange={() => {return;}} value={deckListToDeckString(this.props.deckList)}/></td>
+                                <td><input id="dck" type="text" onChange={() => {return;}} value={this.deckListToDeckString()}/></td>
                                 <td><button className="deck-creator-deck-copy-button" onClick={() => { clipboard.writeText(document.querySelector("#dck").value) }} ></button></td>
                                 </tr>
                             </tbody>
@@ -137,6 +137,10 @@ class DeckCreator extends Component {
             </div>
         );
     }
+}
+
+function isHeroSeleced(hero) {
+    return this.props.hero.name == hero;
 }
 
 function mapStateToProps(state) {
@@ -151,24 +155,22 @@ function mapStateToProps(state) {
 
 function rarityColor(rarity) {
 
-     let color = "white";
-    
-     if( rarity == "Common" ) color = "white";
-     if( rarity == "Rare" ) color = "#66ccff";
-     if( rarity == "Epic") color = "#ff66cc";
-     if( rarity == "Legendary") color = "#ffcc66";
+     switch(rarity) {
+         case "Common": return "white";
+         case "Rare": return "#66ccff";
+         case "Epic": return "#ff66cc";
+         case "Legendary": return "#ffcc66";
+         default: return "white";
+     }
 
-     return color;
 
 }
 
 
-function deckListToDeckString(deckList) {
+function deckListToDeckString() {
 
-    console.log(deckList);
-
-    const deckListFormat = { cards: [], heroes: [7], format: 2 };
-    _.each(deckList, (value) => 
+    const deckListFormat = { cards: [], heroes: [Number(this.props.hero.id)], format: 2 };
+    _.each(this.props.deckList, (value) => 
     { 
         deckListFormat.cards.push([Number(value.dbfId),Number(value.count)]);
      });

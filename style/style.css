@@ -27,20 +27,25 @@ body{
 body:active,body:hover {
     cursor: default;
 }
+
 .title-bar {
     box-sizing: border-box;
     font-family: Opti-Belwe;
     font-size: 20px;
     display: block;
     width: 100%;
-    height: 6%;
+    height: 5%;
     background-color: #2F343B;
     -webkit-app-region: drag;
     border-bottom: #E3CDA4 1px solid;
     text-align: center;
     vertical-align: middle;
-    line-height: 36px;       /* the same as your div height */
+    line-height: 38px;       /* the same as your div height */
     color: #E3CDA4;
+}
+
+.close {
+    margin-right: 3px;
 }
 
 .minimize, .close {
@@ -56,6 +61,7 @@ body:active,body:hover {
     float: left;
     height: 100%;
     width: 30px;
+    margin-left: 3px;
 }
 
 .minimize {
@@ -98,7 +104,7 @@ body:active,body:hover {
     display: block;
     width: 22%;
     line-height: 15px;
-    height: 12% !important;
+    height: 9% !important;
     background-color: #2F343B;
     border-top: #E3CDA4 1px solid;
 
@@ -110,7 +116,7 @@ body:active,body:hover {
     float: right;
     display: block;
     width: 78%;
-    height: 12%;
+    height: 9%;
     background: #2F343B
 }
 
@@ -120,12 +126,12 @@ body:active,body:hover {
     /* box-shadow:inset 0px 2px 10px 5px #FFF; */
     box-sizing: border-box;
     display: flex; 
-    height: 82%;
+    height: 86%;
     background-color: #E3CDA4;
 }
 
 .contentPlaceholder {
-    opacity: 0.2;
+    opacity: 0.5;
     text-align: center;
     font-family: Opti-Belwe;
     margin: auto;
@@ -137,6 +143,7 @@ body:active,body:hover {
 }
 
 .contentPlaceholderMessage{
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     line-height: 20px;
     text-align: center;
     display: block;
@@ -260,16 +267,16 @@ body:active,body:hover {
     display: block;
     float: left;
     width: 13%;
-    height: 82%;
+    height: 86%;
     background: linear-gradient(to bottom, rgba(112,48,48,1) 0%,rgba(47,52,59,1) 100%);
 }
 
 .toggle-menu {
 	cursor: pointer;
 	float: left;
-	width: 1%;
+	width: 0.5%;
     height: 100%;
-    height: 82%;
+    height: 86%;
     background-color: #2F343B;
     border-left: 1px #E3CDA4 solid;
 }
@@ -477,6 +484,7 @@ body:active,body:hover {
     width: 30px;
     height: 20px;
 }
+
 .deck-creator-deck-string-control td, .deck-creator-deck-string-control tr, .deck-creator-deck-string-control table {
     border: none;
     padding: 0;
@@ -484,6 +492,7 @@ body:active,body:hover {
     text-align: center; /* center checkbox horizontally */
     vertical-align: middle; /* center checkbox vertically */
 }
+
 .deck-creator-deck-string-control table {
 width: 90%;
 margin: 0 auto;

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getYsera, selectComponent, getAllCollection } from '../actions/index';
+import { getYsera, selectComponent, getAllCollection, getGameInfo } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import Welcome from './Welcome';
 import _ from 'lodash';
@@ -18,6 +18,10 @@ class Content extends Component {
     componentDidMount() {
         if(_.isEmpty(this.props.allCollection)) {
             this.props.getAllCollection();
+        }
+
+        if(_.isEmpty(this.props.gameInfo)) {
+            this.props.getGameInfo();
         }
     }
 
@@ -43,7 +47,7 @@ class Content extends Component {
                 }
                 case CREATE_DECK_COMPONENT: {
                     if(!this.deckComponent) {
-                        this.deckComponent = <DeckCreator allCollection={this.props.allCollection} />
+                        this.deckComponent = <DeckCreator allCollection={this.props.allCollection} gameInfo={this.props.gameInfo}/>
                     }
                     return this.deckComponent;
                 }
@@ -81,9 +85,10 @@ class Content extends Component {
 
 function mapStateToProps(state) {
     return {
+        gameInfo: state.GameInfo,
         selectedComponent : state.SelectFeatureMenu,
         allCollection: state.AllCollection
     }
 }
 
-export default connect(mapStateToProps, { getAllCollection })(Content);
+export default connect(mapStateToProps, { getAllCollection, getGameInfo })(Content);
