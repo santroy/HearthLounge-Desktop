@@ -83,6 +83,16 @@ export function heroSearch(data) {
      }
  }
 
+ export function gameModeF(mode) {
+    const braveGameModeObj = _.find(gameModeObj, (value) => value.name === mode);
+    console.log(braveGameModeObj);
+    return { 
+        type: CREATOR_SEARCH_FILTER,
+        payload: { mode: braveGameModeObj }
+     }
+
+ }
+
  export function addCardToDeckList(data) {
      return {
          type: 'ADD_CARD_TO_DECK_LIST',
@@ -97,7 +107,7 @@ export function heroSearch(data) {
     }
 }
 
-const heroObj = {
+export const heroObj = {
     priest : { name: "Priest", id: 813},
     warrior : { name: "Warrior", id: 7},
     warlock : { name: "Warlock", id: 963},
@@ -107,4 +117,9 @@ const heroObj = {
     shaman : { name: "Shaman", id: 1066},
     paladin : { name: "Paladin", id: 671},
     rogue : { name: "Rogue", id: 930},
+}
+
+export const gameModeObj = {
+    wild: { name: "Wild", id: 1},
+    standard: { name: "Standard", id: 2}
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 const path = require('path');
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { cardTermSearch, heroSearch, addCardToDeckList, deleteCardFromDeckList } from '../actions/index';
+import { cardTermSearch, heroSearch, addCardToDeckList, deleteCardFromDeckList, heroObj, gameModeObj, gameModeF} from '../actions/index';
 import _ from 'lodash';
 import { encode, decode } from 'deckstrings';
 const { clipboard } = require('electron');
@@ -17,7 +17,7 @@ class DeckCreator extends Component {
 
     renderDeckList() {
 
-        return _.map(this.props.deckList, value => {
+        const deckList = _.map(this.props.deckList, value => {
             if(value.rarity == "Legendary") {
                 return(
                     <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
@@ -43,6 +43,16 @@ class DeckCreator extends Component {
                     }
         });
 
+        return(
+            <div className="deck-creator-deck-list">
+                <table>
+                    <tbody>    
+                            {deckList}
+                    </tbody>
+                </table>
+            </div>
+        );
+
     }
 
 
@@ -52,7 +62,8 @@ class DeckCreator extends Component {
 
                 let regexTyped = new RegExp(`.*${this.props.term}.*`, "i");
 
-                if(regexTyped.test(value.name) && (this.props.hero == value.playerClass || value.playerClass == "Neutral") ) {
+
+                if(regexTyped.test(value.name) && (this.props.hero.name == value.playerClass || value.playerClass == "Neutral") && _.includes(this.props.gameInfo[this.props.gameMode.name.toLowerCase()], value.cardSet)) {
                    return value;
                 }
 
@@ -67,72 +78,84 @@ class DeckCreator extends Component {
 
     }
 
+    renderSearch() {
+
+        return(    
+        <div className="deck-creator-card-search">
+            <p>Search</p>
+
+            <div className="deck-creator-search-inputs">
+                {this.renderHeroList(heroObj)}
+                <label htmlFor="card-name">Card Name</label>
+                <input value={this.props.term} onChange={(e) => this.props.cardTermSearch(e.target.value)} type="text" name="card-name" id="card-name"/>
+                {this.renderGameModeList()}
+            </div>
+        </div>);
+
+    }
+
+    renderGameModeList() {
+
+        const gameModeList =  _.map(gameModeObj, (gameMode) => {
+            return( <option selected={_.eq(this.props.gameMode.name, gameMode.name)} key={gameMode.name}>{gameMode.name}</option> );
+        } );
+
+        return(
+            <div>
+                <label htmlFor="game-mode-type">Game Mode</label>
+                <select onChange={(e) => this.props.gameModeF(e.target.value)} id="game-mode-type">
+                    {gameModeList}
+                </select>
+            </div>
+        );
+
+    }
+
+    renderHeroList(heroArr) { 
+        const heroOptions =  _.map(heroArr, (hero) => {
+            return( <option selected={_.eq(this.props.hero.name, hero.name)} key={hero.name}>{hero.name}</option> );
+        } );
+
+        return(
+            <div>
+                <label htmlFor="hero-name">Hero</label>
+                <select onChange={(e) => this.props.heroSearch(e.target.value)} id="hero-name" name="hero-name">
+                    {heroOptions}
+                </select>
+            </div>
+        );
+    }
+
 
     render() {
 
         return(
             <div className="content">
-            
-                <div className="deck-creator-card-search">
-                    <p>Search</p>
-
-                    <div className="deck-creator-search-inputs">
-                        <label htmlFor="hero-name">Hero</label>
-                        <select onChange={(e) => this.props.heroSearch(e.target.value)} id="hero-name" name="hero-name">
-                            <option selected={this.isHeroSeleced("Mage")} value="Mage">Mage</option>
-                            <option selected={this.isHeroSeleced("Warrior")} value="Warrior">Warrior</option>
-                            <option selected={this.isHeroSeleced("Shaman")} value="Shaman">Shaman</option>
-                            <option selected={this.isHeroSeleced("Warlock")} value="Warlock">Warlock</option>
-                            <option selected={this.isHeroSeleced("Paladin")} value="Paladin">Paladin</option>
-                            <option selected={this.isHeroSeleced("Hunter")} value="Hunter">Hunter</option>
-                            <option selected={this.isHeroSeleced("Druid")} value="Druid">Druid</option>
-                            <option selected={this.isHeroSeleced("Rogue")} value="Rogue">Rogue</option>
-                            <option selected={this.isHeroSeleced("Priest")} value="Priest">Priest</option>
-                        </select>
-                        <label htmlFor="card-name">Card Name</label>
-                        <input value={this.props.term} onChange={(e) => this.props.cardTermSearch(e.target.value)} type="text" name="card-name" id="card-name"/>
-
-                    </div>
-
-
-                </div>
+                {this.renderSearch()}
                 <div className="deck-creator-card-results">      
                         {this.renderCards()}
                 </div>
 
                 <div className="deck-creator-deck-choices">
-
                     <div className="deck-creator-deck-counter">
                         Deck {_.sumBy(this.props.deckList, (value) => value.count)}/30
                     </div>
                         
+                    {this.renderDeckList()}
 
-                        <div className="deck-creator-deck-list">
-
+                    <div className="deck-creator-deck-string">
+                        Deckstring
+                        <div className="deck-creator-deck-string-control">
                             <table>
-                            <tbody>
-                                    
-                                    { this.renderDeckList() }
-
-                            </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td><input id="dck" type="text" onChange={() => {return;}} value={this.deckListToDeckString()}/></td>
+                                        <td><button className="deck-creator-deck-copy-button" onClick={() => { clipboard.writeText(document.querySelector("#dck").value) }} ></button></td>
+                                    </tr>
+                                </tbody>
                             </table>
-
                         </div>
-
-                        <div className="deck-creator-deck-string">
-                            Deckstring
-                            <div className="deck-creator-deck-string-control">
-                            <table>
-                            <tbody>
-                                <tr>
-                                <td><input id="dck" type="text" onChange={() => {return;}} value={this.deckListToDeckString()}/></td>
-                                <td><button className="deck-creator-deck-copy-button" onClick={() => { clipboard.writeText(document.querySelector("#dck").value) }} ></button></td>
-                                </tr>
-                            </tbody>
-                            </table>
-                            </div>
-                        </div>
-
+                    </div>
                 </div>
             </div>
         );
@@ -144,8 +167,9 @@ function isHeroSeleced(hero) {
 }
 
 function mapStateToProps(state) {
-    const { term, hero } = state.FoundCollection;
+    const { term, hero, mode } = state.FoundCollection;
     return {
+        gameMode : mode,
         term,
         hero,
         deckList : state.DeckListCreator
@@ -168,8 +192,8 @@ function rarityColor(rarity) {
 
 
 function deckListToDeckString() {
-
-    const deckListFormat = { cards: [], heroes: [Number(this.props.hero.id)], format: 2 };
+   console.log(this.props.gameMode.id);
+    const deckListFormat = { cards: [], heroes: [Number(this.props.hero.id)], format: this.props.gameMode.id };
     _.each(this.props.deckList, (value) => 
     { 
         deckListFormat.cards.push([Number(value.dbfId),Number(value.count)]);
@@ -179,4 +203,4 @@ function deckListToDeckString() {
      return encoded;
 }
 
-export default connect(mapStateToProps, { cardTermSearch, heroSearch, addCardToDeckList, deleteCardFromDeckList }) (DeckCreator);
+export default connect(mapStateToProps, { cardTermSearch, heroSearch, addCardToDeckList, deleteCardFromDeckList, gameModeF }) (DeckCreator);

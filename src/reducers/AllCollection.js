@@ -5,7 +5,7 @@ export default function(state = [], action)
 {
     switch(action.type) {
         case GET_ALL_COLLECTION:
-
+        
             let collectionArr = [];
 
             for(const key in action.payload.data) {
