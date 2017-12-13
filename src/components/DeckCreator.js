@@ -61,9 +61,14 @@ class DeckCreator extends Component {
             const filteredCollection = _.filter(this.props.allCollection, value => {
 
                 let regexTyped = new RegExp(`.*${this.props.term}.*`, "i");
+                let hasOrIsAsMultiClass = true;
 
+                if(!_.isEmpty(hasOrIsAsMultiClass)) {
+                    hasOrIsAsMultiClass = _.includes(value.classes, this.props.hero.name);
+                }
 
-                if(regexTyped.test(value.name) && (this.props.hero.name == value.playerClass || value.playerClass == "Neutral") && _.includes(this.props.gameInfo[this.props.gameMode.name.toLowerCase()], value.cardSet)) {
+                if(regexTyped.test(value.name) && (this.props.hero.name == value.playerClass || value.playerClass == "Neutral") 
+                && _.includes(this.props.gameInfo[this.props.gameMode.name.toLowerCase()], value.cardSet) && hasOrIsAsMultiClass ) {
                    return value;
                 }
 
@@ -192,7 +197,6 @@ function rarityColor(rarity) {
 
 
 function deckListToDeckString() {
-   console.log(this.props.gameMode.id);
     const deckListFormat = { cards: [], heroes: [Number(this.props.hero.id)], format: this.props.gameMode.id };
     _.each(this.props.deckList, (value) => 
     { 
@@ -200,6 +204,7 @@ function deckListToDeckString() {
      });
 
      const encoded = encode(deckListFormat);
+
      return encoded;
 }
 

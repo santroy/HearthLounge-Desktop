@@ -110,7 +110,7 @@ export function heroSearch(data) {
 export const heroObj = {
     priest : { name: "Priest", id: 813},
     warrior : { name: "Warrior", id: 7},
-    warlock : { name: "Warlock", id: 963},
+    warlock : { name: "Warlock", id: 893},
     mage : { name: "Mage", id: 637},
     druid : { name: "Druid", id: 274},
     hunter : { name: "Hunter", id: 31},
