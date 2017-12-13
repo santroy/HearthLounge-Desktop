@@ -56,38 +56,11 @@ class DeckCreator extends Component {
     }
 
 
-    renderCards() {
-
-            const filteredCollection = _.filter(this.props.allCollection, value => {
-
-                let regexTyped = new RegExp(`.*${this.props.term}.*`, "i");
-                let hasOrIsAsMultiClass = true;
-
-                if(!_.isEmpty(hasOrIsAsMultiClass)) {
-                    hasOrIsAsMultiClass = _.includes(value.classes, this.props.hero.name);
-                }
-
-                if(regexTyped.test(value.name) && (this.props.hero.name == value.playerClass || value.playerClass == "Neutral") 
-                && _.includes(this.props.gameInfo[this.props.gameMode.name.toLowerCase()], value.cardSet) && hasOrIsAsMultiClass ) {
-                   return value;
-                }
-
-            });
-
-            return _.map(filteredCollection, value => 
-                {
-                    return(<img key={value.dbfId} onClick={() => {
-                        console.log(value);
-                        this.props.addCardToDeckList(value)}} className="card-image" src={value.img}/>)
-                });
-
-    }
-
     renderSearch() {
 
         return(    
         <div className="deck-creator-card-search">
-            <p>Search</p>
+            <div className="deck-creator-card-top-bar"> Search </div>
 
             <div className="deck-creator-search-inputs">
                 {this.renderHeroList(heroObj)}
@@ -131,18 +104,57 @@ class DeckCreator extends Component {
         );
     }
 
+    renderCards() {
+        
+                    const filteredCollection = _.filter(this.props.allCollection, value => {
+        
+                        let regexTyped = new RegExp(`.*${_.escapeRegExp(this.props.term)}.*`, "i");
+                        let hasOrIsAsMultiClass = true;
+        
+                        if(!_.isEmpty(hasOrIsAsMultiClass)) {
+                            hasOrIsAsMultiClass = _.includes(value.classes, this.props.hero.name);
+                        }
+        
+                        if(regexTyped.test(value.name) && (this.props.hero.name == value.playerClass || value.playerClass == "Neutral") 
+                        && _.includes(this.props.gameInfo[this.props.gameMode.name.toLowerCase()], value.cardSet) && hasOrIsAsMultiClass ) {
+                           return value;
+                        }
+        
+                    });
+
+
+        
+                    const foundCards = _.map(filteredCollection, value => 
+                        {
+                            return(<img key={value.dbfId} onClick={() => {
+                                console.log(value);
+                                this.props.addCardToDeckList(value)}} className="card-image" src={value.img}/>)
+                        });
+
+
+                    return(
+                        <div className="deck-creator-card-results">
+                            <div className="deck-creator-card-top-bar"> Found {foundCards.length} cards. </div>
+                            <div className="deck-creator-card-found">
+                                {foundCards}     
+                            </div>
+                        </div>
+                    );
+        
+    }
+
 
     render() {
 
         return(
             <div className="content">
                 {this.renderSearch()}
-                <div className="deck-creator-card-results">      
-                        {this.renderCards()}
-                </div>
+                {this.renderCards()}
+
 
                 <div className="deck-creator-deck-choices">
-                    <div className="deck-creator-deck-counter">
+
+                    <div className="deck-creator-card-top-bar">
                         Deck {_.sumBy(this.props.deckList, (value) => value.count)}/30
                     </div>
                         

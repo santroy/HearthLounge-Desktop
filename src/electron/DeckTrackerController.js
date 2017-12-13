@@ -13,7 +13,9 @@ class DeckTrackerController {
         this.fileSize = null;
         this.fileDiff = null;
         this.watchingInterval = null;
+        this.deckLineCounter = 0;
         this.heroPowers = [];
+        this.actualPlayingDeck = {};
         this.id = 0;
         this.regexs = {
             gameOver: /\[Power\] GameState.DebugPrintPower\(\).*-.*TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=FINAL_GAMEOVER/,
@@ -23,7 +25,9 @@ class DeckTrackerController {
             heroPower: /\[Zone\] ZoneChangeList.ProcessChanges\(\).*-.*TRANSITIONING card \[entityName=(.*) id=(.*) zone=(.*) zonePos=(.*) cardId=(.*) player=(.*)\] to (FRIENDLY|OPPOSING) PLAY \(Hero Power\)/,
             heroPowerCast: /\[Power\] GameState.DebugPrintPower\(\).*-.*BLOCK_START.*BlockType=PLAY Entity=\[entityName=(.*) id=(.*) zone=PLAY zonePos=0 cardId=(.*) player=(.*)] EffectCardId=(.*) EffectIndex=(.*) Target=(.*) SubOption=.*\s*?/,
             cardToDeck: /\[Zone\] ZoneChangeList.ProcessChanges\(\) - TRANSITIONING card \[entityName=(.*) id=(.*) zone=DECK zonePos=(.*) cardId= player=(.*)] to FRIENDLY DECK/,
-            cardPlayed: /\[Zone\].*ZoneChangeList.ProcessChanges\(\).*cardId=(.*)name=(.*)\] tag=JUST_PLAYED.*zone=(.*) zon.*player=(\d+).*/
+            cardPlayed: /\[Zone\].*ZoneChangeList.ProcessChanges\(\).*cardId=(.*)name=(.*)\] tag=JUST_PLAYED.*zone=(.*) zon.*player=(\d+).*/,
+            playingDeckTrigger: /\[Decks\].*Finding Game With Deck*/,
+            playingDeckLines: /\[Decks\].*/gm,
         }
     }
 
@@ -78,9 +82,16 @@ class DeckTrackerController {
             const cardPlayed = this.regexs.cardPlayed.exec(line);
             const gameOver = this.regexs.gameOver.exec(line);
             const cardCreatedToHand = this.regexs.cardCreatedToHand.exec(line);
+            const playingDeckTrigger = this.regexs.playingDeckTrigger.exec(line);
+            const playingDeckLines = this.regexs.playingDeckLines.exec(line);
             //const cardToDeck = this.regexs.cardToDeck.exec(line);
 
             const ts = new Date();
+
+            const deckStringObj = {
+                name: "",
+                value: ""
+            }
 
             const logObject = {
                 id: this.id++,
@@ -88,6 +99,28 @@ class DeckTrackerController {
                 timeStamp: { hours: (("0" + ts.getHours()).slice(-2)), minutes: (("0" + ts.getMinutes()).slice(-2)), seconds : (("0" + ts.getSeconds()).slice(-2)) },
                 value: null 
             }
+
+            if(playingDeckLines && this.deckLineCounter > 0) {
+                if(this.deckLineCounter == 3) this.actualPlayingDeck.name = /.*\[Decks\] ### (.*)\.*/.exec(playingDeckLines[0])[1];
+                if(this.deckLineCounter == 1) this.actualPlayingDeck.deck = /.*\[Decks\] (.*).*/.exec(playingDeckLines[0])[1];
+                this.deckLineCounter--;
+            }
+
+            if(playingDeckTrigger) {
+                this.deckLineCounter = 3;
+            }
+
+            if(this.actualPlayingDeck.name && this.actualPlayingDeck.deck) {
+                console.log(`You current deck is ${this.actualPlayingDeck.name}. It contains ${this.actualPlayingDeck.deck} deckstring.`);
+                
+                windowContext.webContents.send('current-deck', this.actualPlayingDeck);
+
+                if(this.deckLineCounter==0) {
+                    this.actualPlayingDeck = {};
+                }
+    
+            }
+
 
             if(drewCardFromDeck) {
 

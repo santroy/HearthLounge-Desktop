@@ -53,7 +53,7 @@ class Content extends Component {
                 }
                 case DECK_TRACKER_COMPONENT: {
                     if(!this.deckTrackerComponent) {
-                        this.deckTrackerComponent = <DeckTracker/>
+                        this.deckTrackerComponent = <DeckTracker allCollection={this.props.allCollection} gameInfo={this.props.gameInfo}/>
                     }
                     return this.deckTrackerComponent
                 }

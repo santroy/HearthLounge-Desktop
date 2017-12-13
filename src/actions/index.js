@@ -107,6 +107,13 @@ export function heroSearch(data) {
     }
 }
 
+export function getCurrentDeck(event, deck) {
+    return {
+        type: 'GET_CURRENT_DECK',
+        payload: deck
+    }
+}
+
 export const heroObj = {
     priest : { name: "Priest", id: 813},
     warrior : { name: "Warrior", id: 7},

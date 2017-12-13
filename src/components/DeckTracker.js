@@ -3,8 +3,9 @@ const path = require('path');
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import { collectLogs, setTrackButton, clearLogs} from '../actions'
+import { collectLogs, setTrackButton, clearLogs, getCurrentDeck} from '../actions'
 import { ipcRenderer } from 'electron';
+import { encode, decode } from 'deckstrings';
  
 class DeckTracker extends Component {
 
@@ -50,13 +51,37 @@ class DeckTracker extends Component {
         });
     }
 
+
+    renderCurrentDeck() {
+
+        if(!_.isEmpty(this.props.currentDeck)) {
+
+        const currentDeckList = _.map(this.props.currentDeck.deck.cards, (value) => {
+            return <li>{this.props.allCollection[value[0]].name} - count: {value[1]}</li>
+        });
+
+
+        return(
+            <div className="deck-tracker-deck">Grasz obecnie "{this.props.currentDeck.name}"
+                <ul>
+                    {currentDeckList}
+                </ul>
+            </div>
+        );
+
+    }
+
+
+    }
+
     render() {
 
         return(
 
             <div className="content">
                 <div className="deck-tracker-content">
-                    <div className="deck-tracker-deck"></div>
+                    {this.renderCurrentDeck()}
+                    
                     <div className="toggle-track">
                         <div className="toggle-track-buttons">
                         <button value={this.props.trackButton.value}
@@ -77,6 +102,7 @@ class DeckTracker extends Component {
 
 }
 
+
 function clearLogsData() {
     this.props.clearLogs();
 }
@@ -90,6 +116,7 @@ function toggleTrack(event) {
     {   
         ipcRenderer.send('deckTracker:start');
         ipcRenderer.on('log:response', this.getLogsEventData);
+        ipcRenderer.on('current-deck', this.props.getCurrentDeck);
         this.props.setTrackButton({ value : "on", text: "Turn off DeckTracker" });
     } else {
         ipcRenderer.removeAllListeners('log:response');
@@ -99,10 +126,12 @@ function toggleTrack(event) {
 }
 
 
+
 function mapStateToProps(state) {
     return {
+        currentDeck: state.CurrentDeck,
         trackButton: state.trackButton,
         logs: state.logs,
     }
 }
-export default connect(mapStateToProps, { collectLogs, setTrackButton, clearLogs})(DeckTracker);
+export default connect(mapStateToProps, { collectLogs, setTrackButton, clearLogs, getCurrentDeck})(DeckTracker);

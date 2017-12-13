@@ -6,8 +6,10 @@ import AllCollection from './AllCollection';
 import FoundCollection from './FoundCollection';
 import DeckListCreator from './DeckListCreator';
 import GameInfo from './GameInfo';
+import CurrentDeck from './CurrentDeck';
 
 const rootReducer = combineReducers({
+    CurrentDeck,
     GameInfo,
     DeckListCreator,
     FoundCollection,
