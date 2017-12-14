@@ -14,6 +14,7 @@ export function selectFeatureMenu(componentName) {
 }
 
 export function collectLogs(data) {
+    console.log(data);
     return {
         type: FETCH_LOGS,
         payload: data
