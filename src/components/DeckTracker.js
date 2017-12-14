@@ -3,7 +3,7 @@ const path = require('path');
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
-import { collectLogs, setTrackButton, clearLogs, getCurrentDeck} from '../actions'
+import { collectLogs, setTrackButton, clearLogs, getCurrentDeck, clearCurrentDeck} from '../actions'
 import { ipcRenderer } from 'electron';
 import { encode, decode } from 'deckstrings';
  
@@ -53,6 +53,18 @@ class DeckTracker extends Component {
 
             if(log.type === "card_burned") {
                 return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "red"}}>{log.value}</span> burned.</li> );    
+            }
+
+            if(log.type === "player_won") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "red"}}>{log.value}</span> won.</li> );    
+            }
+
+            if(log.type === "player_conceded") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "red"}}>{log.value}</span> conceded.</li> );    
+            }
+
+            if(log.type === "player_tied") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "red"}}>{log.value}</span> tied.</li> );    
             }
  
         });
@@ -128,6 +140,11 @@ function getLogsEventData(event, data) {
         if(data.type == "card_drew_from_deck" || data.type == "card_burned") this.deckList.deck.cards[indexreq][1]--;
         if(data.type == "card_to_deck") this.deckList.deck.cards[indexreq][1]++;
     }
+
+    if(data.type == "game_over") {
+        this.deckList = {};
+        this.props.clearCurrentDeck();
+    }
     
  
     this.props.collectLogs(data);
@@ -156,4 +173,4 @@ function mapStateToProps(state) {
         logs: state.logs,
     }
 }
-export default connect(mapStateToProps, { collectLogs, setTrackButton, clearLogs, getCurrentDeck})(DeckTracker);
+export default connect(mapStateToProps, { collectLogs, setTrackButton, clearLogs, getCurrentDeck, clearCurrentDeck})(DeckTracker);

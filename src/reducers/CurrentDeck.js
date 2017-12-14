@@ -9,6 +9,8 @@ export default function(state = {} , action)
         
         case 'GET_CURRENT_DECK':
             return { name: action.payload.name, deck: decodeDeck(action.payload.deck) };
+        case 'CLEAR_CURRENT_DECK':
+            return state = {};
         default:
             return state;
     }

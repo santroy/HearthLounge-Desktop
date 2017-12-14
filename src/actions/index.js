@@ -14,7 +14,6 @@ export function selectFeatureMenu(componentName) {
 }
 
 export function collectLogs(data) {
-    console.log(data);
     return {
         type: FETCH_LOGS,
         payload: data
@@ -66,6 +65,12 @@ export function getGameInfo() {
         };
 }
 
+export function clearCurrentDeck() {
+    return {
+        type: 'CLEAR_CURRENT_DECK'
+    }
+}
+
 
 export function cardTermSearch(data) {
    return { 
@@ -86,7 +91,6 @@ export function heroSearch(data) {
 
  export function gameModeF(mode) {
     const braveGameModeObj = _.find(gameModeObj, (value) => value.name === mode);
-    console.log(braveGameModeObj);
     return { 
         type: CREATOR_SEARCH_FILTER,
         payload: { mode: braveGameModeObj }

@@ -8,7 +8,7 @@ class DeckTrackerController {
     constructor(filePath) {
         this.filePath = filePath;
         this.players = [];
-        //this.initialPlayerId = 0; // Number 1 is GameState
+        this.initialPlayerId = 0; // Number 1 is GameState
         this.playersMatchDisplayed = false;
         this.fileSize = null;
         this.fileDiff = null;
@@ -29,6 +29,9 @@ class DeckTrackerController {
             playingDeckTrigger: /\[Decks\].*(Finding Game With Deck|Starting Arena Game With Deck).*/,
             cardBurned: /\[Zone\] ZoneChangeList.ProcessChanges\(\).*entityName=(\b(?!UNKNOWN\b).*?\b) id.* FRIENDLY DECK -> FRIENDLY GRAVEYARD/,
             playingDeckLines: /\[Decks\].*/gm,
+            playerConceded: /\[Power\] GameState.DebugPrintPower\(\) - TAG_CHANGE Entity=(.*) tag=PLAYSTATE value=CONCEDED/,
+            playerWon: /\[Power\] GameState.DebugPrintPower\(\) - TAG_CHANGE Entity=(.*) tag=PLAYSTATE value=WON/,
+            playerTied: /\[Power\] GameState.DebugPrintPower\(\) - TAG_CHANGE Entity=(.*) tag=PLAYSTATE value=TIED/
         }
     }
  
@@ -87,6 +90,9 @@ class DeckTrackerController {
             const playingDeckLines = this.regexs.playingDeckLines.exec(line);
             const cardToDeck = this.regexs.cardToDeck.exec(line);
             const cardBurned = this.regexs.cardBurned.exec(line);
+            const playerWon = this.regexs.playerWon.exec(line);
+            const playerConceded = this.regexs.playerConceded.exec(line);
+            const playerTied = this.regexs.playerTied.exec(line);
  
             const ts = new Date();
  
@@ -115,7 +121,6 @@ class DeckTrackerController {
             }
  
             if(this.actualPlayingDeck.name && this.actualPlayingDeck.deck) {
-                console.log(`You current deck is ${this.actualPlayingDeck.name}. It contains ${this.actualPlayingDeck.deck} deckstring.`);
                 
                 windowContext.webContents.send('current-deck', this.actualPlayingDeck);
  
@@ -134,7 +139,7 @@ class DeckTrackerController {
             }
  
             if(player) {
-                this.players.push( { name: player[1], id: this.initialPlayerId++ } );
+                this.players.push( { name: player[1], id: ++this.initialPlayerId } );
             }
  
             if(gameOver) {
@@ -142,10 +147,15 @@ class DeckTrackerController {
                 logObject.value = "The game is over."
                 this.playersMatchDisplayed = false;
                 this.players = [];
+                this.initialPlayerId = 0;
                 windowContext.webContents.send('log:response', logObject);
             }
  
             if((this.players.length >= 2) && !(this.playersMatchDisplayed))  {
+                if(this.players[1].name.toUpperCase() == "THE INNKEEPER") {
+                    this.players.reverse();
+                }
+
                 this.playersMatchDisplayed = true;
                 logObject.type = "players";
                 logObject.value = this.players;
@@ -172,6 +182,24 @@ class DeckTrackerController {
  
                 }
  
+            }
+
+            if(playerWon) {
+                logObject.type = "player_won";
+                logObject.value = playerWon[1];
+                windowContext.webContents.send('log:response', logObject);
+            }
+
+            if(playerConceded) {
+                logObject.type = "player_conceded";
+                logObject.value = playerConceded[1];
+                windowContext.webContents.send('log:response', logObject);
+            }
+
+            if(playerTied) {
+                logObject.type = "player_tied";
+                logObject.value = playerTied[1];
+                windowContext.webContents.send('log:response', logObject);
             }
 
             if(cardBurned) {
