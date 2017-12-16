@@ -20,27 +20,37 @@ class DeckTracker extends Component {
         return _.map(this.props.logs, log => {
  
             if(log.type === "players") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> A match between <span style={{color: "#ff9999"}}>{log.value[0].name}</span> and <span style={{color: "#ff9999"}}>{log.value[1].name}</span> is started.</li> );    
+
+                this.players = log.value;
+
+                return( 
+                    <li key={log.id}>
+                    <span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
+                     A game between ({log.value[1].sideText}) <span style={log.value[1].styles}>{log.value[1].playerName}</span> as {log.value[1].heroName} and ({log.value[0].sideText}) <span style={log.value[0].styles}>{log.value[0].playerName}</span> as {log.value[0].heroName} is started.
+                    </li> 
+                );    
             }
  
             if(log.type === "card_drew_from_deck") {
- 
- 
                 return(
-                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> You received <span style={{color: "#99ff99"}} >{log.value}</span> to your hand from deck.</li>
+                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
+                     <span style={{color: "#4dff4d"}}>You</span> drew <span style={{color: "#d9b38c"}} >{log.value}</span> to your hand.
+                    </li>
                 );
             }
  
             if(log.type === "hero_power") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "#ff9999"}}>{log.value.player}</span> used Hero Power (<span style={{color: "#ff9999"}}>{log.value.name}</span>).</li> );    
+
+                return( 
+                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
+                     <span style={log.value.player.styles}>{log.value.player.sideText}</span> used Hero Power (<span style={{color: "#d9b38c"}}>{log.value.heroPowerName}</span>).</li> );    
             }
  
             if(log.type === "card_played") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "#ff9999"}}>{log.value.player}</span> played <span style={{color: "#ff9999"}}>{log.value.name}</span>.</li> );    
-            }
- 
-            if(log.type === "game_over") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "#ff9999"}}>{log.value}</span></li> );    
+                return( 
+                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
+                    <span style={log.value.player.styles}>{log.value.player.sideText}</span> played <span style={{color: "#d9b38c"}}>{log.value.name}</span>.</li> 
+                );    
             }
  
             if(log.type === "card_created_to_hand") {
@@ -48,23 +58,39 @@ class DeckTracker extends Component {
             }
  
             if(log.type === "card_to_deck") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> Putting <span style={{color: "orange"}}>{log.value}</span> to my deck.</li> );    
+                return( 
+                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
+                    <span style={{color: "#d9b38c"}}>{log.value}</span> shuffled to <span style={{color: "#4dff4d"}}>your</span> deck.</li> 
+                );    
             }
 
             if(log.type === "card_burned") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "red"}}>{log.value}</span> burned.</li> );    
+                return( 
+                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
+                    <span style={{color: "#d9b38c"}}>{log.value}</span> burned from <span style={{color: "#4dff4d"}}>your</span> deck.</li> );    
+            }
+            
+            if(log.type === "game_over") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span>
+                <span style={{color: "#ccddff"}}>The game is over.</span></li> );    
             }
 
             if(log.type === "player_won") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "red"}}>{log.value}</span> won.</li> );    
+                return( 
+                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span>
+                    <span style={{color: "#ccddff"}}>{log.value} won.</span></li> );    
             }
 
             if(log.type === "player_conceded") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "red"}}>{log.value}</span> conceded.</li> );    
+                return( 
+                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
+                    <span style={{color: "#ccddff"}}>{log.value} conceded.</span></li> );    
             }
 
             if(log.type === "player_tied") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "red"}}>{log.value}</span> tied.</li> );    
+                return( 
+                    <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
+                    <span style={{color: "#ccddff"}}>{log.value} tied.</span></li> );    
             }
  
         });
