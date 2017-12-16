@@ -19,78 +19,78 @@ class DeckTracker extends Component {
     renderLogs() {
         return _.map(this.props.logs, log => {
  
-            if(log.type === "players") {
+            if(log.label === "players") {
 
-                this.players = log.value;
+                this.players = log.data;
 
                 return( 
                     <li key={log.id}>
                     <span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
-                     A game between ({log.value[1].sideText}) <span style={log.value[1].styles}>{log.value[1].playerName}</span> as {log.value[1].heroName} and ({log.value[0].sideText}) <span style={log.value[0].styles}>{log.value[0].playerName}</span> as {log.value[0].heroName} is started.
+                     A game between ({log.data[1].sideText}) <span style={log.data[1].styles}>{log.data[1].playerName}</span> as {log.data[1].heroName} and ({log.data[0].sideText}) <span style={log.data[0].styles}>{log.data[0].playerName}</span> as {log.data[0].heroName} is started.
                     </li> 
                 );    
             }
  
-            if(log.type === "card_drew_from_deck") {
+            if(log.label === "drew_card") {
                 return(
                     <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
-                     <span style={{color: "#4dff4d"}}>You</span> drew <span style={{color: "#d9b38c"}} >{log.value}</span> to your hand.
+                     <span style={{color: "#4dff4d"}}>You</span> drew <span style={{color: "#d9b38c"}} >{log.data}</span> to your hand.
                     </li>
                 );
             }
  
-            if(log.type === "hero_power") {
+            if(log.label === "hero_power") {
 
                 return( 
                     <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
-                     <span style={log.value.player.styles}>{log.value.player.sideText}</span> used Hero Power (<span style={{color: "#d9b38c"}}>{log.value.heroPowerName}</span>).</li> );    
+                     <span style={log.data.player.styles}>{log.data.player.sideText}</span> used Hero Power (<span style={{color: "#d9b38c"}}>{log.data.heroPowerName}</span>).</li> );    
             }
  
-            if(log.type === "card_played") {
+            if(log.label === "card_played") {
                 return( 
                     <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
-                    <span style={log.value.player.styles}>{log.value.player.sideText}</span> played <span style={{color: "#d9b38c"}}>{log.value.name}</span>.</li> 
+                    <span style={log.data.player.styles}>{log.data.player.sideText}</span> played <span style={{color: "#d9b38c"}}>{log.data.name}</span>.</li> 
                 );    
             }
  
-            if(log.type === "card_created_to_hand") {
-                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "#ff9999"}}>{log.value.name}</span> is generated to <span style={{color: "#ff9999"}}>{log.value.player}</span> hand.</li> );    
+            if(log.label === "card_created") {
+                return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}]</span> <span style={{color: "#ff9999"}}>{log.data.name}</span> is generated to <span style={{color: "#ff9999"}}>{log.data.player}</span> hand.</li> );    
             }
  
-            if(log.type === "card_to_deck") {
+            if(log.label === "card_shuffled") {
                 return( 
                     <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
-                    <span style={{color: "#d9b38c"}}>{log.value}</span> shuffled to <span style={{color: "#4dff4d"}}>your</span> deck.</li> 
+                    <span style={{color: "#d9b38c"}}>{log.data}</span> shuffled to <span style={{color: "#4dff4d"}}>your</span> deck.</li> 
                 );    
             }
 
-            if(log.type === "card_burned") {
+            if(log.label === "card_burned") {
                 return( 
                     <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
-                    <span style={{color: "#d9b38c"}}>{log.value}</span> burned from <span style={{color: "#4dff4d"}}>your</span> deck.</li> );    
+                    <span style={{color: "#d9b38c"}}>{log.data}</span> burned from <span style={{color: "#4dff4d"}}>your</span> deck.</li> );    
             }
             
-            if(log.type === "game_over") {
+            if(log.label === "game_over") {
                 return( <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span>
                 <span style={{color: "#ccddff"}}>The game is over.</span></li> );    
             }
 
-            if(log.type === "player_won") {
+            if(log.label === "player_won") {
                 return( 
                     <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span>
-                    <span style={{color: "#ccddff"}}>{log.value} won.</span></li> );    
+                    <span style={{color: "#ccddff"}}>{log.data} won.</span></li> );    
             }
 
-            if(log.type === "player_conceded") {
+            if(log.label === "player_conceded") {
                 return( 
                     <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
-                    <span style={{color: "#ccddff"}}>{log.value} conceded.</span></li> );    
+                    <span style={{color: "#ccddff"}}>{log.data} conceded.</span></li> );    
             }
 
-            if(log.type === "player_tied") {
+            if(log.label === "player_tied") {
                 return( 
                     <li key={log.id}><span style={{ color: "#e6e6e6" }}>[{log.timeStamp.hours}:{log.timeStamp.minutes}:{log.timeStamp.seconds}] </span> 
-                    <span style={{color: "#ccddff"}}>{log.value} tied.</span></li> );    
+                    <span style={{color: "#ccddff"}}>{log.data} tied.</span></li> );    
             }
  
         });
@@ -155,19 +155,19 @@ function clearLogsData() {
  
 function getLogsEventData(event, data) {
  
-    if(!_.isEmpty(this.deckList) && (data.type == "card_drew_from_deck" || data.type == "card_to_deck" || data.type == "card_burned")) {
+    if(!_.isEmpty(this.deckList) && (data.label == "drew_card" || data.label == "card_shuffled" || data.label == "card_burned")) {
         
-        const dbfIdreq = _.find(this.props.allCollection, { name: data.value }).dbfId;
+        const dbfIdreq = _.find(this.props.allCollection, { name: data.data }).dbfId;
         const indexreq = _.findIndex(this.deckList.deck.cards, (value) => {
             return value[0] == dbfIdreq;
         });
  
 
-        if(data.type == "card_drew_from_deck" || data.type == "card_burned") this.deckList.deck.cards[indexreq][1]--;
-        if(data.type == "card_to_deck") this.deckList.deck.cards[indexreq][1]++;
+        if(data.label == "drew_card" || data.label == "card_burned") this.deckList.deck.cards[indexreq][1]--;
+        if(data.label == "card_shuffled") this.deckList.deck.cards[indexreq][1]++;
     }
 
-    if(data.type == "game_over") {
+    if(data.label == "game_over") {
         this.deckList = {};
         this.props.clearCurrentDeck();
     }
@@ -180,11 +180,11 @@ function toggleTrack(event) {
     if(this.props.trackButton.value === "off") 
     {   
         ipcRenderer.send('deckTracker:start');
-        ipcRenderer.on('log:response', this.getLogsEventData);
+        ipcRenderer.on('log:delivery', this.getLogsEventData);
         ipcRenderer.on('current-deck', this.props.getCurrentDeck);
         this.props.setTrackButton({ value : "on", text: "Turn off DeckTracker" });
     } else {
-        ipcRenderer.removeAllListeners('log:response');
+        ipcRenderer.removeAllListeners('log:delivery');
         ipcRenderer.send('deckTracker:stop');
         this.props.setTrackButton({ value : "off", text: "Turn on DeckTracker" });
     }
