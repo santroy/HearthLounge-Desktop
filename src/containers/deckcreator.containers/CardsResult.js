@@ -50,7 +50,6 @@ function filterCollection() {
         
     });
 
-
     return filteredCollection;
 }
 

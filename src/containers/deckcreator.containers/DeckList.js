@@ -18,29 +18,21 @@ class DeckList extends Component {
     render() {
         
         const deckList = _.map(this.props.data.deckList, value => {
-            if(value.rarity == "Legendary") {
-                return(
-                    <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
-                        <td>{value.cost}</td>
-                        <td style={ { color: rarityColor(value.rarity) } } >{value.name}</td>
-                        <td><img src={path.resolve('assets/legendary-star.png')}/></td>
-                    </tr>);
-                    }
-            if(value.count == 1) {
+
+            const isLegendary = _.eq(value.rarity, "Legendary");
+            const shouldShowAmount = value.count > 1;
+
             return(
+
                 <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
                     <td>{value.cost}</td>
-                    <td  colSpan="2" style={ { color: rarityColor(value.rarity) } } >{value.name}</td>
-                </tr>);
-                }
-            if(value.count == 2) {
-                return(
-                    <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
-                        <td>{value.cost}</td>
-                        <td style={ { color: rarityColor(value.rarity) } } >{value.name}</td>
-                        <td>{value.count}</td>
-                    </tr>);
-                    }
+                    <td colSpan={ isLegendary || shouldShowAmount ? 2 : 0 } style={ { color: rarityColor(value.rarity) } }>{value.name}</td>
+                    { isLegendary ? <td><img src={path.resolve('assets/legendary-star.png')}/></td> : "" }
+                    { shouldShowAmount && !isLegendary ? <td>{value.count}</td> : "" }
+                </tr>
+
+            );
+
         });
 
         return(
@@ -55,6 +47,10 @@ class DeckList extends Component {
 
         }
     }
+
+function x(shouldShowAmount) {
+    return 
+}
 
 
 
