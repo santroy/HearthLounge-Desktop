@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { heroes } from '../../globals/Heroes';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { heroSearch } from '../../redux/actions/index';
+import { searchHero } from '../../redux/actions/deckcreator.actions';
 import _ from 'lodash';
 
 class HeroesList extends Component {
@@ -14,13 +14,13 @@ class HeroesList extends Component {
     render() {
         
         const heroesList =  _.map(heroes, (hero) => {
-                return( <option selected={_.eq(this.props.data.name, hero.name)} key={hero.name}>{hero.name}</option> );
+                return( <option key={hero.name}>{hero.name}</option> );
         } );
     
         return(
             <div>
                 <label htmlFor="hero-name">Hero</label>
-                <select onChange={(e) => this.props.heroSearch(e.target.value)} id="hero-name" name="hero-name">
+                <select value={this.props.data.name} onChange={(e) => this.props.searchHero(e.target.value)} id="hero-name" name="hero-name">
                     {heroesList}
                 </select>
             </div>
@@ -30,4 +30,4 @@ class HeroesList extends Component {
 
 
 
-export default connect(null, { heroSearch })(HeroesList);
+export default connect(null, { searchHero })(HeroesList);

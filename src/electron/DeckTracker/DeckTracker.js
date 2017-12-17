@@ -14,7 +14,7 @@ class DeckTracker {
     }
 
     stop() {
-
+        logWatcher.stopWatch();
     }
 
 }

@@ -46,7 +46,6 @@ app.on('ready', () => {
         mainWindow.minimize();
     });
 
-    //const dtc = new DeckTrackController(path.join('C:','Program Files (x86)','Hearthstone','Hearthstone_Data','output_log.txt'));
     const dtc = new DeckTracker(mainWindow);
 
     ipcMain.on('deckTracker:start', () => {
