@@ -13,8 +13,6 @@ export default function(state = initialState, action)
     switch(action.type) {
         
         case CREATOR_SEARCH_FILTER:
-
-            console.log("Jestem w reducerze", action.payload);
             return Object.assign({}, state, action.payload);
         default:
             return state;
