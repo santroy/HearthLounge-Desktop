@@ -1,6 +1,8 @@
-import { CREATOR_SEARCH_FILTER } from '../../reducers/FoundCollection';
 import { heroes } from "../../../globals/Heroes";
 import { formats } from "../../../globals/Format";
+
+import { ADD_CARD_TO_DECK_LIST, DELETE_CARD_FROM_DECK_LIST } from "../../reducers/deckcreator.reducers/DeckListCreator";
+import { CREATOR_SEARCH_FILTER } from '../../reducers/deckcreator.reducers/FoundCollection';
 
 export function matchCardTerm(data) {
     return { 
@@ -11,14 +13,15 @@ export function matchCardTerm(data) {
 
  export function deleteCardFromDeckList(data) {
     return {
-        type: 'DELETE_CARD_FROM_DECK_LIST',
+        type: DELETE_CARD_FROM_DECK_LIST,
         payload: data
     }
 }
 
 export function addCardToDeckList(data) {
+
     return {
-        type: 'ADD_CARD_TO_DECK_LIST',
+        type: ADD_CARD_TO_DECK_LIST,
         payload: data
     }
 }
@@ -35,10 +38,10 @@ export function searchFormat(data) {
 
 export function searchHero(data) {
     
-    const braveHeroObj = _.find(heroes, (value) => value.name === data);
+    const heroFound = _.find(heroes, (value) => value.name === data);
 
     return { 
         type: CREATOR_SEARCH_FILTER,
-        payload: { hero: braveHeroObj }
+        payload: { hero: heroFound }
         }
 }

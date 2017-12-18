@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
 import SelectFeatureMenu from './SelectFeatureMenu';
-import Logs from './Logs';
-import trackButton from './ButtonDeckTracker';
+import Logs from './decktracker.reducers/Logs';
+import trackButton from './decktracker.reducers/ButtonDeckTracker';
 import AllCollection from './AllCollection';
-import FoundCollection from './FoundCollection';
-import DeckListCreator from './DeckListCreator';
+import FoundCollection from './deckcreator.reducers/FoundCollection';
+import DeckListCreator from './deckcreator.reducers/DeckListCreator';
 import GameInfo from './GameInfo';
-import CurrentDeck from './CurrentDeck';
+import CurrentDeck from './decktracker.reducers/CurrentDeck';
 
 const rootReducer = combineReducers({
     CurrentDeck,

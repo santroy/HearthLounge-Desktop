@@ -6,10 +6,10 @@ import Home from '../components/Home';
 import _ from 'lodash';
 import DeckCreator from './deckcreator.containers/DeckCreator';
 import Menu from './Menu';
-import DeckTracker from './DeckTracker';
+import DeckTracker from '../containers/decktracker.containers/DeckTracker';
 import LoungeArenaGuider from './LoungeArenaGuider';
 
-import { WELCOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../redux/reducers/SelectFeatureMenu';
+import { HOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../redux/reducers/SelectFeatureMenu';
 
 const path = require('path');
  
@@ -39,7 +39,7 @@ class Content extends Component {
         if(!(_.isEmpty(this.props.allCollection))) {
 
             switch(ComponentType) {
-                case WELCOME_COMPONENT: {
+                case HOME_COMPONENT: {
                     if(!this.welcomeComponent) {
                         this.welcomeComponent = <Home/>
                     }

@@ -8,7 +8,6 @@ import { deleteCardFromDeckList } from '../../redux/actions/deckcreator.actions'
 import { rarityColor } from '../../utils/styles';
 import _ from 'lodash';
 
-
 class DeckList extends Component {
 
     constructor(props) {
@@ -27,8 +26,8 @@ class DeckList extends Component {
                 <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
                     <td>{value.cost}</td>
                     <td colSpan={ isLegendary || shouldShowAmount ? 2 : 0 } style={ { color: rarityColor(value.rarity) } }>{value.name}</td>
-                    { isLegendary ? <td><img src={path.resolve('assets/legendary-star.png')}/></td> : "" }
-                    { shouldShowAmount && !isLegendary ? <td>{value.count}</td> : "" }
+                    { isLegendary ? <td><img src={path.resolve('assets/legendary-star.png')}/></td> : null }
+                    { shouldShowAmount && !isLegendary ? <td>{value.count}</td> : null }
                 </tr>
 
             );
@@ -47,11 +46,5 @@ class DeckList extends Component {
 
         }
     }
-
-function x(shouldShowAmount) {
-    return 
-}
-
-
 
 export default connect(null, { deleteCardFromDeckList })(DeckList);

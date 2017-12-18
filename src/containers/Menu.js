@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { selectFeatureMenu } from '../redux/actions' 
 import DeckCreator from './deckcreator.containers/DeckCreator';
-import DeckTracker from './DeckTracker';
+import DeckTracker from './decktracker.containers/DeckTracker';
 import LoungeArenaGuider from './LoungeArenaGuider';
 import Home from '../components/Home';
 
-import { WELCOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../redux/reducers/SelectFeatureMenu';
+import { HOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../redux/reducers/SelectFeatureMenu';
 
 class Menu extends Component {
     constructor(props) {
@@ -31,7 +31,7 @@ class Menu extends Component {
             <div>
                 <div className="menu">
                     <ul>
-                        <li onClick={() => this.props.selectFeatureMenu(WELCOME_COMPONENT)}>Domek</li>
+                        <li onClick={() => this.props.selectFeatureMenu(HOME_COMPONENT)}>Domek</li>
                         <li onClick={() => this.props.selectFeatureMenu(CREATE_DECK_COMPONENT)}>Create Deck</li>
                         <li onClick={() => this.props.selectFeatureMenu(DECK_TRACKER_COMPONENT)}>Deck Tracker</li>
                         <li onClick={() => this.props.selectFeatureMenu(LOUNGE_ARENA_GUIDER_COMPONENT)}>LAG</li>

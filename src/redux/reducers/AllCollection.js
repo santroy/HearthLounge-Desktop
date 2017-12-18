@@ -1,5 +1,6 @@
 export const GET_ALL_COLLECTION = "get_all_collection";
 import _ from 'lodash';
+import { EXCLUDED_CARD_SETS } from '../../globals/General';
 
 export default function(state = [], action) 
 {
@@ -9,7 +10,7 @@ export default function(state = [], action)
             let collectionArr = [];
 
             for(const key in action.payload.data) {
-                if(!(_.includes( excludedSet, key )))
+                if(!(_.includes( EXCLUDED_CARD_SETS, key )))
                 {
                     for(const k in action.payload.data[key]) {
                         collectionArr.push(action.payload.data[key][k]);
@@ -28,12 +29,3 @@ export default function(state = [], action)
             return state;
     }
 }
-
-
-const excludedSet = ["Hero Skins", 
-                    "Tavern Brawl", 
-                    "Debug", 
-                    "System", 
-                    "Credits", 
-                    "Missions", 
-                    "Promo"];

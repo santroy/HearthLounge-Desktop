@@ -16,8 +16,6 @@ class CardsResult extends Component {
         const foundCards = _.map(this.filterCollection(), value => 
             {
                 return(<img key={value.dbfId} onClick={() => {
-                    console.log(value);
-                    console.log(this.props.data.hero.name);
                     this.props.addCardToDeckList(value)}} className="card-image" src={value.img}/>)
             });
 

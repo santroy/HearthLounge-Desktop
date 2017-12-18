@@ -5,7 +5,7 @@ const fs = require('fs');
 
 module.exports = {
     target: 'electron',
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'inline-cheap-module-source-map',
     entry: './src/index.js',
     output: {
         path: resolve(__dirname, "dist/"),
