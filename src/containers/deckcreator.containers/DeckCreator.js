@@ -10,6 +10,7 @@ import DeckFormat from './DeckFormat';
 import CardsResult from './CardsResult';
 import DeckList from './DeckList';
 import ManaCrystals from './ManaCrystals';
+import Expansions from './Expansions';
 
 
  
@@ -29,6 +30,7 @@ class DeckCreator extends Component {
                 <HeroesList data={this.props.hero}/>
                 <DeckFormat data={this.props.format}/>
                 <ManaCrystals data={this.props.manaCrystals}/>
+                <Expansions data={this.props.gameInfo}/>
             </div>
         </div>);
 
