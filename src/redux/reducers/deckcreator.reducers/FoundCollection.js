@@ -18,7 +18,7 @@ const initialState = {
                     8: { active: false, value: "8" },
                     9: { active: false, value: "9" },
                    },
-    expansions: []
+    expansion: "All"
 }
 
 export default function(state = initialState, action) 

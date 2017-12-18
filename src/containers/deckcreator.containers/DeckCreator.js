@@ -27,10 +27,10 @@ class DeckCreator extends Component {
             <div className="deck-creator-search-inputs">
                 <label htmlFor="card-name">Card Name</label>
                 <input value={this.props.term} onChange={(e) => this.props.matchCardTerm(e.target.value)} type="text" name="card-name" id="card-name"/>
-                <HeroesList data={this.props.hero}/>
-                <DeckFormat data={this.props.format}/>
-                <ManaCrystals data={this.props.manaCrystals}/>
-                <Expansions data={this.props.gameInfo}/>
+                    <HeroesList data={this.props.hero}/>
+                    <DeckFormat data={this.props.format}/>
+                    <Expansions expansion={this.props.expansion} format={this.props.format}/>
+                    <ManaCrystals data={this.props.manaCrystals}/>
             </div>
         </div>);
 
@@ -63,9 +63,10 @@ class DeckCreator extends Component {
 }
 
 function mapStateToProps(state) {
-    const { term, hero, format, manaCrystals } = state.FoundCollection;
+    const { term, hero, format, manaCrystals, expansion } = state.FoundCollection;
     return {
         format,
+        expansion,
         term,
         hero,
         manaCrystals,

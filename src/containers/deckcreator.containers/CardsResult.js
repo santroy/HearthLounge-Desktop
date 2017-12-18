@@ -37,12 +37,13 @@ function filterCollection() {
 
     const filteredCollection = _.filter(this.props.data.allCollection, value => {
 
+
         //Handle card term
         const cardMatches = new RegExp(`.*${_.escapeRegExp(this.props.data.term)}.*`, "i");
 
         if(cardMatches.test(value.name) && (this.props.data.hero.name == value.playerClass || value.playerClass == "Neutral") && 
             _.includes(this.props.data.gameInfo[this.props.data.format.name.toLowerCase()], value.cardSet) && verifyMultiClass(value, this.props.data.hero) && 
-            this.exposeCardCost(value.cost))  
+            this.exposeCardCost(value.cost) && exposeExpansion.call(this, value) )  
             {
             return value;
         }
@@ -60,6 +61,15 @@ function verifyMultiClass(card, hero) {
         return _.includes(card.classes, hero.name);
     }
     
+}
+
+function exposeExpansion(expansion) {
+
+    if(this.props.data.expansion == "All") return true;
+
+    return this.props.data.expansion == expansion.cardSet;
+
+
 }
 
 function exposeCardCost(cost) {

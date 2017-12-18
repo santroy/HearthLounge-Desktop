@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { formats } from '../../globals/Format';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { searchFormat } from '../../redux/actions/deckcreator.actions';
+import { searchFormat, setExpansion } from '../../redux/actions/deckcreator.actions';
 import _ from 'lodash';
+import { wild, standard } from '../../globals/Expansions'
 
 class Expansions extends Component {
 
@@ -13,16 +14,15 @@ class Expansions extends Component {
     
     render() {
 
-        console.log(this.props);
         
-        const expansions =  _.map(this.props.data.wild, (expansion) => {
+        const expansions =  _.map(this.props.format.name == "Standard" ? standard: wild, (expansion) => {
             return( <option key={expansion}>{expansion}</option> );
         } );
 
         return(
             <div>
                 <label htmlFor="expansions">Expansions</label>
-                <select value={this.props.data.wild[0]} id="expansions">
+                <select value={this.props.expansion} onChange={(e) => this.props.setExpansion(e.target.value)} id="expansions">
                     {expansions}
                 </select>
             </div>
@@ -33,4 +33,4 @@ class Expansions extends Component {
 
 
 
-export default connect(null, null)(Expansions);
+export default connect(null, { setExpansion })(Expansions);

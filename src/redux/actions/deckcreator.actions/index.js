@@ -61,3 +61,10 @@ export function selectManaCrystal(crystals, crystal) {
     }
 
 }
+
+export function setExpansion(expansion) {
+    return {
+        type: CREATOR_SEARCH_FILTER,
+        payload: { expansion }
+    }
+}

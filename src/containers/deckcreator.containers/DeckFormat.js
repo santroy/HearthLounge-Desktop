@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { formats } from '../../globals/Format';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { searchFormat } from '../../redux/actions/deckcreator.actions';
+import { searchFormat, setExpansion } from '../../redux/actions/deckcreator.actions';
 import _ from 'lodash';
 
 class DeckFormat extends Component {
@@ -20,7 +20,7 @@ class DeckFormat extends Component {
         return(
             <div>
                 <label htmlFor="game-format">Deck Format</label>
-                <select value={this.props.data.name} onChange={(e) => this.props.searchFormat(e.target.value)} id="game-format">
+                <select value={this.props.data.name} onChange={(e) => { this.props.setExpansion("All"); this.props.searchFormat(e.target.value)}} id="game-format">
                     {formatList}
                 </select>
             </div>
@@ -31,4 +31,4 @@ class DeckFormat extends Component {
 
 
 
-export default connect(null, { searchFormat })(DeckFormat);
+export default connect(null, { searchFormat, setExpansion })(DeckFormat);
