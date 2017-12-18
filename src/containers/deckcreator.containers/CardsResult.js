@@ -10,6 +10,7 @@ class CardsResult extends Component {
     constructor(props) {
         super(props);
         this.filterCollection = filterCollection.bind(this);
+        this.exposeCardCost = exposeCardCost.bind(this);
     }
     
     render() {    
@@ -39,10 +40,10 @@ function filterCollection() {
         //Handle card term
         const cardMatches = new RegExp(`.*${_.escapeRegExp(this.props.data.term)}.*`, "i");
 
-        if(cardMatches.test(value.name) &&
-            (this.props.data.hero.name == value.playerClass || value.playerClass == "Neutral") && 
-            _.includes(this.props.data.gameInfo[this.props.data.format.name.toLowerCase()], value.cardSet) &&
-            verifyMultiClass(value, this.props.data.hero)) {
+        if(cardMatches.test(value.name) && (this.props.data.hero.name == value.playerClass || value.playerClass == "Neutral") && 
+            _.includes(this.props.data.gameInfo[this.props.data.format.name.toLowerCase()], value.cardSet) && verifyMultiClass(value, this.props.data.hero) && 
+            this.exposeCardCost(value.cost))  
+            {
             return value;
         }
         
@@ -59,6 +60,23 @@ function verifyMultiClass(card, hero) {
         return _.includes(card.classes, hero.name);
     }
     
+}
+
+function exposeCardCost(cost) {
+
+    //console.log(this.props.data);
+
+    const activeManaCost = _.find(this.props.data.manaCrystals, (o) => o.active == true);
+
+
+    if(_.isEmpty(activeManaCost)) return true;
+
+    if(Number(activeManaCost.value) == 9) {
+        return Number(activeManaCost.value) <= cost;
+    }
+
+    return Number(activeManaCost.value) == cost;
+
 }
 
 export default connect(null, { addCardToDeckList })(CardsResult);

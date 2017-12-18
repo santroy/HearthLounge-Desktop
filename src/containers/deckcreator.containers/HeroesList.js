@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { heroes } from '../../globals/Heroes';
+import { heroes, heroesDropdown } from '../../globals/Heroes';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { searchHero } from '../../redux/actions/deckcreator.actions';
@@ -11,8 +11,9 @@ class HeroesList extends Component {
         super(props);
     }
     
+
     render() {
-        
+
         const heroesList =  _.map(heroes, (hero) => {
                 return( <option key={hero.name}>{hero.name}</option> );
         } );
@@ -31,3 +32,4 @@ class HeroesList extends Component {
 
 
 export default connect(null, { searchHero })(HeroesList);
+

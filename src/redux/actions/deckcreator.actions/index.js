@@ -45,3 +45,19 @@ export function searchHero(data) {
         payload: { hero: heroFound }
         }
 }
+
+export function selectManaCrystal(crystals, crystal) {
+
+    !crystal.active ? crystal.active = true : crystal.active = false;
+
+    _.each(crystals, c => {
+        if(c.active == true && c.value != crystal.value) c.active = false;
+        if(c.value == crystal.value) c.active = crystal.active;
+    } )
+
+    return {
+        type: CREATOR_SEARCH_FILTER,
+        payload: { manaCrystals: crystals}
+    }
+
+}
