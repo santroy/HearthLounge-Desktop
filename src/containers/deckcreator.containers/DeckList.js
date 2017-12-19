@@ -22,10 +22,9 @@ class DeckList extends Component {
             const shouldShowAmount = value.count > 1;
 
             return(
-
                 <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
                     <td>{value.cost}</td>
-                    <td colSpan={ isLegendary || shouldShowAmount ? 2 : 0 } style={ { color: rarityColor(value.rarity) } }>{value.name}</td>
+                    <td colSpan={ isLegendary || shouldShowAmount ? null : 2 } style={ { color: rarityColor(value.rarity) } }>{value.name}</td>
                     { isLegendary ? <td><img src={path.resolve('assets/legendary-star.png')}/></td> : null }
                     { shouldShowAmount && !isLegendary ? <td>{value.count}</td> : null }
                 </tr>

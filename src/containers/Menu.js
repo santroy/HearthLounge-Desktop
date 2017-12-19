@@ -6,6 +6,7 @@ import DeckCreator from './deckcreator.containers/DeckCreator';
 import DeckTracker from './decktracker.containers/DeckTracker';
 import LoungeArenaGuider from './LoungeArenaGuider';
 import Home from '../components/Home';
+import LogoSVG from '../../assets/logo';
 
 import { HOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../redux/reducers/SelectFeatureMenu';
 
@@ -29,9 +30,10 @@ class Menu extends Component {
         return (
             <div>
                 <div className="menu">
+                
                     <ul>
-                        <li onClick={() => this.props.selectFeatureMenu(HOME_COMPONENT)}>Domek</li>
-                        <li onClick={() => this.props.selectFeatureMenu(CREATE_DECK_COMPONENT)}>Create Deck</li>
+                        <li onClick={() => this.props.selectFeatureMenu(HOME_COMPONENT)}><LogoSVG dotsColor="#00a99c"/></li>
+                        <li onClick={() => this.props.selectFeatureMenu(CREATE_DECK_COMPONENT)}>Deck Creator</li>
                         <li onClick={() => this.props.selectFeatureMenu(DECK_TRACKER_COMPONENT)}>Deck Tracker</li>
                         <li onClick={() => this.props.selectFeatureMenu(LOUNGE_ARENA_GUIDER_COMPONENT)}>LAG</li>
                     </ul>

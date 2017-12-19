@@ -41,17 +41,16 @@ body:active,body:hover {
 .title-bar {
     box-sizing: border-box;
     font-family: Opti-Belwe;
-    font-size: 20px;
+    font-size: 16px;
     display: block;
     width: 100%;
     height: 5%;
     background-color: rgb(71,65,67);
     -webkit-app-region: drag;
     border-bottom: rgb(231,226,218) 1px solid;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 38px;       /* the same as your div height */
-    color: rgb(231,226,218);;
+    padding-left: 10px;
+    line-height: 35px;       /* the same as your div height */
+    color: rgb(231,226,218);
 }
 
 .close {
@@ -65,14 +64,14 @@ body:active,body:hover {
     height: 100%;
     float: right;
 }
-
+/* 
 .logo-title-bar {
     display: block;
     float: left;
     height: 100%;
     width: 30px;
     margin-left: 3px;
-}
+} */
 
 .minimize {
     background-image: url('../assets/minimize-app.png');
@@ -248,19 +247,26 @@ body:active,body:hover {
     font-size: 20px;
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     color: white;
-    border: 2px rgb(231,226,218) solid;
     box-sizing: border-box;
     margin-top: 10px;
     display: inline-block;
     width: 93%;
     height: 60px;
     line-height: 60px;
-    opacity: 0.8;
+    background-color: rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    -webkit-transition: background-color 700ms linear;
 }
 
-.menu ul li:hover {
-    background-color: rgb(71,65,67);
-    opacity: 1.0;
+.menu ul li:first-child {
+    background: none;
+    border: none;
+    height: 75px;
+
+}
+
+.menu ul li:hover:not(:first-child) {
+    background-color: rgba(0,169,156, 0.2);
 }
 
 .card-image {
@@ -457,6 +463,9 @@ body:active,body:hover {
 }
 
 .deck-creator-deck-string {
+    font-size: 16px;
+    border-top: 3px rgb(231,226,218) solid;
+    background-color: rgb(207,203,196);
     padding-top: 10px;
     width: 100%;
     height: 10%;
@@ -465,14 +474,29 @@ body:active,body:hover {
 
 .deck-creator-deck-list table {
     margin: 0 auto;
-    width: 90%;
+    width: 98%;
     padding: 2px;
     font-size: 14px;
 }
 
 .deck-creator-deck-list table td {
+    margin: 1px;
     padding: 3px;
     box-sizing: border-box;
+    vertical-align: middle;
+    background-color: rgba(231,226,218,0.5);
+}
+
+.deck-creator-deck-list table tr {
+    height: 35px;
+}
+
+.deck-creator-deck-list table td:first-child {
+    box-sizing: border-box;
+    background-color: rgba(0, 87, 169, 0.068);
+    text-align: center;
+    width: 15%;
+    margin-right: 3px;
 }
 
 .deck-creator-deck-string input {
@@ -543,3 +567,52 @@ margin: 0 auto;
 .active-mana-crystal {
     color: rgb(0,169,156);
 }
+
+
+
+svg#logo:hover {
+    animation: initOpacity .4s linear;
+  }
+  svg#logo:hover .circle {
+    animation: opacity 2s linear;
+    animation-delay: .4s;
+  }
+  svg#logo:hover .circle1 {
+    animation: opacity 1s linear;
+    animation-delay: .4s;
+  }
+  svg#logo:hover .circle2 {
+    animation: opacity 4s linear;
+    animation-delay: .4s;
+  }
+  svg#logo:hover .line {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: dash 3s linear forwards;
+    animation-delay: 2.4s;
+  }
+  
+  @keyframes initOpacity {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+  @keyframes opacity {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes dash {
+    from {
+      stroke-dashoffset: 1000;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }

@@ -18,7 +18,7 @@ class TitleBar extends Component {
     render() {
         return(
             <div className="title-bar">
-                <div className="logo-title-bar"></div>
+                {/* <div className="logo-title-bar"></div> */}
                 {APP_NAME}
                 <div onClick={this.closeApp} className="close"></div>
                 <div onClick={this.minimizeApp} className="minimize"></div>
