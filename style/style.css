@@ -304,18 +304,6 @@ body:active,body:hover {
     position: relative;
 }
 
-/* ::-webkit-scrollbar { 
-    display: none; 
-} */
-
-.deck-tracker-deck {
-    background-color: black;
-    padding: 10px;
-    height: 100%;
-    float: right;
-    width: 30%;
-    box-sizing: border-box;
-}
 
 .toggle-track {
     float: left;
@@ -326,29 +314,28 @@ body:active,body:hover {
 
 .toggle-track-buttons {
     box-sizing: border-box;
-    /* margin: 0 auto; */
-    margin: 0 20px;
-    display: block;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
     background-color: Transparent;
     cursor: pointer;
 }
 
 .toggle-track-button {
     font-family: Opti-Belwe;
-    font-size: 18px;
+    padding: 5px;
+    font-size: 16px;
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     color: white;
-    border: 1px black solid;
     box-sizing: border-box;
-    height: 100%;
-    margin-right: 10px;
     /* margin: 0 auto; */
-    background-color: Transparent;
+    width: 250px;
+    border: none;
+    background-color: transparent;
     cursor: pointer;
+    margin-right: 15px;
+    border-bottom: 1px rgb(71,65,67) dotted;
 }
 
 .deck-tracker-bar {
@@ -379,6 +366,8 @@ body:active,body:hover {
     padding-left: 22px;
     overflow: scroll;
     word-wrap: break-word;
+    background-color: rgb(207,203,196);
+    overflow-x: hidden;
 }
 
 .deck-creator-deck-choices {
@@ -444,19 +433,6 @@ body:active,body:hover {
     outline: none;
 }
 
-.deck-creator-deck-list::-webkit-scrollbar { 
-    display: none; 
-}
-
-.deck-creator-deck-list {
-    width: 100%;
-    height: 83%;
-    box-sizing: border-box;
-    overflow: scroll;
-    background-color: rgb(207,203,196);
-    border-top: 3px rgb(231,226,218) solid;
-}
-
 .deck-creator-deck-string {
     font-size: 16px;
     border-top: 3px rgb(231,226,218) solid;
@@ -465,6 +441,16 @@ body:active,body:hover {
     width: 100%;
     height: 10%;
     box-sizing: border-box;
+}
+
+.deck-creator-deck-list {
+    width: 100%;
+    height: 83%;
+    box-sizing: border-box;
+    overflow: scroll;
+    overflow-x: hidden;
+    background-color: rgb(207,203,196);
+    border-top: 3px rgb(231,226,218) solid;
 }
 
 .deck-creator-deck-list table {
@@ -537,6 +523,7 @@ margin: 0 auto;
     width: 100%;
     overflow: scroll;
     text-align: center;
+    overflow-x: hidden;
  }
 
  .deck-creator-card-results {
@@ -725,42 +712,184 @@ svg#logo:hover {
 
 /* SCROLLBAR DECK */
 
- .deck-creator-card-found {
-
-    overflow-x: hidden;
- }
-
-
- ::-webkit-scrollbar {
+.deck-creator-card-found::-webkit-scrollbar {
     width: 3px;
     height: 3px;
   }
-  ::-webkit-scrollbar-button {
+  .deck-creator-card-found::-webkit-scrollbar-button {
     width: 0px;
     height: 0px;
   }
-  ::-webkit-scrollbar-thumb {
+  .deck-creator-card-found::-webkit-scrollbar-thumb {
     background: #474143;
     border: 0px none #ffffff;
     border-radius: 50px;
   }
-  ::-webkit-scrollbar-thumb:hover {
+  .deck-creator-card-found::-webkit-scrollbar-thumb:hover {
     background: #00a99c;
   }
-  ::-webkit-scrollbar-thumb:active {
+  .deck-creator-card-found::-webkit-scrollbar-thumb:active {
     background: #00a99c;
   }
-  ::-webkit-scrollbar-track {
+  .deck-creator-card-found::-webkit-scrollbar-track {
     background: #e7e2da;
     border: 0px none #ffffff;
     border-radius: 50px;
   }
-  ::-webkit-scrollbar-track:hover {
+  .deck-creator-card-found::-webkit-scrollbar-track:hover {
     background: #e7e2da;
   }
-  ::-webkit-scrollbar-track:active {
+  .deck-creator-card-found::-webkit-scrollbar-track:active {
     background: #e7e2da;
   }
-  ::-webkit-scrollbar-corner {
+  .deck-creator-card-found::-webkit-scrollbar-corner {
     background: transparent;
   }
+
+
+
+
+
+
+
+  .deck-tracker-deck::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  .deck-tracker-deck::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  .deck-tracker-deck::-webkit-scrollbar-thumb {
+    background: #474143;
+    border: 0px none rgb(231,226,218);
+    border-radius: 50px;
+  }
+  .deck-tracker-deck::-webkit-scrollbar-thumb:hover {
+    background: #00a99c;
+  }
+  .deck-tracker-deck::-webkit-scrollbar-thumb:active {
+    background: #00a99c;
+  }
+  .deck-tracker-deck::-webkit-scrollbar-track {
+    background: rgb(231,226,218);
+    border: 0px none rgb(231,226,218);
+    border-radius: 50px;
+  }
+  .deck-tracker-deck::-webkit-scrollbar-track:hover {
+    background: rgb(231,226,218);
+  }
+  .deck-tracker-deck::-webkit-scrollbar-track:active {
+    background: rgb(231,226,218);
+  }
+  .deck-tracker-deck:-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+
+
+  .deck-tracker-log::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  .deck-tracker-log::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  .deck-tracker-log::-webkit-scrollbar-thumb {
+    background: #474143;
+    border: 0px none rgb(207,203,196);
+    border-radius: 50px;
+  }
+  .deck-tracker-log::-webkit-scrollbar-thumb:hover {
+    background: #00a99c;
+  }
+  .deck-tracker-log::-webkit-scrollbar-thumb:active {
+    background: #00a99c;
+  }
+  .deck-tracker-log::-webkit-scrollbar-track {
+    background: rgb(207,203,196);
+    border: 0px none rgb(207,203,196);
+    border-radius: 50px;
+  }
+  .deck-tracker-log::-webkit-scrollbar-track:hover {
+    background: rgb(207,203,196);
+  }
+  .deck-tracker-log::-webkit-scrollbar-track:active {
+    background: rgb(207,203,196);
+  }
+  .deck-tracker-log:-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+.deck-tracker-deck {
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    font-size: 18px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    float: right;
+    width: 30%;
+    height: 90%;
+    box-sizing: border-box;
+    overflow: scroll;
+    overflow-x: hidden;
+}
+
+.deck-tracker-deck table {
+    margin: 0 auto;
+    width: 100%;
+    padding: 2px;
+    font-size: 14px;
+}
+
+.deck-tracker-deck table td {
+    margin: 1px;
+    padding: 3px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    background-color: rgba(231,226,218,0.5);
+}
+
+.deck-tracker-deck table tr {
+    height: 25px;
+}
+
+.deck-tracker-deck table td:first-child {
+    box-sizing: border-box;
+    background-color: rgba(0, 87, 169, 0.068);
+    text-align: center;
+    width: 15%;
+    margin-right: 3px;
+}
+
+.deck-tracker-deck table td:nth-child(3) {
+    text-align: center;
+    width: 5%;
+}
+
+.deck-tracker-game-start {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.deck-tracker-deck-name {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+}

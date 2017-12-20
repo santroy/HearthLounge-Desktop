@@ -7,7 +7,7 @@ import _ from 'lodash';
 import DeckCreator from './deckcreator.containers/DeckCreator';
 import Menu from './Menu';
 import DeckTracker from '../containers/decktracker.containers/DeckTracker';
-import LoungeArenaGuider from './LoungeArenaGuider';
+import LoungeArenaGuider from './lag.containers/LoungeArenaGuider';
 
 import { HOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../redux/reducers/SelectFeatureMenu';
 

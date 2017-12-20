@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { selectFeatureMenu } from '../redux/actions' 
 import DeckCreator from './deckcreator.containers/DeckCreator';
 import DeckTracker from './decktracker.containers/DeckTracker';
-import LoungeArenaGuider from './LoungeArenaGuider';
+import LoungeArenaGuider from './lag.containers/LoungeArenaGuider';
 import Home from '../components/Home';
 import LogoSVG from '../../assets/logo';
 

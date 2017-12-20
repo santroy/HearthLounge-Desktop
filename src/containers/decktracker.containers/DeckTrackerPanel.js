@@ -12,15 +12,17 @@ class DeckTrackerPanel extends Component {
     }
     
     render() {
+
+        const activeColor = this.props.data.deckTrackerPanel.luancherTrackerButton.value ? "#4dff4d" : "#ff3333";
+
         return(
             <div>
                 <div className="toggle-track">
                     <div className="toggle-track-buttons">
-                        <button onClick={toggleTrack.bind(this)} className="toggle-track-button">Deck Tracker is {this.props.data.deckTrackerPanel.luancherTrackerButton.value ? null : "not"} running.</button>
+                        <button style={ { color: activeColor } } onClick={toggleTrack.bind(this)} className="toggle-track-button">Deck Tracker is {this.props.data.deckTrackerPanel.luancherTrackerButton.value ? null : "not"} running.</button>
                         <button onClick={clearLogsData.bind(this)} className="toggle-track-button">Clear</button>
                     </div>
                 </div>
-
                 <div className="deck-tracker-bar">Game Log:</div>
             </div>);
         }
