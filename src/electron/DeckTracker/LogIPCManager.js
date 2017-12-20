@@ -9,7 +9,7 @@ let currentDeckListIndicator = 0;
 let playersHandshaked = false;
 
 let logs = [];
-const timeStamp = new Date();
+
 
 let players = [];
 let heroes = [];
@@ -18,6 +18,13 @@ let finalPlayers = [];
 let currentDeck = {
     name: null,
     deckString: null
+}
+
+const logParcel = {
+    id: uniqueLogParcelId,
+    label: null,
+    timeStamp: null,
+    data: null
 }
 
 class LogIPCManager {
@@ -44,12 +51,6 @@ class LogIPCManager {
 
             });
 
-            const logParcel = {
-                id: uniqueLogParcelId,
-                label: null,
-                timeStamp: getTimeStamp(),
-                data: null
-            }
 
 //############ Retrieving Current Deck ############
 //When "Finding game with deck" appears, next 3 lines we need to parse
@@ -79,6 +80,7 @@ class LogIPCManager {
                 logParcel.label = "current_deck";
                 logParcel.data = currentDeck;
                 uniqueLogParcelId++;
+                logParcel.timeStamp = getTimeStamp();
                 this.context.webContents.send('current-deck', logParcel);
 
                 if(currentDeckListIndicator == 0) {
@@ -94,6 +96,7 @@ class LogIPCManager {
             if(logsExecuted.drewCard) {
                 logParcel.label = "drew_card";
                 logParcel.data = logsExecuted.drewCard[1];
+                logParcel.timeStamp = getTimeStamp();
                 uniqueLogParcelId++;
                 this.context.webContents.send('log:delivery', logParcel);
             }
@@ -112,6 +115,7 @@ class LogIPCManager {
                 players = [];
                 heroes = [];
                 finalPlayers = [];
+                logParcel.timeStamp = getTimeStamp();
                 uniqueLogParcelId++;
                 this.context.webContents.send('log:delivery', logParcel);
             }
@@ -140,6 +144,7 @@ class LogIPCManager {
 
                 logParcel.label = "players";
                 logParcel.data = finalPlayers;
+                logParcel.timeStamp = getTimeStamp();
                 uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
 
@@ -147,6 +152,7 @@ class LogIPCManager {
 
             if(logsExecuted.cardPlayed) {
                 logParcel.label = "card_played";
+                logParcel.timeStamp = getTimeStamp();
                 logParcel.data = { player: _.find(finalPlayers, { playerId : logsExecuted.cardPlayed[4] }), name: logsExecuted.cardPlayed[2] }
                 uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
@@ -154,6 +160,7 @@ class LogIPCManager {
 
             if(logsExecuted.heroPower) {
                 logParcel.label = "hero_power";
+                logParcel.timeStamp = getTimeStamp();
                 logParcel.data = { heroPowerName: logsExecuted.heroPower[1], player : _.find(finalPlayers, { playerId : logsExecuted.heroPower[2] })};
                 uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
@@ -161,6 +168,7 @@ class LogIPCManager {
 
             if(logsExecuted.playerWon) {
                 logParcel.label = "player_won";
+                logParcel.timeStamp = getTimeStamp();
                 logParcel.data = logsExecuted.playerWon[1];
                 uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
@@ -169,6 +177,7 @@ class LogIPCManager {
             if(logsExecuted.playerConceded) {
                 logParcel.label = "player_conceded";
                 logParcel.data = logsExecuted.playerConceded[1];
+                logParcel.timeStamp = getTimeStamp();
                 uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
@@ -176,6 +185,7 @@ class LogIPCManager {
             if(logsExecuted.playerTied) {
                 logParcel.label = "player_tied";
                 logParcel.data = logsExecuted.playerTied[1];
+                logParcel.timeStamp = getTimeStamp();
                 uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
@@ -183,6 +193,7 @@ class LogIPCManager {
             if(logsExecuted.cardBurned) {
                 logParcel.label = "card_burned";
                 logParcel.data = logsExecuted.cardBurned[1];
+                logParcel.timeStamp = getTimeStamp();
                 uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
@@ -190,6 +201,7 @@ class LogIPCManager {
             if(logsExecuted.cardCreated) {
                 logParcel.label = "card_created";
                 logParcel.data = { name: logsExecuted.cardCreated[1], player: players[[logsExecuted.cardCreated[4]-1]].playerName};
+                logParcel.timeStamp = getTimeStamp();
                 uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
@@ -197,6 +209,7 @@ class LogIPCManager {
             if(logsExecuted.cardShuffled) {
                 logParcel.label = "card_shuffled";
                 logParcel.data = logsExecuted.cardShuffled[1];
+                logParcel.timeStamp = getTimeStamp();
                 uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
@@ -210,6 +223,7 @@ class LogIPCManager {
 }
 
 function getTimeStamp() {
+    const timeStamp = new Date();
     return {
         hours: (("0" + timeStamp.getHours()).slice(-2)),
         minutes: (("0" + timeStamp.getMinutes()).slice(-2)),

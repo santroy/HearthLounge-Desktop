@@ -12,14 +12,6 @@ class CurrentDeckList extends Component {
     
     render() {
 
-        // return(
-        //     <tr key={value.dbfId} onClick={() => this.props.deleteCardFromDeckList(value) }>
-        //         <td>{value.cost}</td>
-        //         <td colSpan={ isLegendary || shouldShowAmount ? null : 2 } style={ { color: rarityColor(value.rarity) } }>{value.name}</td>
-        //         { isLegendary ? <td><img src={path.resolve('assets/legendary-star.png')}/></td> : null }
-        //         { shouldShowAmount && !isLegendary ? <td>{value.count}</td> : null }
-        //     </tr>
-
         if(_.isEmpty(this.props.data.currentDeck)) return(
             <div className="deck-tracker-deck">
                 <div className="deck-tracker-game-start">Start game to load deck.</div>
@@ -38,12 +30,12 @@ class CurrentDeckList extends Component {
             currentDeckObj = _.sortBy(currentDeckObj, ['cost', 'name']);
 
             const currentDeckList = _.map(currentDeckObj, (value) => {
-                // return <li key={this.props.data.allCollection[value[0]].name}>{this.props.data.allCollection[value[0]].name} - count: {value[1]}</li>
+
                 return(
                     <tr style={ value.count <= 0 ? { backgroundColor: "gray", color: "gray" } : null } key={value.dbfId}>
                         <td>{value.cost}</td>
                         <td colSpan={ value.rarity == "Legendary" ||  value.count >= 2 ? null : 2} style={ value.count >= 1 ? { color: rarityColor(value.rarity) } : null }>{value.name}</td>
-                        {/* <td>{value.count}</td> */}
+
                         {value.rarity == "Legendary" ? <td><img src={path.resolve('assets/legendary-star.png')}/></td> : null}
                         {value.count >= 2 ? <td>{value.count}</td> : null}
                     </tr>
