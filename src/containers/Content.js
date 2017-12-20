@@ -77,10 +77,32 @@ class Content extends Component {
     render() {
         return(
             <div>
-                {this.getSelectedComponent()}
+                {loadScreen(this.props.allCollection)}
+                <div>
+                    {this.getSelectedComponent()}
+                </div>
             </div>
         );
     }
+}
+
+function loadScreen(requestedElement) {
+
+    if(_.isEmpty(requestedElement)) {
+        return (
+            <div className="preparing">
+                <div className="preparing-center">
+                    <div className="sk-folding-cube">
+                    <div className="sk-cube1 sk-cube"></div>
+                    <div className="sk-cube2 sk-cube"></div>
+                    <div className="sk-cube4 sk-cube"></div>
+                    <div className="sk-cube3 sk-cube"></div>
+                </div>
+                </div>
+            </div>
+        );
+    } else return null;
+
 }
 
 function mapStateToProps(state) {

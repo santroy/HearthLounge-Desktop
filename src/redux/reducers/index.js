@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import SelectFeatureMenu from './SelectFeatureMenu';
 import Logs from './decktracker.reducers/Logs';
-import trackButton from './decktracker.reducers/ButtonDeckTracker';
+import DeckTrackerPanel from './decktracker.reducers/DeckTrackerPanel';
 import AllCollection from './AllCollection';
 import FoundCollection from './deckcreator.reducers/FoundCollection';
 import DeckListCreator from './deckcreator.reducers/DeckListCreator';
@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     DeckListCreator,
     FoundCollection,
     AllCollection,
-    trackButton,
+    DeckTrackerPanel,
     logs: Logs,
     SelectFeatureMenu
 });

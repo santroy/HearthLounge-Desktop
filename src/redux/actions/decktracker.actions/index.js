@@ -1,5 +1,6 @@
 import { CLEAR_CURRENT_DECK, GET_CURRENT_DECK_DECODED, DECREASE_CARD_FROM_DECK, INCREASE_CARD_FROM_DECK } from '../../reducers/decktracker.reducers/CurrentDeck';
 import { CLEAR_LOGS, FETCH_LOGS } from '../../reducers/decktracker.reducers/Logs';
+import { DECK_TRACKER_BUTTON_STATE } from '../../reducers/decktracker.reducers/DeckTrackerPanel';
 
 export function collectLogs(data) {
     return {
@@ -14,10 +15,10 @@ export function clearLogs() {
     }
 }
 
-export function setTrackButton(buttonState) {
+export function toggleTrackButtonState(buttonState) {
     return {
-        type: 'BUTTON_STATE',
-        payload: buttonState
+        type: DECK_TRACKER_BUTTON_STATE,
+        payload: { luancherTrackerButton : { value : buttonState } }
     }
 }
 
