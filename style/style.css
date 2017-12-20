@@ -304,9 +304,9 @@ body:active,body:hover {
     position: relative;
 }
 
-::-webkit-scrollbar { 
+/* ::-webkit-scrollbar { 
     display: none; 
-}
+} */
 
 .deck-tracker-deck {
     background-color: black;
@@ -444,6 +444,9 @@ body:active,body:hover {
     outline: none;
 }
 
+.deck-creator-deck-list::-webkit-scrollbar { 
+    display: none; 
+}
 
 .deck-creator-deck-list {
     width: 100%;
@@ -719,3 +722,45 @@ svg#logo:hover {
     top: 40vh;
     transform: translateY(-50%);
 }
+
+/* SCROLLBAR DECK */
+
+ .deck-creator-card-found {
+
+    overflow-x: hidden;
+ }
+
+
+ ::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  ::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #474143;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #00a99c;
+  }
+  ::-webkit-scrollbar-thumb:active {
+    background: #00a99c;
+  }
+  ::-webkit-scrollbar-track {
+    background: #e7e2da;
+    border: 0px none #ffffff;
+    border-radius: 50px;
+  }
+  ::-webkit-scrollbar-track:hover {
+    background: #e7e2da;
+  }
+  ::-webkit-scrollbar-track:active {
+    background: #e7e2da;
+  }
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
