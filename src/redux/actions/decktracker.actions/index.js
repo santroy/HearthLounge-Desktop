@@ -36,7 +36,7 @@ export function getCurrentDeck(event, deck) {
 }
 
 export function decreaseCardFromCurrentDeck(deckList, dbfId) {
-
+    
     const cardIndex = _.findIndex(deckList.deck.cards, (card) => {
             return card[0] == dbfId;
         });

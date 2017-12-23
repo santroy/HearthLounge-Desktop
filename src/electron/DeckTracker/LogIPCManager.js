@@ -79,7 +79,7 @@ class LogIPCManager {
               if(currentDeck.name && currentDeck.deckString) {
                 logParcel.label = "current_deck";
                 logParcel.data = currentDeck;
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 logParcel.timeStamp = getTimeStamp();
                 this.context.webContents.send('current-deck', logParcel);
 
@@ -97,7 +97,7 @@ class LogIPCManager {
                 logParcel.label = "drew_card";
                 logParcel.data = logsExecuted.drewCard[1];
                 logParcel.timeStamp = getTimeStamp();
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send('log:delivery', logParcel);
             }
 
@@ -116,7 +116,7 @@ class LogIPCManager {
                 heroes = [];
                 finalPlayers = [];
                 logParcel.timeStamp = getTimeStamp();
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send('log:delivery', logParcel);
             }
 
@@ -145,7 +145,7 @@ class LogIPCManager {
                 logParcel.label = "players";
                 logParcel.data = finalPlayers;
                 logParcel.timeStamp = getTimeStamp();
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
 
             } 
@@ -154,7 +154,7 @@ class LogIPCManager {
                 logParcel.label = "card_played";
                 logParcel.timeStamp = getTimeStamp();
                 logParcel.data = { player: _.find(finalPlayers, { playerId : logsExecuted.cardPlayed[4] }), name: logsExecuted.cardPlayed[2] }
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
 
@@ -162,7 +162,7 @@ class LogIPCManager {
                 logParcel.label = "hero_power";
                 logParcel.timeStamp = getTimeStamp();
                 logParcel.data = { heroPowerName: logsExecuted.heroPower[1], player : _.find(finalPlayers, { playerId : logsExecuted.heroPower[2] })};
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
 
@@ -170,7 +170,7 @@ class LogIPCManager {
                 logParcel.label = "player_won";
                 logParcel.timeStamp = getTimeStamp();
                 logParcel.data = logsExecuted.playerWon[1];
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
 
@@ -178,7 +178,7 @@ class LogIPCManager {
                 logParcel.label = "player_conceded";
                 logParcel.data = logsExecuted.playerConceded[1];
                 logParcel.timeStamp = getTimeStamp();
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
 
@@ -186,7 +186,7 @@ class LogIPCManager {
                 logParcel.label = "player_tied";
                 logParcel.data = logsExecuted.playerTied[1];
                 logParcel.timeStamp = getTimeStamp();
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
 
@@ -194,7 +194,7 @@ class LogIPCManager {
                 logParcel.label = "card_burned";
                 logParcel.data = logsExecuted.cardBurned[1];
                 logParcel.timeStamp = getTimeStamp();
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
  
@@ -202,7 +202,7 @@ class LogIPCManager {
                 logParcel.label = "card_created";
                 logParcel.data = { name: logsExecuted.cardCreated[1], player: players[[logsExecuted.cardCreated[4]-1]].playerName};
                 logParcel.timeStamp = getTimeStamp();
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
  
@@ -210,7 +210,7 @@ class LogIPCManager {
                 logParcel.label = "card_shuffled";
                 logParcel.data = logsExecuted.cardShuffled[1];
                 logParcel.timeStamp = getTimeStamp();
-                uniqueLogParcelId++;
+                logParcel.id = uniqueLogParcelId++;
                 this.context.webContents.send("log:delivery", logParcel);
             }
 

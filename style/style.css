@@ -364,10 +364,9 @@ body:active,body:hover {
     width: 70%;
     box-sizing: border-box;
     padding-left: 22px;
-    overflow: scroll;
+    overflow: auto;
     word-wrap: break-word;
     background-color: rgb(207,203,196);
-    overflow-x: hidden;
 }
 
 .deck-creator-deck-choices {
@@ -446,13 +445,14 @@ body:active,body:hover {
     width: 100%;
     height: 83%;
     box-sizing: border-box;
-    overflow: scroll;
+    overflow: auto;
     overflow-x: hidden;
     background-color: rgb(207,203,196);
     border-top: 3px rgb(231,226,218) solid;
 }
 
 .deck-creator-deck-list table {
+    cursor: pointer;
     margin: 0 auto;
     width: 98%;
     padding: 2px;
@@ -751,37 +751,37 @@ svg#logo:hover {
 
 
 
-  .deck-tracker-deck::-webkit-scrollbar {
+  .deck-tracker-deck-table::-webkit-scrollbar {
     width: 3px;
     height: 3px;
   }
-  .deck-tracker-deck::-webkit-scrollbar-button {
+  .deck-tracker-deck-table::-webkit-scrollbar-button {
     width: 0px;
     height: 0px;
   }
-  .deck-tracker-deck::-webkit-scrollbar-thumb {
+  .deck-tracker-deck-table::-webkit-scrollbar-thumb {
     background: #474143;
     border: 0px none rgb(231,226,218);
     border-radius: 50px;
   }
-  .deck-tracker-deck::-webkit-scrollbar-thumb:hover {
+  .deck-tracker-deck-table::-webkit-scrollbar-thumb:hover {
     background: #00a99c;
   }
-  .deck-tracker-deck::-webkit-scrollbar-thumb:active {
+  .deck-tracker-deck-table::-webkit-scrollbar-thumb:active {
     background: #00a99c;
   }
-  .deck-tracker-deck::-webkit-scrollbar-track {
+  .deck-tracker-deck-table::-webkit-scrollbar-track {
     background: rgb(231,226,218);
     border: 0px none rgb(231,226,218);
     border-radius: 50px;
   }
-  .deck-tracker-deck::-webkit-scrollbar-track:hover {
+  .deck-tracker-deck-table::-webkit-scrollbar-track:hover {
     background: rgb(231,226,218);
   }
-  .deck-tracker-deck::-webkit-scrollbar-track:active {
+  .deck-tracker-deck-table::-webkit-scrollbar-track:active {
     background: rgb(231,226,218);
   }
-  .deck-tracker-deck:-webkit-scrollbar-corner {
+  .deck-tracker-deck-table:-webkit-scrollbar-corner {
     background: transparent;
   }
 
@@ -840,20 +840,22 @@ svg#logo:hover {
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     float: right;
     width: 30%;
-    height: 90%;
+    height: 100%;
     box-sizing: border-box;
-    overflow: scroll;
     overflow-x: hidden;
 }
 
-.deck-tracker-deck table {
+.deck-tracker-deck-table {
+    box-sizing: border-box;
     margin: 0 auto;
     width: 100%;
     padding: 2px;
     font-size: 14px;
+    overflow: auto;
+    height: 90%;
 }
 
-.deck-tracker-deck table td {
+.deck-tracker-deck-table td {
     margin: 1px;
     padding: 3px;
     box-sizing: border-box;
@@ -861,11 +863,11 @@ svg#logo:hover {
     background-color: rgba(231,226,218,0.5);
 }
 
-.deck-tracker-deck table tr {
+.deck-tracker-deck-table tr {
     height: 25px;
 }
 
-.deck-tracker-deck table td:first-child {
+.deck-tracker-deck-table td:first-child {
     box-sizing: border-box;
     background-color: rgba(0, 87, 169, 0.068);
     text-align: center;
@@ -873,7 +875,7 @@ svg#logo:hover {
     margin-right: 3px;
 }
 
-.deck-tracker-deck table td:nth-child(3) {
+.deck-tracker-deck-table td:nth-child(3) {
     text-align: center;
     width: 5%;
 }
@@ -886,6 +888,7 @@ svg#logo:hover {
 }
 
 .deck-tracker-deck-name {
+    box-sizing: border-box;
     width: 100%;
     display: flex;
     align-items: center;
@@ -903,15 +906,25 @@ svg#logo:hover {
   }
   
   .react-autosuggest__input {
-    color: black;
-    width: 240px;
+    margin: -1px;
+    text-align: center;
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    font-size: 14px;
     height: 30px;
-    padding: 10px 20px;
-    font-family: Helvetica, sans-serif;
-    font-weight: 300;
-    font-size: 16px;
-    border: 1px solid #aaa;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    width: 100%;
     border-radius: 4px;
+    line-height: 30px;
+    border-radius: 3px;
+    color: black;
+    border: 1px black solid;
+    -webkit-text-fill-color: white;
+  }
+
+  .react-autosuggest__input::-webkit-input-placeholder {
+      color: white;
+      opacity: 0.3;
   }
   
   .react-autosuggest__input--focused {
@@ -928,20 +941,23 @@ svg#logo:hover {
   }
   
   .react-autosuggest__suggestions-container--open {
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     display: block;
     box-sizing: border-box;
     position: absolute;
-    width: 240px;
-    border: 1px solid #aaa;
+    width: 100%;
     background-color: #fff;
-    color: black;
-    font-family: Helvetica, sans-serif;
     font-size: 14px;
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     max-height: 250px;
     overflow-y: auto;
     z-index: 2;
+    color: black;
+    border: 1px black solid;
+    -webkit-text-fill-color: white;
   }
   
   .react-autosuggest__suggestions-list {
@@ -954,10 +970,11 @@ svg#logo:hover {
     color: white;
     cursor: pointer;
     padding: 10px 20px;
+    
   }
   
   .react-autosuggest__suggestion--highlighted {
-    background-color: #ddd;
+    background-color: rgb(207,203,196)
   }
 
 
@@ -982,7 +999,6 @@ svg#logo:hover {
     box-sizing: border-box;
     width: 77%;
     height: 90%;
-    background-color: gray;
 }
 
 .lag-card-choice-1 {
@@ -994,7 +1010,6 @@ svg#logo:hover {
     box-sizing: border-box;
     height: 100%;
     width: 33.33%;
-    background-color: maroon;
 }
 
 .lag-card-choice-2 {
@@ -1006,7 +1021,6 @@ svg#logo:hover {
     box-sizing: border-box;
     height: 100%;
     width: 33.33%;
-    background-color: yellow;
 }
 
 .lag-card-choice-3 {
@@ -1018,15 +1032,15 @@ svg#logo:hover {
     box-sizing: border-box;
     height: 100%;
     width: 33.33%;
-    background-color: green;
 }
 
 .lag-decklist {
     float: right;
-    background-color: blue;
     height: 100%;
     width: 23%;
     box-sizing: border-box;
+    background-color: rgb(207,203,196);
+    background-color: red;
 }
 
 .lag-panel {
@@ -1035,7 +1049,161 @@ svg#logo:hover {
     justify-content: center;
     float: left;
     height: 10%;
-    background-color: orange;
     width: 77%;
     box-sizing: border-box;
+    border-right: 3px rgb(231,226,218) solid;
+    background-color: rgb(207,203,196);
 }
+
+
+
+
+
+.react-autosuggest__suggestions-container--open::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  .react-autosuggest__suggestions-container--open::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  .react-autosuggest__suggestions-container--open::-webkit-scrollbar-thumb {
+    background: #474143;
+    border: 0px none rgb(207,203,196);
+    border-radius: 50px;
+  }
+  .react-autosuggest__suggestions-container--open::-webkit-scrollbar-thumb:hover {
+    background: #00a99c;
+  }
+  .react-autosuggest__suggestions-container--open::-webkit-scrollbar-thumb:active {
+    background: #00a99c;
+  }
+  .react-autosuggest__suggestions-container--open::-webkit-scrollbar-track {
+    background: rgb(207,203,196);
+    border: 0px none rgb(207,203,196);
+    border-radius: 50px;
+  }
+  .react-autosuggest__suggestions-container--open::-webkit-scrollbar-track:hover {
+    background: rgb(207,203,196);
+  }
+  .react-autosuggest__suggestions-container--open::-webkit-scrollbar-track:active {
+    background: rgb(207,203,196);
+  }
+  .react-autosuggest__suggestions-container--open:-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+
+
+.lag-decklist-table {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: scroll;
+    overflow-x: hidden;
+    background-color: rgb(207,203,196);
+}
+
+.lag-decklist-table table {
+    cursor: pointer;
+    margin: 0 auto;
+    width: 100%;
+    padding: 2px;
+    font-size: 14px;
+}
+
+.lag-decklist-table table td {
+    margin: 1px;
+    padding: 3px;
+    box-sizing: border-box;
+    vertical-align: middle;
+    background-color: rgba(231,226,218,0.5);
+}
+
+.lag-decklist-table table tr {
+    height: 35px;
+}
+
+.lag-decklist-table table td:first-child {
+    box-sizing: border-box;
+    background-color: rgba(0, 87, 169, 0.068);
+    text-align: center;
+    width: 15%;
+    margin-right: 3px;
+}
+
+.lag-decklist-table table td:nth-child(3) {
+    text-align: center;
+    width: 5%;
+}
+
+
+
+.lag-decklist-table::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  .lag-decklist-table::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  .lag-decklist-table::-webkit-scrollbar-thumb {
+    background: #474143;
+    border: 0px none rgb(207,203,196);
+    border-radius: 50px;
+  }
+  .lag-decklist-table::-webkit-scrollbar-thumb:hover {
+    background: #00a99c;
+  }
+  .lag-decklist-table::-webkit-scrollbar-thumb:active {
+    background: #00a99c;
+  }
+  .lag-decklist-table::-webkit-scrollbar-track {
+    background: rgb(207,203,196);
+    border: 0px none rgb(207,203,196);
+    border-radius: 50px;
+  }
+  .lag-decklist-table::-webkit-scrollbar-track:hover {
+    background: rgb(207,203,196);
+  }
+  .lag-decklist-table::-webkit-scrollbar-track:active {
+    background: rgb(207,203,196);
+  }
+  .lag-decklist-table:-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+
+  .deck-creator-deck-list::-webkit-scrollbar {
+    width: 3px;
+    height: 3px;
+  }
+  .deck-creator-deck-list::-webkit-scrollbar-button {
+    width: 0px;
+    height: 0px;
+  }
+  .deck-creator-deck-list::-webkit-scrollbar-thumb {
+    background: #474143;
+    border: 0px none rgb(207,203,196);
+    border-radius: 50px;
+  }
+  .deck-creator-deck-list::-webkit-scrollbar-thumb:hover {
+    background: #00a99c;
+  }
+  .deck-creator-deck-list::-webkit-scrollbar-thumb:active {
+    background: #00a99c;
+  }
+  .deck-creator-deck-list::-webkit-scrollbar-track {
+    background: rgb(207,203,196);
+    border: 0px none rgb(207,203,196);
+    border-radius: 50px;
+  }
+  .deck-creator-deck-list::-webkit-scrollbar-track:hover {
+    background: rgb(207,203,196);
+  }
+  .deck-creator-deck-list::-webkit-scrollbar-track:active {
+    background: rgb(207,203,196);
+  }
+  .deck-creator-deck-list:-webkit-scrollbar-corner {
+    background: transparent;
+  }

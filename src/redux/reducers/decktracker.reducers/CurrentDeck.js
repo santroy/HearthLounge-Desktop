@@ -6,17 +6,22 @@ export const CLEAR_CURRENT_DECK = "clear_current_deck";
 export const DECREASE_CARD_FROM_DECK = "decrease_card_from_deck";
 export const INCREASE_CARD_FROM_DECK = "increase_card_from_deck";
 
-export default function(state = {} , action) 
-{   
+const initialState = {
+    name: null,
+    deck: {}
+}
 
+export default function(state = initialState , action) 
+{   
     switch(action.type) {
         case GET_CURRENT_DECK_DECODED:
-            return { name: action.payload.data.name, deck: decodeDeck(action.payload.data.deckString) };
+            state = initialState;
+            return Object.assign({}, state, { name: action.payload.data.name, deck: decodeDeck(action.payload.data.deckString) });
         case CLEAR_CURRENT_DECK:
-            return state = {};
+            return state = initialState;
         case INCREASE_CARD_FROM_DECK:
         case DECREASE_CARD_FROM_DECK:
-            return { name: state.name, deck: action.payload };
+            return Object.assign({}, state, { deck: action.payload });
         default:
             return state;
     }

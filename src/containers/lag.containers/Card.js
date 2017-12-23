@@ -93,7 +93,7 @@ class Card extends Component {
     }
 
 function cardNameToCardObj(cardName) {
-    const cardFound = _.find(this.props.allCollection, { name: cardName });
+    const cardFound = _.cloneDeep(_.find(this.props.allCollection, { name: cardName }));
     return cardFound;
 
 }

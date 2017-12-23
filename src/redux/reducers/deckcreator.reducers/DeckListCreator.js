@@ -10,18 +10,20 @@ export default function(state = [], action)
 
             if( sumCards(state) < 30 ) 
             {
-                if(!action.payload.count) {
+
+                const newCard = _.find(state, { dbfId: action.payload.dbfId });
+
+                if(_.isEmpty(newCard)) {
                     action.payload.count = 1;
                     return _.sortBy([...state, action.payload], ['cost','name']);
                 }
 
-                if(action.payload.count < 2 && action.payload.rarity != "Legendary") {
-                   action.payload.count++;
-                  return _.sortBy(state, ['cost','name']);
-
+                if(newCard.count < 2 && newCard.rarity != "Legendary") {
+                   newCard.count++;
+                   return _.sortBy(state, ['cost','name']);
                 }
 
-                if((action.payload.count >= 2 || action.payload.rarity == "Legendary")) {
+                if((newCard.count >= 2 || newCard.rarity == "Legendary")) {
                     return state;
                 }
 

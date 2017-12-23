@@ -42,14 +42,16 @@ class DeckTracker extends Component {
 
 function handleLogs(event, data) {
 
+    this.props.collectLogs(data);
 
+    // cloneDeep check
         switch(data.label) {
             case "drew_card":
             case "card_burned":
-                this.props.decreaseCardFromCurrentDeck(_.cloneDeep(this.props.currentDeck), convertCardNameToCardDbfId.call(this, data));
+                this.props.decreaseCardFromCurrentDeck(this.props.currentDeck, convertCardNameToCardDbfId.call(this, data));
                 break;
             case "card_shuffled":
-                this.props.increaseCardFromCurrentDeck(_.cloneDeep(this.props.currentDeck), convertCardNameToCardDbfId.call(this, data));
+                this.props.increaseCardFromCurrentDeck(this.props.currentDeck, convertCardNameToCardDbfId.call(this, data));
                 break;
             case "game_over":
                 this.props.clearCurrentDeck();
@@ -57,13 +59,11 @@ function handleLogs(event, data) {
             default: null;
 
         }
-
-        this.props.collectLogs(data);
 }
 
 
 function convertCardNameToCardDbfId(card) {
-    return _.find(this.props.allCollection, { name: card.data }).dbfId;
+    return _.cloneDeep(_.find(this.props.allCollection, { name: card.data })).dbfId;
 }
  
 function mapStateToProps(state) {

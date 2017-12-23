@@ -12,7 +12,7 @@ class CurrentDeckList extends Component {
     
     render() {
 
-        if(_.isEmpty(this.props.data.currentDeck)) return(
+        if(_.isEmpty(this.props.data.currentDeck.name)) return(
             <div className="deck-tracker-deck">
                 <div className="deck-tracker-game-start">Start game to load deck.</div>
         </div>
@@ -45,11 +45,13 @@ class CurrentDeckList extends Component {
             return(
                 <div className="deck-tracker-deck">
                     <div className="deck-tracker-deck-name">Playing now "{this.props.data.currentDeck.name}"</div>
-                        <table>
-                            <tbody>    
-                                    {currentDeckList}
-                            </tbody>
-                        </table>
+                        <div className="deck-tracker-deck-table">
+                            <table>
+                                <tbody>    
+                                        {currentDeckList}
+                                </tbody>
+                            </table>
+                        </div>
                 </div>
             );
  
