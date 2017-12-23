@@ -7,8 +7,12 @@ import FoundCollection from './deckcreator.reducers/FoundCollection';
 import DeckListCreator from './deckcreator.reducers/DeckListCreator';
 import GameInfo from './GameInfo';
 import CurrentDeck from './decktracker.reducers/CurrentDeck';
+import CardBacks from './CardBacks';
+import LAGDeckList from './lag.reducers/LAGDeckList';
 
 const rootReducer = combineReducers({
+    LAGDeckList,
+    CardBacks,
     CurrentDeck,
     GameInfo,
     DeckListCreator,

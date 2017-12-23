@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getYsera, selectComponent, getAllCollection, getGameInfo } from '../redux/actions';
+import { selectComponent, getAllCollection, getGameInfo, getCardBacks } from '../redux/actions';
 import { bindActionCreators } from 'redux';
 import Home from '../components/Home';
 import _ from 'lodash';
@@ -22,6 +22,10 @@ class Content extends Component {
 
         if(_.isEmpty(this.props.gameInfo)) {
             this.props.getGameInfo();
+        }
+
+        if(_.isEmpty(this.props.cardBacks)) {
+            this.props.getCardBacks();
         }
     }
 
@@ -59,7 +63,7 @@ class Content extends Component {
                 }
                 case LOUNGE_ARENA_GUIDER_COMPONENT: {
                     if(!this.loungeArenaGuiderComponent) {
-                        this.loungeArenaGuiderComponent = <LoungeArenaGuider/>
+                        this.loungeArenaGuiderComponent = <LoungeArenaGuider cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
                     }
                     return this.loungeArenaGuiderComponent;
                 }
@@ -109,8 +113,9 @@ function mapStateToProps(state) {
     return {
         gameInfo: state.GameInfo,
         selectedComponent : state.SelectFeatureMenu,
-        allCollection: state.AllCollection
+        allCollection: state.AllCollection,
+        cardBacks: state.CardBacks
     }
 }
 
-export default connect(mapStateToProps, { getAllCollection, getGameInfo })(Content);
+export default connect(mapStateToProps, { getAllCollection, getGameInfo, getCardBacks })(Content);
