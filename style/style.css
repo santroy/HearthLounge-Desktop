@@ -118,7 +118,7 @@ body:active,body:hover {
     display: block;
     width: 78%;
     height: 9%;
-    background: rgb(71,65,67)
+    background: rgb(71,65,67);
 }
 
 .content {
@@ -143,7 +143,7 @@ body:active,body:hover {
     height: 200px;
 }
 
-.contentPlaceholderMessage{
+.contentPlaceholderMessage {
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     line-height: 20px;
     text-align: center;
@@ -155,15 +155,57 @@ body:active,body:hover {
     left: 0;
 }
 
-.login-form  {
-    display: block;
-    position: relative;
-    height: 100%;
-    box-sizing: border-box;
+.login-inputs {
+    font-size: 14px;
     float: right;
-    margin-right: 0px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
+
+.login-inputs td {
+    vertical-align:middle;
+    width: 160px;
+    text-align: right;
+    box-sizing: border-box;
+    padding-right: 5px;
+}
+
+ .login-inputs input {
+     text-align: center;
+     width: 100%;
+     margin: 1px;
+     box-sizing: border-box;
+     height: 24px;
+     border-radius: 3px;
+     border: 1px black solid;
+     background-color: rgb(231,226,218);;
+ }
+
+
+
+ .login-buttons {
+    float: right;
+    height: 100%;
+    box-sizing: border-box;
+ }
+
+ .socials {
+     float: left;
+     height: 100%;
+     width: auto;
+ }
+ 
+ .login-labels {
+     float: right;
+     height: 100%;
+     background-color: red;
+     width: auto;
+
+ }
+
 
 .submit-login, .submit-create {
     font-family: Opti-Belwe;
@@ -173,7 +215,7 @@ body:active,body:hover {
     transform: translateY(-50%);
     width: 100px;
     height: 50px;
-    margin-right: 10px;
+    margin-right: 5px;
     background-color: rgb(231,226,218);
     border: none;
     border-radius: 4px;
@@ -189,7 +231,6 @@ body:active,body:hover {
 .socials ul {
     height: 100%;
     float: left;
-    position: relative;
 }
 
 .socials ul li {

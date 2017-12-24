@@ -90,7 +90,7 @@ class ManaCurve extends Component {
 }
 
 function getCountByMana(manaCost) {
-    let sum = 0
+    let sum = 0;
     _.each(this.props.deckList, (card) => {
         
         _.eq(manaCost, 8) && _.gt(card.cost, 8) ? sum+=card.count : null ;
@@ -104,7 +104,7 @@ function calculateColumnPercentageValue(manaCost) {
     const cardsCountsByMana = [];
 
     for(let i = 0 ; i <= 8 ; i++) {
-        cardsCountsByMana.push( this.getCountByMana(i));
+        cardsCountsByMana.push( this.getCountByMana(i) );
     }
 
     const mostCount = _.max(cardsCountsByMana);
