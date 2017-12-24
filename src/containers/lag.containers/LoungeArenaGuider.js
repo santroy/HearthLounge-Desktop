@@ -7,6 +7,7 @@ import _ from 'lodash';
 import Card from './Card';
 import DeckList from './DeckList';
 import LAGPanel from './LAGPanel';
+import ManaCurve from '../../components/lag.components/ManaCurve';
 
 class LoungeArenaGuider extends Component {
 	constructor(props) {
@@ -36,19 +37,16 @@ class LoungeArenaGuider extends Component {
 		return (
             <div className="content">
 				<div className="lag-wrapper">
+				<div className="lag-decklist">
+							<DeckList deckList={this.props.LAGDeckList}/>
+							<ManaCurve deckList={this.props.LAGDeckList}/>
+
+				</div>
+				<div className="lag-deck-card-count">{_.sumBy(this.props.LAGDeckList, (value) => value.count)}/30</div>
 					<div className="lag-card-choices">
-						<div className="lag-card-choice-1">
-							<Card ref={ (context) => this.card1 = context } clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
-						</div>
-						<div className="lag-card-choice-2">
-							<Card ref={ (context) => this.card2 = context } clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
-						</div>
-						<div className="lag-card-choice-3">
-							<Card ref={ (context) => this.card3 = context } clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
-						</div>
-					</div>
-					<div className="lag-decklist">
-						<DeckList deckList={this.props.LAGDeckList}/>
+							<Card ref={ (context) => this.card1 = context } cardNumber={1} clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
+							<Card ref={ (context) => this.card2 = context } cardNumber={2} clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
+							<Card ref={ (context) => this.card3 = context } cardNumber={3} clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
 					</div>
 					<div className="lag-panel">
 						<LAGPanel clearAllInputs={this.clearAllInputs}/>

@@ -7,6 +7,10 @@ import Autosuggest from 'react-autosuggest';
 
 class Card extends Component {
 
+    componentDidMount() {
+        this.activeCard = null;
+    }
+
     constructor(props) {
         super(props);
         this.cardNameToCardObj = cardNameToCardObj.bind(this);
@@ -61,6 +65,7 @@ class Card extends Component {
     }
 
     addToDeckList(cardName) {    
+
         const card = this.cardNameToCardObj(cardName);
 
         if(!_.isEmpty(card)) {
@@ -80,12 +85,13 @@ class Card extends Component {
 
 
         return(
-
-            <div>
+            <div className="lag-card-choice">
+                <div className="lag-card-number">{this.props.cardNumber}</div>
                 <Autosuggest suggestions={suggestions} onSuggestionsFetchRequested={this.onSuggestionsFetchRequested} 
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested} getSuggestionValue={this.getSuggestionValue} 
                 renderSuggestion={this.renderSuggestion} inputProps={inputProps}/>
                 <img className="card-image" onClick={(e) => this.addToDeckList(this.state.value)} src={this.cardImageRender(this.state.value)}></img>
+                { this.activeCard ? <div className="lag-card-value">{this.activeCard.cost}</div> : null }
             </div>
         );
 
@@ -101,9 +107,13 @@ function cardNameToCardObj(cardName) {
 function cardImageRender(cardName) {
     const card = this.cardNameToCardObj(cardName)
     if(card) {
+        this.activeCard = card;
         return card.img;
-    } else return this.props.cardBacks[0].img;
+    } else 
+    {
+        this.activeCard = null;
+        return this.props.cardBacks[0].img;
+    }
 }
-
 
 export default connect(null, { addToLagDeckList }, null, { withRef: true })(Card);

@@ -903,6 +903,8 @@ svg#logo:hover {
 
 .react-autosuggest__container {
     position: relative;
+    width: 80%;
+    z-index: 9998;
   }
   
   .react-autosuggest__input {
@@ -978,69 +980,12 @@ svg#logo:hover {
   }
 
 
-
-
-
-
-
-  
-.lag-wrapper {
-    letter-spacing: 1px;
-    font-family: Opti-Belwe;
-    font-size: 18px;
-    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-}
-
-.lag-card-choices {
-    float: left;
-    box-sizing: border-box;
-    width: 77%;
-    height: 90%;
-}
-
-.lag-card-choice-1 {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    float: left;
-    box-sizing: border-box;
-    height: 100%;
-    width: 33.33%;
-}
-
-.lag-card-choice-2 {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    float: left;
-    box-sizing: border-box;
-    height: 100%;
-    width: 33.33%;
-}
-
-.lag-card-choice-3 {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    float: left;
-    box-sizing: border-box;
-    height: 100%;
-    width: 33.33%;
-}
-
 .lag-decklist {
     float: right;
     height: 100%;
     width: 23%;
     box-sizing: border-box;
     background-color: rgb(207,203,196);
-    background-color: red;
 }
 
 .lag-panel {
@@ -1097,12 +1042,60 @@ svg#logo:hover {
 
 .lag-decklist-table {
     width: 100%;
-    height: 100%;
+    height: 80%;
     box-sizing: border-box;
-    overflow: scroll;
+    overflow: auto;
     overflow-x: hidden;
     background-color: rgb(207,203,196);
 }
+
+.lag-deck-manacurve {
+    width: 100%;
+    height: 20%;
+    box-sizing: border-box;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-item {
+    font-size: 14px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 7%;
+    height: 95%;
+    box-sizing: border-box;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+
+.chart-column {
+    border-radius: 2px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    height: 70%;
+    border: 1px black solid;
+    background-color: rgb(231,226,218);
+}
+
+.chart-column-value {
+    transition: height 0.5s;
+    border-radius: 2px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(0,169,156);
+    height: 30%;
+    box-sizing: border-box;
+}
+
 
 .lag-decklist-table table {
     cursor: pointer;
@@ -1207,3 +1200,66 @@ svg#logo:hover {
   .deck-creator-deck-list:-webkit-scrollbar-corner {
     background: transparent;
   }
+
+
+  .lag-deck-card-count {
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    font-size: 28px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+    width: 77%;
+  }
+
+  .lag-wrapper {
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    font-size: 18px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.lag-card-choices {
+    float: left;
+    box-sizing: border-box;
+    width: 77%;
+    height: 80%;
+}
+
+.lag-card-value {
+    position: absolute;
+    width: 8%;
+    top: 78%;
+    height: 7%;
+    font-size: 20px;
+    box-sizing: border-box;
+    border-radius: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(45, 148, 50, 0.3);
+}
+
+.lag-card-choice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    float: left;
+    box-sizing: border-box;
+    height: 100%;
+    width: 33.33%;
+}
+
+.lag-card-number {
+    font-size: 22px;
+    position: absolute;
+    top: 14%;
+}
