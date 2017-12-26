@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import { collectLogs, setTrackButton, clearLogs, getCurrentDeck, clearCurrentDeck, 
-    decreaseCardFromCurrentDeck, increaseCardFromCurrentDeck} from '../../redux/actions/decktracker.actions'
+    decreaseCardFromCurrentDeck, increaseCardFromCurrentDeck, setHearthStoneInstalled} from '../../redux/actions/decktracker.actions'
 import { ipcRenderer } from 'electron';
 import { encode, decode } from 'deckstrings';
 
@@ -13,18 +13,26 @@ import CurrentDeckList from '../../components/decktracker.components/CurrentDeck
 import DeckTrackerPanel from './DeckTrackerPanel';
  
 class DeckTracker extends Component {
- 
+
     constructor(props) {
         super(props);
         this.handleLogs = handleLogs.bind(this);
+        this.isHSInstalled = isHSInstalled.bind(this);
+        ipcRenderer.on('hearthstone:installed:response', this.isHSInstalled);
+    }
+
+    componentDidMount() {
+        ipcRenderer.send('hearthstone:installed:request');
     }
  
 
     render() {
- 
         return(
             <div className="content">
                 <div className="deck-tracker-content">
+                <div className="deck-tracker-content-available" style={ { display: this.props.errors.hsInstalled ? "none" : "block" } }>
+                    <div className="deck-tracker-content-available-center">Sorry, Hearthstone is not installed.</div>
+                </div>
                     <CurrentDeckList data={this.props}/>
                     <DeckTrackerPanel handler={this.handleLogs} data={this.props}/>
 
@@ -40,6 +48,10 @@ class DeckTracker extends Component {
  
 }
 
+function isHSInstalled(event, statement) {
+    this.props.setHearthStoneInstalled(statement);
+}
+
 function handleLogs(event, data) {
 
     this.props.collectLogs(data);
@@ -48,10 +60,10 @@ function handleLogs(event, data) {
         switch(data.label) {
             case "drew_card":
             case "card_burned":
-                this.props.decreaseCardFromCurrentDeck(this.props.currentDeck, convertCardNameToCardDbfId.call(this, data));
+                this.props.decreaseCardFromCurrentDeck(this.props.currentDeck.deck.cards, convertCardNameToCardDbfId.call(this, data));
                 break;
             case "card_shuffled":
-                this.props.increaseCardFromCurrentDeck(this.props.currentDeck, convertCardNameToCardDbfId.call(this, data));
+                this.props.increaseCardFromCurrentDeck(this.props.currentDeck.deck.cards, convertCardNameToCardDbfId.call(this, data));
                 break;
             case "game_over":
                 this.props.clearCurrentDeck();
@@ -63,7 +75,7 @@ function handleLogs(event, data) {
 
 
 function convertCardNameToCardDbfId(card) {
-    return _.cloneDeep(_.find(this.props.allCollection, { name: card.data })).dbfId;
+    return _.find(this.props.allCollection, { name: card.data }).dbfId;
 }
  
 function mapStateToProps(state) {
@@ -71,8 +83,9 @@ function mapStateToProps(state) {
         currentDeck: state.CurrentDeck,
         deckTrackerPanel: state.DeckTrackerPanel,
         logs: state.logs,
+        errors: state.DTErrors
     }
 }
 
 export default connect(mapStateToProps, 
-    { decreaseCardFromCurrentDeck, collectLogs, getCurrentDeck, clearCurrentDeck, increaseCardFromCurrentDeck})(DeckTracker);
+    { decreaseCardFromCurrentDeck, collectLogs, getCurrentDeck, clearCurrentDeck, increaseCardFromCurrentDeck, setHearthStoneInstalled})(DeckTracker);

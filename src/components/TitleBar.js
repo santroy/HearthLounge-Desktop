@@ -15,6 +15,10 @@ class TitleBar extends Component {
         ipcRenderer.send('minimizeApp');
     };
 
+    openSettings() {
+        ipcRenderer.send('openSettings');
+    };
+
     render() {
         return(
             <div className="title-bar">
@@ -22,6 +26,7 @@ class TitleBar extends Component {
                 {APP_NAME}
                 <div onClick={this.closeApp} className="close"></div>
                 <div onClick={this.minimizeApp} className="minimize"></div>
+                <div onClick={this.openSettings} className="settings"></div>
             </div>
         );
     }

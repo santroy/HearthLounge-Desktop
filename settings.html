@@ -1,0 +1,56 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Settings</title>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+</head>
+<body>
+    <div class="user-title-bar">
+        Settings
+        <div class="close"></div>
+    </div>
+
+    <div class="settings-content">
+        Hearthstone installation folder:
+        <p class="HS-path-value"></p>
+        <label for="hs-file-input" class="hs-file-label"/>Change Path</label>
+        <input id="hs-file-input" class="HS-path-input" type="file" style="display:none;" webkitdirectory directory/>
+    </div>
+
+    <script>
+        
+        const { ipcRenderer } = require('electron');
+        const path = require('path');
+        const fs = require('fs');
+
+        const closeElem = document.querySelector('.close');
+        const pathInput = document.querySelector('.HS-path-input');
+        const pathValue = document.querySelector('.HS-path-value');
+        const hlConfigObj = JSON.parse(fs.readFileSync(path.resolve("hl-config.json")));
+
+        pathValue.innerHTML = hlConfigObj.hearthstoneFolder;
+
+        pathInput.addEventListener("change", () => {
+            hlConfigObj.hearthstoneFolder = pathInput.files[0].path;
+            pathValue.innerHTML = hlConfigObj.hearthstoneFolder;
+            fs.writeFileSync(path.resolve("hl-config.json"), JSON.stringify(hlConfigObj, null, 5));
+        });
+
+
+        closeElem.addEventListener("click", () => {
+            ipcRenderer.send('closeSettings');
+        });
+
+        function readHLconfigFile() {
+            console.log("Wykonałem sie");
+            return JSON.parse(fs.readFileSync(path.resolve("hl-config.json")));
+        }
+
+    </script>
+
+</body>
+
+
+</html>

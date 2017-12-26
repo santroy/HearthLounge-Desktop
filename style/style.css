@@ -38,7 +38,7 @@ body:active,body:hover {
     cursor: default;
 }
 
-.title-bar {
+.title-bar, .user-title-bar {
     box-sizing: border-box;
     font-family: Opti-Belwe;
     font-size: 16px;
@@ -53,11 +53,18 @@ body:active,body:hover {
     color: rgb(231,226,218);
 }
 
+.user-title-bar {
+    height: 35px;
+}
+
+
 .close {
     margin-right: 3px;
 }
 
-.minimize, .close {
+
+
+.minimize, .close, .settings {
     -webkit-app-region: no-drag;
     display: block;
     width: 30px;
@@ -67,6 +74,12 @@ body:active,body:hover {
 
 .minimize {
     background-image: url('../assets/minimize-app.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.settings {
+    background-image: url('../assets/setting-app.png');
     background-repeat: no-repeat;
     background-position: center; 
 }
@@ -85,6 +98,12 @@ body:active,body:hover {
 
 .minimize:hover {
     background-image: url('../assets/minimize-app-hover.png');
+    background-repeat: no-repeat;
+    background-position: center; 
+}
+
+.settings:hover {
+    background-image: url('../assets/setting-app-hover.png');
     background-repeat: no-repeat;
     background-position: center; 
 }
@@ -733,9 +752,8 @@ svg#logo:hover {
       opacity: 0; 
     }
   }
-
   
-.preparing {
+.preparing, .deck-tracker-content-available {
     z-index: 9999;
     position: absolute;
     width: 100%;
@@ -743,7 +761,11 @@ svg#logo:hover {
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.preparing-center {
+.preparing-center, .deck-tracker-content-available-center {
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    font-size: 18px;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     text-align: center;
     position: relative;
     top: 40vh;
@@ -1304,3 +1326,32 @@ svg#logo:hover {
     position: absolute;
     top: 14%;
 }
+
+.settings-content {
+    color:black;
+    font-size: 14px;
+    padding: 5px;
+    box-sizing: border-box;
+    line-height: 25px;
+
+}
+
+.hs-file-label {
+    background-color: rgb(71,65,67);
+    color: rgb(231,226,218);
+    display: block;
+    cursor: pointer; 
+    width: 100px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 3px;
+  }
+
+  .HS-path-value {
+      display: block;
+      box-sizing: border-box;
+      padding: 1px;
+      overflow: hidden;
+      margin-bottom: 3px;
+      border: rgb(71,65,67) 1px solid;
+  }

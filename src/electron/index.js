@@ -3,6 +3,7 @@ const path = require('path');
 const os = require('os');
 var fs = require('fs');
 const DeckTracker = require('./DeckTracker/DeckTracker');
+const SetupManager = require('./DeckTracker/SetupManager');
 
 let mainWindow;
 
@@ -14,6 +15,7 @@ app.on('ready', () => {
             height: 700,
             resizable: false,
             frame: false,
+            title: "HearthLounge",
             icon: path.resolve(__dirname, '../../assets/app-icon.png')
         }
     );
@@ -22,6 +24,7 @@ app.on('ready', () => {
 
     globalShortcut.register('F1', () => {
         mainWindow.webContents.toggleDevTools();
+        //settingsWindow.webContents.toggleDevTools();
     });
 
     globalShortcut.register('Ctrl+R', () => {
@@ -32,6 +35,7 @@ app.on('ready', () => {
 
     mainWindow.on('closed', () => {
         mainWindow = null;
+        app.quit();
     });
 
     ipcMain.on('os:platform', () => {
@@ -42,14 +46,38 @@ app.on('ready', () => {
         mainWindow.close();
     });
 
+
     ipcMain.on('minimizeApp', () => {
         mainWindow.minimize();
     });
 
+    ipcMain.on('openSettings', () => {
+        createSettingsWindow();
+    });
+
+    ipcMain.on('closeSettings', () => settingsWindow.close());
+
+
     const dtc = new DeckTracker(mainWindow);
+    const setupManager = new SetupManager();
+
+    setupManager.createHearthLoungeConfigIfNonExists();
+    
+    ipcMain.on("hearthstone:installed:request", () => {
+        mainWindow.webContents.send("hearthstone:installed:response", setupManager.isHearthstoneInstalled());
+    }); 
 
     ipcMain.on('deckTracker:start', () => {
-        dtc.start(path.join('C:','Program Files (x86)','Hearthstone','Hearthstone_Data','output_log.txt'));
+        if(setupManager.isHearthstoneInstalled()) {
+            setupManager.createLogConfigIfNonExists();
+            try {
+                const logPath = JSON.parse(fs.readFileSync(path.resolve("hl-config.json")));
+                dtc.start(path.join(logPath.hearthstoneFolder,'Hearthstone_Data','output_log.txt'));
+
+            } catch(e) {
+                console.log(e.message);
+            }
+        } else console.log("Hearthstone is not installed.");
     });
 
     ipcMain.on('deckTracker:stop', () => {
@@ -59,3 +87,18 @@ app.on('ready', () => {
 
 
 });
+
+
+function createSettingsWindow() {
+    settingsWindow = new BrowserWindow({
+        parent: mainWindow,
+        modal: true,
+        width: 400,
+        height: 140,
+        frame: false,
+        title: 'Settings',
+        resizable: false
+    });
+    settingsWindow.loadURL(path.resolve(__dirname, '../../settings.html'));
+    settingsWindow.on('closed', () => settingsWindow = null);
+}
