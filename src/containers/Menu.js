@@ -30,7 +30,9 @@ class Menu extends Component {
         return (
             <div>
                 <div className="menu">
-                
+                <div className="menu-available" style={ { display: _.isEmpty(this.props.User) ? "block" : "none" } }  >
+                    <div className="menu-available-center">Please sign in first.</div>
+                </div>
                     <ul>
                         <li onClick={() => this.props.selectFeatureMenu(HOME_COMPONENT)}><LogoSVG dotsColor="#00a99c"/></li>
                         <li onClick={() => this.props.selectFeatureMenu(CREATE_DECK_COMPONENT)}>Deck Creator</li>
@@ -44,4 +46,10 @@ class Menu extends Component {
     }
 }
 
-export default connect(null, { selectFeatureMenu })(Menu);
+function mapStateToProps(state) {
+    return {
+        User: state.User
+    }
+}
+
+export default connect(mapStateToProps, { selectFeatureMenu })(Menu);

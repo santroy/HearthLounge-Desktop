@@ -11,8 +11,10 @@ import CurrentDeck from './decktracker.reducers/CurrentDeck';
 import CardBacks from './CardBacks';
 import LAGDeckList from './lag.reducers/LAGDeckList';
 import DTErrors from './decktracker.reducers/DTErrors';
+import User from './User';
 
 const rootReducer = combineReducers({
+    User,
     DTErrors,
     LAGDeckList,
     CardBacks,

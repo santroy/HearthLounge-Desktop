@@ -205,7 +205,7 @@ body:active,body:hover {
 
 
 
- .login-buttons {
+ .login-buttons, .user-buttons {
     float: right;
     height: 100%;
     box-sizing: border-box;
@@ -226,7 +226,7 @@ body:active,body:hover {
  }
 
 
-.submit-login, .submit-create {
+.submit-login, .submit-create, .submit-singout {
     font-family: Opti-Belwe;
     position: relative;
     top: 50%;
@@ -241,7 +241,7 @@ body:active,body:hover {
     transition: all 0.3s ease 0s;
 }
 
-.submit-login:hover, .submit-create:hover {
+.submit-login:hover, .submit-create:hover, .submit-singout:hover {
     cursor: pointer;
     color: white;
     background-color: rgb(0,169,156) ;
@@ -332,6 +332,7 @@ body:active,body:hover {
 
 
 .menu {
+    position: relative;
     box-sizing: border-box;
     display: block;
     float: left;
@@ -753,15 +754,15 @@ svg#logo:hover {
     }
   }
   
-.preparing, .deck-tracker-content-available {
+.preparing, .deck-tracker-content-available, .menu-available {
     z-index: 9999;
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-.preparing-center, .deck-tracker-content-available-center {
+.preparing-center, .deck-tracker-content-available-center, .menu-available-center {
     letter-spacing: 1px;
     font-family: Opti-Belwe;
     font-size: 18px;
@@ -1354,4 +1355,20 @@ svg#logo:hover {
       overflow: hidden;
       margin-bottom: 3px;
       border: rgb(71,65,67) 1px solid;
+  }
+
+  .login-section-content {
+      
+      position: relative;
+  }
+
+  .user-name {
+    box-sizing: border-box;
+    font-size: 14px;
+    margin-right: 5px;
+    float: right;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }

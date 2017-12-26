@@ -11,7 +11,7 @@ import TitleBar from './components/TitleBar';
 import Menu from './containers/Menu';
 import Content from './containers/Content';
 import Footer from './components/Footer';
-import BottomPanel from './containers/BottomPanel';
+import UserPanel from './containers/userpanel.containers/UserPanel';
 import DeckCreator from './containers/deckcreator.containers/DeckCreator';
 
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
@@ -22,7 +22,7 @@ ReactDOM.render(
                 <TitleBar/>
                 <Menu/>
                 <Content/>
-                <BottomPanel/>
+                <UserPanel/>
                 <Footer/>
             </div>
     </Provider>
