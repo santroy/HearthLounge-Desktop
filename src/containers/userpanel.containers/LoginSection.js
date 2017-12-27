@@ -30,7 +30,7 @@ class LoginSection extends Component {
         passInput.value = null;
 
         firebaseAuth().
-                signInWithEmailAndPassword(email, pass).then((activeUser) => this.props.signInUser(activeUser)).catch(err => console.log(err.message));
+                signInWithEmailAndPassword(email, pass).then((activeUser) => this.props.signInUser(activeUser)).catch(err => displayError(err));
 
     }
 
@@ -64,6 +64,23 @@ class LoginSection extends Component {
         }
     }
 
+    
+    function displayError(err) {
+        const loginForm = document.querySelector(".login-inputs");
+        const loginCoord = loginForm.getBoundingClientRect();
+        console.log(loginCoord);
+        const errorBox = document.createElement("div");
+        errorBox.classList.add("error-login");
+        errorBox.textContent = err.message;
+        loginForm.appendChild(errorBox);
+        errorBox.style.left = loginCoord.left + 200 - errorBox.offsetWidth/2;
+        errorBox.style.top = loginCoord.top - 35;
+
+        setTimeout( () => {
+            loginForm.removeChild(errorBox);
+        } , 4000);
+
+    }
 
 
 

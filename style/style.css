@@ -1372,3 +1372,20 @@ svg#logo:hover {
     align-items: center;
     justify-content: center;
   }
+  
+  .error-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    font-size: 12px;
+    height: 30px;
+    color: white;
+    background-color: maroon;
+    box-sizing: border-box;
+    padding: 3px;
+    border-radius: 3px;
+    position: fixed;
+    top: 0;
+    left: 0;
+  }
