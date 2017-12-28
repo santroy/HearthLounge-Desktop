@@ -61,7 +61,10 @@ app.on('ready', () => {
     const dtc = new DeckTracker(mainWindow);
     const setupManager = new SetupManager();
 
-    setupManager.createHearthLoungeConfigIfNonExists();
+    if(setupManager.isHearthstoneInstalled())  {
+        setupManager.createHearthLoungeConfigIfNonExists();
+        setupManager.fixGamePerformance();
+    }
     
     ipcMain.on("hearthstone:installed:request", () => {
         mainWindow.webContents.send("hearthstone:installed:response", setupManager.isHearthstoneInstalled());

@@ -3,6 +3,7 @@ import { FETCH_LOGS, CLEAR_LOGS } from '../reducers/decktracker.reducers/Logs';
 import { GET_ALL_COLLECTION } from '../reducers/AllCollection';
 import { GET_GAME_INFO } from '../reducers/GameInfo';
 import { GET_CARD_BACKS } from '../reducers/CardBacks';
+import { HOME_COMPONENT } from '../reducers/SelectFeatureMenu';
 
 const API_URL = 'https://omgvamp-hearthstone-v1.p.mashape.com/';
 const API_KEY = 'yxJgRqkjtrmsh9tZZnpXltWK1r15p1UbfmKjsnyCxiqZUZU0a1';
@@ -59,4 +60,10 @@ export function getCardBacks() {
               type: GET_CARD_BACKS,
               payload: request
         };
+}
+
+export function goHome() {
+    return {
+        type: HOME_COMPONENT
+    }
 }

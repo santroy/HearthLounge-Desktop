@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { selectComponent, getAllCollection, getGameInfo, getCardBacks } from '../redux/actions';
 import { bindActionCreators } from 'redux';
-import Home from '../components/Home';
+import Home from '../components/home.components/Home';
 import _ from 'lodash';
 import DeckCreator from './deckcreator.containers/DeckCreator';
 import Menu from './Menu';

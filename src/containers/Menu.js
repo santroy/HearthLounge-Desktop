@@ -5,7 +5,7 @@ import { selectFeatureMenu } from '../redux/actions'
 import DeckCreator from './deckcreator.containers/DeckCreator';
 import DeckTracker from './decktracker.containers/DeckTracker';
 import LoungeArenaGuider from './lag.containers/LoungeArenaGuider';
-import Home from '../components/Home';
+import Home from '../components/home.components/Home';
 import LogoSVG from '../../assets/logo';
 
 import { HOME_COMPONENT, CREATE_DECK_COMPONENT, DECK_TRACKER_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT } from '../redux/reducers/SelectFeatureMenu';

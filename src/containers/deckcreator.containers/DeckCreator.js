@@ -65,6 +65,7 @@ class DeckCreator extends Component {
 function mapStateToProps(state) {
     const { term, hero, format, manaCrystals, expansion } = state.FoundCollection;
     return {
+        User: state.User,
         format,
         expansion,
         term,

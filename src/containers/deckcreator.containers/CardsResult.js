@@ -17,6 +17,7 @@ class CardsResult extends Component {
         const foundCards = _.map(this.filterCollection(), value => 
             {
                 return(<img key={value.dbfId} onClick={() => {
+                    console.log(value);
                     this.props.addCardToDeckList(_.cloneDeep(value))}} className="card-image" src={value.img}/>)
             });
 

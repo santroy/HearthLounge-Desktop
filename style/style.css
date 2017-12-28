@@ -21,17 +21,14 @@ rgb(207,203,196)
 }
 
 body {
+    font-family: Open-Sans;
+    border: 1px solid rgb(231,226,218);
+    overflow: hidden;
+    display:block;
+    box-sizing: border-box;
     -webkit-user-select: none;
     background-color: rgb(231,226,218);
     color: white;
-}
-
-body{
-    font-family: Open-Sans;
-    border: 1px solid rgb(231,226,218);
-    overflow:hidden;
-    display:block;
-    box-sizing: border-box;
 }
 
 body:active,body:hover {
@@ -53,6 +50,33 @@ body:active,body:hover {
     color: rgb(231,226,218);
 }
 
+.deck-creator-deck-copy-button {
+    position: relative;
+    margin-right: 10px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background-image: url('../assets/copy-deck.png');
+}
+
+.deck-creator-deck-upload-button {
+    position: relative;
+    margin-left: 10px;
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background-image: url('../assets/upload-deck.png');
+}
+
+.deck-creator-deck-copy-button:hover {
+    background-image: url('../assets/copy-deck-hover.png');
+}
+
+.deck-creator-deck-upload-button:hover {
+    background-image: url('../assets/upload-deck-hover.png');
+}
+
+
 .user-title-bar {
     height: 35px;
 }
@@ -62,6 +86,13 @@ body:active,body:hover {
     margin-right: 3px;
 }
 
+.deck-creator-deck-copy-button:hover .tooltiptext {
+    visibility: visible;
+}
+
+.deck-creator-deck-upload-button:hover .tooltiptext {
+    visibility: visible;
+}
 
 
 .minimize, .close, .settings {
@@ -124,10 +155,9 @@ body:active,body:hover {
     display: block;
     width: 22%;
     line-height: 15px;
-    height: 9% !important;
+    height: 9%;
     background-color: rgb(71,65,67);
     border-top: rgb(231,226,218) 1px solid;
-
 }
 
 .panel {
@@ -147,7 +177,7 @@ body:active,body:hover {
     box-sizing: border-box;
     display: flex; 
     height: 86%;
-    background-color: rgb(231,226,218);;
+    background-color: rgb(231,226,218);
 }
 
 .contentPlaceholder {
@@ -220,7 +250,6 @@ body:active,body:hover {
  .login-labels {
      float: right;
      height: 100%;
-     background-color: red;
      width: auto;
 
  }
@@ -456,6 +485,32 @@ body:active,body:hover {
     border: 1px black solid;
 }
 
+.deck-name-window-center input {
+    border: 1px black solid;
+    border-radius: 3px;
+    box-sizing: border-box;
+    padding: 3px;
+    height: 30px;
+    width: 300px;
+    text-align: center;
+    margin: 5px;
+    background-color: white;
+}
+
+.deck-name-window-button-submit, .deck-name-window-button-cancel {
+    cursor: pointer;
+    display: inline-block;
+    width: 100px;
+    height: auto;
+    background-color: rgb(231,226,218);
+    border-radius: 3px;
+    font-size: 14px;
+    box-sizing: border-box;
+    text-align: center;
+    padding: 6px;
+    margin: 5px;
+}
+
 .deck-creator-search-inputs select {
     background-image: none;
 }
@@ -496,10 +551,12 @@ body:active,body:hover {
     font-size: 16px;
     border-top: 3px rgb(231,226,218) solid;
     background-color: rgb(207,203,196);
-    padding-top: 10px;
     width: 100%;
     height: 10%;
     box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .deck-creator-deck-list {
@@ -550,23 +607,6 @@ body:active,body:hover {
     height: 20px;
 }
 
-.deck-creator-deck-copy-button {
-    width: 30px;
-    height: 20px;
-}
-
-.deck-creator-deck-string-control td, .deck-creator-deck-string-control tr, .deck-creator-deck-string-control table {
-    border: none;
-    padding: 0;
-    margin: 0;
-    text-align: center; /* center checkbox horizontally */
-    vertical-align: middle; /* center checkbox vertically */
-}
-
-.deck-creator-deck-string-control table {
-width: 90%;
-margin: 0 auto;
- }
 
  .deck-creator-card-top-bar {
     width: 100%;
@@ -754,15 +794,25 @@ svg#logo:hover {
     }
   }
   
-.preparing, .deck-tracker-content-available, .menu-available {
-    z-index: 9999;
+.preparing, .deck-tracker-content-available, .menu-available, .deck-name-window {
+    z-index: 30;
     position: absolute;
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-.preparing-center, .deck-tracker-content-available-center, .menu-available-center {
+.deck-name-window {
+    display: none;
+}
+
+.preparing, .deck-tracker-content-available {
+    margin-left: -1px;
+}
+
+
+.preparing-center, .deck-tracker-content-available-center, .menu-available-center, .deck-name-window-center {
     letter-spacing: 1px;
     font-family: Opti-Belwe;
     font-size: 18px;
@@ -771,7 +821,19 @@ svg#logo:hover {
     position: relative;
     top: 40vh;
     transform: translateY(-50%);
+    z-index: 31;
 }
+
+/* .deck-name-window {
+    background-color: red;
+    width: 30%;
+    height: 30%;
+    overflow: auto;
+    margin: auto;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    z-index: 33;
+} */
 
 /* SCROLLBAR DECK */
 
@@ -968,7 +1030,7 @@ svg#logo:hover {
 .react-autosuggest__container {
     position: relative;
     width: 80%;
-    z-index: 9998;
+    z-index: 29;
   }
   
   .react-autosuggest__input {
@@ -1020,7 +1082,7 @@ svg#logo:hover {
     border-bottom-right-radius: 4px;
     max-height: 250px;
     overflow-y: auto;
-    z-index: 2;
+    z-index: 12;
     color: black;
     border: 1px black solid;
     -webkit-text-fill-color: white;
@@ -1389,3 +1451,24 @@ svg#logo:hover {
     top: 0;
     left: 0;
   }
+
+
+  .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    font-size: 12px;
+    background-color: rgb(71,65,67);
+    color: white;
+    text-align: center;
+    border-radius: 3px;
+    padding: 5px 0;
+    box-sizing: border-box;
+    
+    /* Position the tooltip */
+    position: absolute;
+    margin-bottom: 5px;
+    z-index: 10;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+}

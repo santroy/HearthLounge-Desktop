@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { firebaseAuth } from '../../firebase/Config';
+import getActiveUser from '../../firebase/ActiveUser';
 import _ from 'lodash';
 const { shell } = require('electron');
 
@@ -30,7 +31,8 @@ class LoginSection extends Component {
         passInput.value = null;
 
         firebaseAuth().
-                signInWithEmailAndPassword(email, pass).then((activeUser) => this.props.signInUser(activeUser)).catch(err => displayError(err));
+                signInWithEmailAndPassword(email, pass).then((activeUser) => getActiveUser(this.props.signInUser)).catch(err => displayError(err));
+
 
     }
 
@@ -81,6 +83,11 @@ class LoginSection extends Component {
         } , 4000);
 
     }
+
+
+function yese(statement, value) {
+    console.log(value);
+}
 
 
 
