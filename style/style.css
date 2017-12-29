@@ -1043,6 +1043,7 @@ svg#logo:hover {
     text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
     width: 100%;
     border-radius: 4px;
+    overflow: visible;
     line-height: 30px;
     border-radius: 3px;
     color: black;
@@ -1053,6 +1054,7 @@ svg#logo:hover {
   .react-autosuggest__input::-webkit-input-placeholder {
       color: white;
       opacity: 0.3;
+      line-height: 30px;
   }
   
   .react-autosuggest__input--focused {
@@ -1097,7 +1099,7 @@ svg#logo:hover {
   .react-autosuggest__suggestion {
     color: white;
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 10px 15px;
     
   }
   
@@ -1479,12 +1481,103 @@ svg#logo:hover {
 }
 
 .hearth-lounge-web-section {
-
     width: 100%;
     height: 25%;
-    background-color: red;
+    box-sizing: border-box;
+    border-bottom: 1px rgb(71,65,67) dashed;
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+}
+
+.hearth-lounge-decks, .hearth-lounge-cards, .hearth-lounge-dlc {
+    float: left;
+    width: 33.33%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-sizing: border-box;
 }
+
+.hearth-lounge-dlc{
+    flex-direction: column;
+}
+
+.hearth-lounge-cards-content, .hearth-lounge-decks-content {
+    width: 90%;
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.hearth-lounge-cards-content {
+    background: url(../assets/cardbacks.jpg) no-repeat;
+    background-size: cover;
+    background-position: -50px 30%;
+    filter: grayscale(100%);
+    transition: filter 1s;
+}
+
+
+.hearth-lounge-decks-content {
+    background: url(../assets/decks.jpg) no-repeat;
+    background-size: cover;
+    background-position: -50px 30%;
+    filter: grayscale(100%);
+    transition: filter 1s;
+}
+
+.hearth-lounge-expansions-content {
+    background: url(../assets/expansions.jpg) no-repeat;
+    background-size: cover;
+    background-position: 0 12% ;
+    filter: grayscale(100%);
+    transition: filter 1s;
+}
+
+.hearth-lounge-adventures-content {
+    background: url(../assets/adventures.jpg) no-repeat;
+    background-size: cover;
+    background-position: 0 30% ;
+    filter: grayscale(100%);
+    transition: filter 1s;
+}
+
+.hearth-lounge-cards-content:hover, .hearth-lounge-decks-content:hover, .hearth-lounge-adventures-content:hover, .hearth-lounge-expansions-content:hover {
+    filter: grayscale(0%);
+}
+
+.hearth-lounge-expansions, .hearth-lounge-adventures {
+    cursor: pointer;
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hearth-lounge-expansions-content, .hearth-lounge-adventures-content {
+    width: 90%;
+    height: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hearth-lounge-expansions-content {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.hearth-lounge-adventures-content {
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+
 
 .incoming-events-section, .twitch-section, .reddit-section {
     position: relative;
@@ -1525,6 +1618,7 @@ svg#logo:hover {
 }
 
 .incoming-event-item, .streamer-item, .reddit-post-item {
+    position: relative;
     cursor: pointer;
     text-align: left;
     display: inline-block;
@@ -1533,20 +1627,20 @@ svg#logo:hover {
     margin: 5px 0;
     background-color: rgb(207,203,196);
     border-radius: 3px;
+    padding: 9px;
 }
 
 .streamer-item {
-    padding: 9px;
+    box-sizing: border-box;
     position: relative;
 }
 
 .incoming-event-item-name, .incoming-event-item-date {
     box-sizing: border-box;
-    padding: 5px;
 }
 
-.incoming-event-item-name {
-    font-weight: bold;
+.incoming-event-item-date {
+    color: black;
 }
 
 .streamer-item-thumb {
@@ -1566,7 +1660,6 @@ svg#logo:hover {
 
 .streamer-item-viewers {
     position: absolute;
-    background-color: lawngreen;
     box-sizing: border-box;
     height: auto;
     bottom: 0%;
@@ -1587,3 +1680,55 @@ svg#logo:hover {
     width: 32px;
     height: 32px;
 }
+
+.reddit-post-item-comments, .reddit-post-item-score {
+    height: 31px;
+    float: right;
+}
+
+.incoming-event-item-name {
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-weight: bold;
+    padding-bottom: 3px;
+}
+
+.reddit-post-item-title {
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+    font-weight: bold;
+    padding-bottom: 3px;
+    float: left;
+    overflow: hidden;
+    width: 80%;
+    height: auto;
+}
+
+.reddit-post-item-author {
+    font-size: 14px;
+    box-sizing: border-box;
+    float: left;
+    width: 80%;
+    height: 14px;
+}
+
+.reddit-post-item-comments {
+    font-size: 12px;
+    text-align: center;
+    box-sizing: border-box;
+    width: 10%;
+    background: url(../assets/comments.svg) no-repeat 50% 100%;
+    background-size: 16px 16px;
+}
+
+.reddit-post-item-score {
+    font-size: 12px;
+    text-align: center;
+    box-sizing: border-box;
+    width: 10%;
+    background: url(../assets/upvote.svg) no-repeat 50% 100%;
+    background-size: 16px 16px;
+}
+

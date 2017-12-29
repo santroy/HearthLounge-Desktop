@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import _ from 'lodash';
-import { openLink, limitChars } from '../../utils/General';
+import { openLink } from '../../utils/General';
 import moment from 'moment'
 
 class IncomingEventsSection extends Component {
@@ -35,7 +35,7 @@ class IncomingEventsSection extends Component {
                 const eventDate = moment(event.start.dateTime).format('DD.MM, hh:mm');
 
                 return (<div key={event.id} className="incoming-event-item" onClick={() => openLink(event.htmlLink)}> 
-                            <div className="incoming-event-item-name">{limitChars(event.summary, 40)}</div>
+                            <div className="incoming-event-item-name">{event.summary}</div>
                             <div className="incoming-event-item-date">Starts {eventDate}</div>
                 </div>);
 
