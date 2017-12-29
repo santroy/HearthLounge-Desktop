@@ -1472,3 +1472,118 @@ svg#logo:hover {
     left: 50%;
     margin-left: -60px;
 }
+
+.home-content {
+    position: relative;
+    width: 100%;
+}
+
+.hearth-lounge-web-section {
+
+    width: 100%;
+    height: 25%;
+    background-color: red;
+    box-sizing: border-box;
+}
+
+.incoming-events-section, .twitch-section, .reddit-section {
+    position: relative;
+    font-size: 14px;
+    padding: 3px;
+    height: 75%;
+    box-sizing: border-box;
+    float: left;
+    width: 33.33%;
+
+}
+
+.incoming-events-section {
+    color: rgb(71,65,67);
+    text-align: center;
+    overflow: hidden;
+}
+
+.incoming-events-section p, .twitch-section p, .reddit-section p {
+    font-size: 16px;
+    box-sizing: border-box;
+    padding: 3px;
+}
+
+.twitch-section {
+    color: rgb(71,65,67);
+    text-align: center;
+    overflow: hidden;
+}
+
+.reddit-section {
+    color: rgb(71,65,67);
+    text-align: center;
+    overflow: hidden;
+    box-sizing: border-box;
+    border-left: 1px dashed rgb(71,65,67);
+    border-right: 1px dashed rgb(71,65,67);
+}
+
+.incoming-event-item, .streamer-item, .reddit-post-item {
+    cursor: pointer;
+    text-align: left;
+    display: inline-block;
+    width: 95%;
+    box-sizing: border-box;
+    margin: 5px 0;
+    background-color: rgb(207,203,196);
+    border-radius: 3px;
+}
+
+.streamer-item {
+    padding: 9px;
+    position: relative;
+}
+
+.incoming-event-item-name, .incoming-event-item-date {
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.incoming-event-item-name {
+    font-weight: bold;
+}
+
+.streamer-item-thumb {
+    float: left;
+    height: 76px;
+    width: 135px;
+}
+
+.streamer-item-title {
+    font-size: 14px;
+    padding-left: 5px;
+    box-sizing: border-box;
+    float: left;
+    width: 57%;
+
+}
+
+.streamer-item-viewers {
+    position: absolute;
+    background-color: lawngreen;
+    box-sizing: border-box;
+    height: auto;
+    bottom: 0%;
+    left: 0;
+    padding-left: 17px;
+    margin-left: 146px;
+    margin-bottom: 9px;
+    background: url(../assets/watching.png) no-repeat 0% 50%;
+
+}
+
+.waiting {
+    background-image: url(../assets/gear.svg);
+    position: absolute; 
+    top: 0; bottom: 0;
+    left: 0; right: 0;
+    margin: auto;
+    width: 32px;
+    height: 32px;
+}

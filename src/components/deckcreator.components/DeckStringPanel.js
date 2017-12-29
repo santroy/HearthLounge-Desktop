@@ -31,18 +31,6 @@ class DeckStringPanel extends Component {
 
     }
 
-//<div className="deck-name-window">
-//     <div className="deck-name-window-center">
-//         Enter deck name<br/>
-//     <input type="text"/>
-//     <br/>
-//     <div className="deck-name-window-buttons">
-//         <div className="deck-name-window-button-submit">OK</div>
-//         <div className="deck-name-window-button-cancel">Cancel</div>
-//     </div>
-//     </div>
-// </div>
-
     setUpDeckNameWindow() {
 
         const content = document.querySelector('.content');

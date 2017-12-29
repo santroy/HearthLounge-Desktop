@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { firebaseAuth } from '../../firebase/Config';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-const { shell } = require('electron');
+import { openLink } from '../../utils/General'; 
 
 import LoginSection from './LoginSection';
 import UserSection from './UserSection';
@@ -14,20 +14,14 @@ class UserPanel extends Component {
             <div className="panel">
                 <div className="socials">
                     <ul>
-                        <li onClick={this.openLink('http://www.youtube.com/')}></li>
-                        <li onClick={this.openLink('http://www.reddit.com/')}></li>
-                        <li onClick={this.openLink('http://www.facebook.com/')}></li>
+                        <li onClick={() => openLink('http://www.youtube.com/')}></li>
+                        <li onClick={() => openLink('http://www.reddit.com/')}></li>
+                        <li onClick={() => openLink('http://www.facebook.com/')}></li>
                     </ul>
                 </div>
                 {_.isEmpty(this.props.User) ? <LoginSection/> : <UserSection user={this.props.User}/> }
             </div>
         );
-    }
-
-    openLink(url) {
-        return function(e) {
-            shell.openExternal(url);
-        }
     }
 
 }

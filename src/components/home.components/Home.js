@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import TopDecksSection from './TopDecksSection';
+import HearthLoungeWebSection from './HearthLoungeWebSection';
 import IncomingEventsSection from './IncomingEventsSection';
 import RedditSection from './RedditSection';
 import TwitchSection from './TwitchSection';
@@ -10,10 +10,12 @@ class Home extends Component {
         return(
             <div className="content">
 
-                <TopDecksSection/>
+            <div className="home-content" >
+                <HearthLoungeWebSection/>
                 <IncomingEventsSection/>
                 <RedditSection/>
                 <TwitchSection/>
+            </div>
 
             </div>
         );
