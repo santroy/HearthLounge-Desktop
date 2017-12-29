@@ -16,11 +16,13 @@ class IncomingEventsSection extends Component {
         const calendarID = "7r1k7pimcm86o7cevk29tdmhg8qfdh94%40import.calendar.google.com";
         const maxResults = 7;
         const apiKey = "AIzaSyAurwWKeT_RaxCe-T0nfh264Lr2x4O-OFk";
-        const nowDate = new Date(Date.now()).toISOString();
 
+        const nowDate = moment().toISOString();
+        
         axios.get(`https://www.googleapis.com/calendar/v3/calendars/${calendarID}/events?maxResults=${maxResults}&orderBy=startTime&singleEvents=true&timeMin=${nowDate}&key=${apiKey}`).
-        then(resposnse => {
-            this.setState( { events: resposnse.data } )
+        then(response => {
+
+            this.setState( { events: response.data } )
 
         }).catch(err => console.log(err));
 
@@ -32,7 +34,7 @@ class IncomingEventsSection extends Component {
 
             const eventsList = _.map(this.state.events.items, (event) => {
 
-                const eventDate = moment(event.start.dateTime).format('DD.MM, hh:mm');
+                const eventDate = moment(event.start.dateTime).format('DD.MM, HH:mm');
 
                 return (<div key={event.id} className="incoming-event-item" onClick={() => openLink(event.htmlLink)}> 
                             <div className="incoming-event-item-name">{event.summary}</div>

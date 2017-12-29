@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { addToLagDeckList } from '../../redux/actions/lag.actions/index'
 import _ from 'lodash';
 import Autosuggest from 'react-autosuggest';
+import appraiseCardValue from '../../mechanics/lag';
 
 class Card extends Component {
 
@@ -91,7 +92,7 @@ class Card extends Component {
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested} getSuggestionValue={this.getSuggestionValue} 
                 renderSuggestion={this.renderSuggestion} inputProps={inputProps}/>
                 <img className="card-image" onClick={(e) => this.addToDeckList(this.state.value)} src={this.cardImageRender(this.state.value)}></img>
-                { this.activeCard ? <div className="lag-card-value">{this.activeCard.cost}</div> : null }
+                { this.activeCard ? <div className="lag-card-value">{appraiseCardValue(this.props.deckList, this.activeCard )}</div> : null }
             </div>
         );
 

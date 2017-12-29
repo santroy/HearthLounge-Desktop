@@ -44,9 +44,9 @@ class LoungeArenaGuider extends Component {
 				</div>
 				<div className="lag-deck-card-count">{_.sumBy(this.props.LAGDeckList, (value) => value.count)}/30</div>
 					<div className="lag-card-choices">
-							<Card ref={ (context) => this.card1 = context } cardNumber={1} clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
-							<Card ref={ (context) => this.card2 = context } cardNumber={2} clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
-							<Card ref={ (context) => this.card3 = context } cardNumber={3} clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
+							<Card ref={ (context) => this.card1 = context } deckList={this.props.LAGDeckList} cardNumber={1} clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
+							<Card ref={ (context) => this.card2 = context } deckList={this.props.LAGDeckList} cardNumber={2} clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
+							<Card ref={ (context) => this.card3 = context } deckList={this.props.LAGDeckList} cardNumber={3} clearAllInputs={this.clearAllInputs} cardBacks={this.props.cardBacks} allCollection={this.props.allCollection}/>
 					</div>
 					<div className="lag-panel">
 						<LAGPanel clearAllInputs={this.clearAllInputs}/>

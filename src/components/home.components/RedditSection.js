@@ -19,7 +19,6 @@ class RedditSection extends Component {
         axios.get(`https://www.reddit.com/r/hearthstone/hot/.json?limit=${limit}`).then((response) => {
 
             this.setState({ postsList: response.data })
-            console.log(response.data)
 
         }).catch(err => console.log(err));
 
