@@ -92,7 +92,7 @@ class Card extends Component {
                 onSuggestionsClearRequested={this.onSuggestionsClearRequested} getSuggestionValue={this.getSuggestionValue} 
                 renderSuggestion={this.renderSuggestion} inputProps={inputProps}/>
                 <img className="card-image" onClick={(e) => this.addToDeckList(this.state.value)} src={this.cardImageRender(this.state.value)}></img>
-                { this.activeCard ? <div className="lag-card-value">{appraiseCardValue(this.props.deckList, this.activeCard )}</div> : null }
+                { this.activeCard ? <div className="lag-card-value">{appraiseCardValue(this.props.deckList, _.cloneDeep(this.activeCard) )}</div> : null }
             </div>
         );
 
