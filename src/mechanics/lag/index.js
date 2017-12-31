@@ -1,25 +1,41 @@
 
-const cardTextValuesRegex = {
-    deal: /.*deal \$?(.*) damage.*/i,
-    enemy: /.*(\benemy\b).*/gi,
-    friendly: /.*(\bfriendly\b).*/gi,
-    character: /.*(\bcharacter\b).*/gi,
-    characters: /.*(\bcharacters\b).*/gi,
-    hero: /.*(\bhero\b).*/gi,
-    minion: /.*(\bminion\b).*/gi,
-    minions: /.*(\bminions\b).*/gi,
-    all: /.*(\ball\b).*/gi,
-    randomly: /.*(\brandomly\b).*/gi,
-    your: /.*(\byour\b).*/gi,
-    this: /.*(\bthis\b).*/gi,
-    dealExtra: /.*(\bdeal\b).*/gi,
-    dealsDamage: /.*(\bdeals damage\b).*/gi,
-    dealItsDamage: /.*(\bdealItsDamage\b).*/gi,
-    dealThatMuchDamage: /.*(\bdealThatMuchDamage\b).*/gi,
-    dealItsDamage: /.*(\bdealIts\b).*/gi,
-    dealRandom: /.*(\bthis\b).*/gi,
-    dealItsDamage: /.*(\bthis\b).*/gi,
 
+const manaCurve = {
+    0: 1.65,
+    1: 1.25,
+    2: 1.00,
+    3: 0.95,
+    4: 0.95,
+    5: 0.95,
+    6: 1.00,
+    7: 1.00,
+    8: 1.00,
+    9: 0.95,
+    10: 0.95
+}
+
+
+const cardTextValuesRegex = {
+    deal: /.*deals? \$?(\d*) (?:extra|damage).*/i,
+    dealsDamage: /.*(\bdeals damage\b).*/i,
+    dealItsDamage: /.*(\bdeal its damage\b).*/i,
+    dealThatMuchDamage: /.*(\bdeal that much damage\b).*/i,
+    dealRandom: /.*(\bdeal random\b).*/i,
+
+}
+
+const cardTargetRegex = {
+    enemy: /.*(\benemy\b).*/i,
+    friendly: /.*(\bfriendly\b).*/i,
+    character: /.*(\bcharacter\b).*/i,
+    characters: /.*(\bcharacters\b).*/i,
+    hero: /.*(\bhero\b).*/i,
+    minion: /.*(\bminion\b).*/i,
+    minions: /.*(\bminions\b).*/i,
+    all: /.*(\ball\b).*/i,
+    randomly: /.*(\brandomly\b).*/i,
+    your: /.*(\byour\b).*/i,
+    this: /.*(\bthis\b).*/i,
 }
 
 const cardTarget = {
@@ -39,13 +55,11 @@ const cardTarget = {
 
 
 const mechanicsFromText = {
-    deal: { multiplier: 70, value: 0 },
-    dealsDamage: { multiplier: 70, value: 0 },
-    dealItsDamage: { multiplier: 70, value: 0 },
-    dealThatMuchDamage: { multiplier: 70, value: 0 },
-    dealItsDamage: { multiplier: 70, value: 0 },
-    dealRandom: { multiplier: 70, value: 0 },
-    dealItsDamage: { multiplier: 70, value: 0 },
+    deal: { multiplier: 70, value: 1 },
+    dealsDamage: { multiplier: 70, value: 1 },
+    dealThatMuchDamage: { multiplier: 70, value: 1 },
+    dealItsDamage: { multiplier: 70, value: 1 },
+    dealRandom: { multiplier: 70, value: 1 },
 
     give: { multiplier: 70, value: 1 },
     summon: { multiplier: 70, value: 1 },
@@ -86,32 +100,41 @@ const mechanicsFromText = {
 
 export default function appraiseCardValue(collection, card) {
 
-    const foundValues = {};
+    const textValues = {};
+    const cardTargets = {};    
+
+    let baseCardValue = 0;
+
     
-    let cardValue = 0;
+    // getting card values
+    _.each(cardTextValuesRegex, (regex, regexName) => {
+        if(regex.test(card.text)) {
+            textValues[regexName] = _.cloneDeep(mechanicsFromText[regexName]);
+            regex.exec(card.text)[1] ? textValues[regexName].value = regex.exec(card.text)[1] : null;
+        }
 
-    // index of multiplier * value / mana + 1
-
-    _.each(cardTextValuesRegex, (value, name) => {
-
-        if(value.test(card.text)) {
-
-            const foundValues = {};
-            foundValues[name] = mechanicsFromText[name];
-            foundValues[name].value = value.exec(card.text)[1];
-        
-            card.lag = foundValues;            
-        } 
     });
 
-    _.each(card.lag, (v) => {
-        cardValue += (v.value * v.multiplier);
-    })
+    // getting card targets
+    _.each(cardTargetRegex, (regex, regexName) => {
+        if(regex.test(card.text)) {
+            cardTargets[regexName] = cardTarget[regexName];
+        }
 
-    cardValue = cardValue / (card.cost + 1);
+    });
 
-    card.cardValue = Math.round(cardValue.toFixed(2));
 
-    return card.cardValue;
+    // sumup all values 
+
+    _.each(textValues, (value, key) => {
+
+        baseCardValue+= value.multiplier * value.value;
+
+    });
+
+
+    console.log(( (card.cost + 1)  * (manaCurve[card.cost])));
+
+    return Math.round(baseCardValue / ( (card.cost + 1)  * (manaCurve[card.cost])).toFixed(0));
 };
 

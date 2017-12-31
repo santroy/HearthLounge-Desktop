@@ -14,7 +14,7 @@ class RedditSection extends Component {
 
     componentWillMount() {
 
-        const limit = 5;
+        const limit = 7;
 
         axios.get(`https://www.reddit.com/r/hearthstone/hot/.json?limit=${limit}`).then((response) => {
 
