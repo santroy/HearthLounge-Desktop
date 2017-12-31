@@ -14,11 +14,9 @@ class RedditSection extends Component {
 
     componentWillMount() {
 
-        const limit = 7;
+        axios.get(`https://www.reddit.com/r/hearthstone/hot.json`).then((response) => {
 
-        axios.get(`https://www.reddit.com/r/hearthstone/hot/.json?limit=${limit}`).then((response) => {
-
-            this.setState({ postsList: response.data })
+            this.setState({ postsList: response.data.data.children.slice(0,7) })
 
         }).catch(err => console.log(err));
 
@@ -29,7 +27,7 @@ class RedditSection extends Component {
         if(this.state.postsList) {
 
 
-            const postsList = _.map(this.state.postsList.data.children, (post) => {
+            const postsList = _.map(this.state.postsList, (post) => {
 
                 return (<div key={post.data.id} className="reddit-post-item" onClick={() => openLink(`https://reddit.com${post.data.permalink}`)}> 
                             <div className="reddit-post-item-score">{post.data.score}</div>

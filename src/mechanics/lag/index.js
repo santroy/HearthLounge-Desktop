@@ -1,4 +1,7 @@
 
+import { cardTextMechanicsRegex } from './regex/mechanicRegex';
+import { cardTargetRegex } from './regex/targetRegex';
+import _ from 'lodash';
 
 const manaCurve = {
     0: 1.65,
@@ -12,30 +15,6 @@ const manaCurve = {
     8: 1.00,
     9: 0.95,
     10: 0.95
-}
-
-
-const cardTextValuesRegex = {
-    deal: /.*deals? \$?(\d*) (?:extra|damage).*/i,
-    dealsDamage: /.*(\bdeals damage\b).*/i,
-    dealItsDamage: /.*(\bdeal its damage\b).*/i,
-    dealThatMuchDamage: /.*(\bdeal that much damage\b).*/i,
-    dealRandom: /.*(\bdeal random\b).*/i,
-
-}
-
-const cardTargetRegex = {
-    enemy: /.*(\benemy\b).*/i,
-    friendly: /.*(\bfriendly\b).*/i,
-    character: /.*(\bcharacter\b).*/i,
-    characters: /.*(\bcharacters\b).*/i,
-    hero: /.*(\bhero\b).*/i,
-    minion: /.*(\bminion\b).*/i,
-    minions: /.*(\bminions\b).*/i,
-    all: /.*(\ball\b).*/i,
-    randomly: /.*(\brandomly\b).*/i,
-    your: /.*(\byour\b).*/i,
-    this: /.*(\bthis\b).*/i,
 }
 
 const cardTarget = {
@@ -53,64 +32,120 @@ const cardTarget = {
     this: { multiplier: 70, value: 1 },
 }
 
+const mechanics = {
+    adapt: { name: "Adapt", multiplier: 70, value: 1 },
+    battlecry: { name: "Battlecry", multiplier: 70, value: 1 },
+    charge: { name: "Charge", multiplier: 70, value: 1 },
+    chooseOne: { name: "Choose One", multiplier: 70, value: 1 },
+    combo: { name: "Combo", multiplier: 70, value: 1 },
+    counter: { name: "Counter", multiplier: 70, value: 1 },
+    deathrattle: { name: "Deathrattle", multiplier: 70, value: 1 },
+    discover: { name: "Discover", multiplier: 70, value: 1 },
+    divineShield: { name: "Divine Shield", multiplier: 70, value: 1 },
+    enrage: { name: "Enrage", multiplier: 70, value: 1 },
+    freeze: { name: "Freeze", multiplier: 70, value: 1 },
+    immune: { name: "Immune", multiplier: 70, value: 1 },
+    inspire: { name: "Inspire", multiplier: 70, value: 1 },
+    lifesteal: { name: "Lifesteal", multiplier: 70, value: 1 },
+    megaWindfury: { name: "Mega Windfury", multiplier: 70, value: 1 },
+    overload: { name: "Overload", multiplier: 70, value: 1 },
+    poisonous: { name: "Poisonous", multiplier: 70, value: 1 },
+    quest: { name: "Quest", multiplier: 70, value: 1 },
+    secret: { name: "Secret", multiplier: 70, value: 1 },
+    silence: { name: "Silence", multiplier: 70, value: 1 },
+    stealth: { name: "Stealth", multiplier: 70, value: 1 },
+    spellDamage: { name: "Spell Damage", multiplier: 70, value: 1 },
+    taunt: { name: "Taunt", multiplier: 70, value: 1 },
+    windfury: { name: "Windfury", multiplier: 70, value: 1 }
+}
 
-const mechanicsFromText = {
-    deal: { multiplier: 70, value: 1 },
-    dealsDamage: { multiplier: 70, value: 1 },
-    dealThatMuchDamage: { multiplier: 70, value: 1 },
-    dealItsDamage: { multiplier: 70, value: 1 },
-    dealRandom: { multiplier: 70, value: 1 },
-
-    give: { multiplier: 70, value: 1 },
-    summon: { multiplier: 70, value: 1 },
-    gain: { multiplier: 70, value: 1 },
-    adjacent: { multiplier: 70, value: 1 },
-    less: { multiplier: 70, value: 1 },
-    more: { multiplier: 70, value: 1 },
-    remove: { multiplier: 70, value: 1 },
-    cast: { multiplier: 70, value: 1 },
-    add: { multiplier: 70, value: 1 },
-    destroy: { multiplier: 70, value: 1 },
-    freeze: { multiplier: 70, value: 1 },
-    draw: { multiplier: 70, value: 1 },
-    control: { multiplier: 70, value: 1 },
-    put: { multiplier: 70, value: 1 },
-    start: { multiplier: 70, value: 1 },
-    end: { multiplier: 70, value: 1 },
-    swap: { multiplier: 70, value: 1 },
-    restore: { multiplier: 70, value: 1 },
+const textMechanics = {
+    cardDraw: { multiplier: 70, value: 1 },
+    castSpell: { multiplier: 70, value: 1 },
     copy: { multiplier: 70, value: 1 },
-    set: { multiplier: 70, value: 1 },  
-    double: { multiplier: 70, value: 1 },  
-    transform: { multiplier: 70, value: 1 },  
-    cantAttack: { multiplier: 70, value: 1 },  
-    targetedSpells: { multiplier: 70, value: 1 },  
-    random: { multiplier: 70, value: 1 },
-    whomever: { multiplier: 70, value: 1 },   
-    legendary: { multiplier: 70, value: 1 },   
-    except: { multiplier: 70, value: 1 },       
-    wrong: { multiplier: 70, value: 1 },
-    reveal: { multiplier: 70, value: 1 }, 
-    discard: { multiplier: 70, value: 1 }, 
-    replace: { multiplier: 70, value: 1 }, 
-    heal: { multiplier: 70, value: 1 }, 
-    returned: { multiplier: 70, value: 1 }, 
-    shuffle: { multiplier: 70, value: 1 }
+    dealDamage: { multiplier: 70, value: 1 },
+    destroy: { multiplier: 70, value: 1 },
+    disableHeroPower: { multiplier: 70, value: 1 },
+    discard: { multiplier: 70, value: 1 },
+    enchant: { multiplier: 70, value: 1 },
+    elusive: { multiplier: 70, value: 1 },
+    equip: { multiplier: 70, value: 1 },
+    forgetful: { multiplier: 70, value: 1 },
+    gainArmor: { multiplier: 70, value: 1 },
+    generate: { multiplier: 70, value: 1 },
+    incrementAttribute: { multiplier: 70, value: 1 },
+    joust: { multiplier: 70, value: 1 },
+    mindControlEffect: { multiplier: 70, value: 1 },
+    modifyCost: { multiplier: 70, value: 1 },
+    multiplyAttribute: { multiplier: 70, value: 1 },
+    noDurabilityLoss: { multiplier: 70, value: 1 },
+    permanent: { multiplier: 70, value: 1 },
+    putIntoBattlefield: { multiplier: 70, value: 1 },
+    putIntoHand: { multiplier: 70, value: 1 },
+    refreshMana: { multiplier: 70, value: 1 },
+    removeFromDeck: { multiplier: 70, value: 1 },
+    replace: { multiplier: 70, value: 1 },
+    restoreHealth: { multiplier: 70, value: 1 },
+    return: { multiplier: 70, value: 1 },
+    setAttribute: { multiplier: 70, value: 1 },
+    shuffleIntoDeck: { multiplier: 70, value: 1 },
+    spendMana: { multiplier: 70, value: 1 },
+    summon: { multiplier: 70, value: 1 },
+    transform: { multiplier: 70, value: 1 },
+    transformInHand: { multiplier: 70, value: 1 },
+    unlimitedAttacks: { multiplier: 70, value: 1 }
+}
+
+const mechanicsTypes = {
+    areaOfEffect: { multiplier: 70, value: 1 },
+    inHandEffect: { multiplier: 70, value: 1 },
+    onDiscardEffect: { multiplier: 70, value: 1 },
+    onDrawEffect: { multiplier: 70, value: 1 },
+    onGoingEffect: { multiplier: 70, value: 1 },
+    positionalEffect: { multiplier: 70, value: 1 },
+    randomEffect: { multiplier: 70, value: 1 },
+    removal: { multiplier: 70, value: 1 },
+    triggeredEffect: { multiplier: 70, value: 1 }
 }
 
 export default function appraiseCardValue(collection, card) {
 
-    const textValues = {};
+    const cardValues = {};
     const cardTargets = {};    
 
-    let baseCardValue = 0;
+    let cardScore = 0;
 
     
-    // getting card values
-    _.each(cardTextValuesRegex, (regex, regexName) => {
+    // getting card values from text
+
+    _.each(cardTextMechanicsRegex, (regex, regexName) => {
+
         if(regex.test(card.text)) {
-            textValues[regexName] = _.cloneDeep(mechanicsFromText[regexName]);
-            regex.exec(card.text)[1] ? textValues[regexName].value = regex.exec(card.text)[1] : null;
+            cardValues[regexName] = _.cloneDeep(textMechanics[regexName]);
+            regex.exec(card.text)[1] ? cardValues[regexName].value = regex.exec(card.text)[1] : null;
+        }
+
+    });
+
+    // getting card values from base mechanic
+
+    if(!_.isEmpty(card.mechanics)) {
+
+        _.each(mechanics, (mechanic, mechanicPropName) => {
+
+            const hasMechanic = _.some(card.mechanics, { 'name' : mechanic.name });
+            
+            hasMechanic ? cardValues[mechanicPropName] = mechanic : null;
+
+        }); 
+
+    }
+
+    _.each(cardTextMechanicsRegex, (regex, regexName) => {
+
+        if(regex.test(card.text)) {
+            cardValues[regexName] = _.cloneDeep(textMechanics[regexName]);
+            regex.exec(card.text)[1] ? cardValues[regexName].value = regex.exec(card.text)[1] : null;
         }
 
     });
@@ -126,15 +161,15 @@ export default function appraiseCardValue(collection, card) {
 
     // sumup all values 
 
-    _.each(textValues, (value, key) => {
+    _.each(cardValues, (value, key) => {
 
-        baseCardValue+= value.multiplier * value.value;
+        cardScore+= value.multiplier * value.value;
 
     });
 
 
-    console.log(( (card.cost + 1)  * (manaCurve[card.cost])));
+    console.log(cardValues, cardTargets);
 
-    return Math.round(baseCardValue / ( (card.cost + 1)  * (manaCurve[card.cost])).toFixed(0));
+    return Math.round(cardScore / ( (card.cost + 1)  * (manaCurve[card.cost])).toFixed(0));
 };
 
