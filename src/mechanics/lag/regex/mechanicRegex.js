@@ -12,9 +12,9 @@ export const cardTextMechanicsRegex = {
     copy: /.*\bcopy\b.*/i,
 
     dealDamage: /.*deals? \$?(\d*) (?:extra|damages?).*/i,
-    dealDamageEqual: /deals? damage equal/i,
-    dealDamageRandom: /.*deals? (\d)-(\d) damages?/i,
-    dealDamageRaise: /.*deals? that much damages?/i,
+    dealDamageEqual: /.*deals?.*damage.*equal.*/i,
+    dealDamageRandom: /.*deals? (\d)-(\d) damages?.*/i,
+    dealDamageRaise: /.*deals? that much damages?.*/i,
 
     destroy: /.*\bdestroy \D.*\b/i,
     destroyNumber: /.*\bdestroy (\d).*\b/i,
@@ -27,8 +27,8 @@ export const cardTextMechanicsRegex = {
     discardHand: /.*discard your.*/i,
 
     enchantDouble: /.*give.*\+(\d)\/\+(\d).*/i,
-    enchantAttack: /.*gives?.*\+?\-?(\d) attack.*/i,
-    enchantHealth: /.*gives?.*\+?\-?(\d) health.*/i,
+    enchantAttack: /.*gives?.*\+?\-?(\d).*\_?.*attack.*/i,
+    enchantHealth: /.*gives?.*\+?\-?(\d).*\_?.*health.*/i,
 
     elusive: /.*\bbe targeted\b.*/i,
 
@@ -69,6 +69,8 @@ export const cardTextMechanicsRegex = {
 
     reduce: /.*reduce.*cost by.*(\d).*/i,
 
+    resurrect: /.*Cast 4 spells to upgrade.*/i, // api bug
+
     refreshMana: /.*\brefresh.*mana\b.*/i,
 
     removeFromDeck: /.*\bremove.*deck\b.*/i,
@@ -90,7 +92,7 @@ export const cardTextMechanicsRegex = {
     summonMinionCost: /.*summons? a?n?.*(\d)-cost.*/i,
     summonMinionCopy: /.*summons? a?n?.*(?:copy|copies).*/i,
 
-    transformDouble: /.*\btransforms? into a?n?.*(\d)\/(\d)\b.*/i,
+    transformDouble: /.*\btransforms?.*into a?n?.*(\d)\/(\d)\b.*/i,
     transformMore: /.*transorms?.*(\d).*more.*/i,
     transformLess: /.*transforms?.*(\d).*less.*/i,
     

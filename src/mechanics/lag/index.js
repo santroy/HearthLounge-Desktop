@@ -16,7 +16,8 @@ const manaCurve = {
     9: 0.95,
     10: 0.95,
     12: 0.95,
-    20: 0.95
+    20: 0.95,
+    25: 0.95
 }
 
 const cardTarget = {
@@ -72,7 +73,7 @@ const textMechanics = {
     copy: { multiplier: 200, value: 1 },
 
     dealDamage: { multiplier: 70, value: 1 },
-    dealDamageEqual: { multiplier: 140, value: 1 },
+    dealDamageEqual: { multiplier: 300, value: 1 },
     dealDamageRandom: { multiplier: 60, value: 1, value2: 1},
     dealDamageRaise: { multiplier: 210, value: 1 },
 
@@ -128,6 +129,8 @@ const textMechanics = {
     
 
     reduce: { multiplier: 170, value: 1 },
+
+    resurrect: { multiplier: 220, value: 2 },
 
     refreshMana: { multiplier: 250, value: 1 },
 

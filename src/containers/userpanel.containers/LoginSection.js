@@ -6,6 +6,7 @@ import getActiveUser from '../../firebase/ActiveUser';
 import _ from 'lodash';
 const { shell } = require('electron');
 
+
 import { signInUser } from '../../redux/actions/userpanel.actions';
 
 class LoginSection extends Component {
@@ -88,6 +89,7 @@ class LoginSection extends Component {
 function yese(statement, value) {
     console.log(value);
 }
+
 
 
 
