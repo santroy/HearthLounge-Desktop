@@ -42,7 +42,7 @@ function filterCollection() {
         //Handle card term
         const cardMatches = new RegExp(`.*${_.escapeRegExp(this.props.data.term)}.*`, "i");
 
-        if(cardMatches.test(value.name) && (this.props.data.hero.name == value.playerClass || value.playerClass == "Neutral") && 
+        if(cardMatches.test(value.name) && (this.props.data.hero.name == value.playerClass || value.playerClass == "Neutral" ) && exposeAffiliation(this.props.data.affiliation, value) && 
             _.includes(this.props.data.gameInfo[this.props.data.format.name.toLowerCase()], value.cardSet) && verifyMultiClass(value, this.props.data.hero) && 
             this.exposeCardCost(value.cost) && exposeExpansion.call(this, value) )  
             {
@@ -52,6 +52,10 @@ function filterCollection() {
     });
 
     return filteredCollection;
+}
+
+function exposeAffiliation(affiliation, card) {
+    return affiliation.name == "All" ? true : affiliation.name == "Class" && card.playerClass != "Neutral" ? true : affiliation.name == card.playerClass ? true : false ;
 }
 
 function verifyMultiClass(card, hero) {

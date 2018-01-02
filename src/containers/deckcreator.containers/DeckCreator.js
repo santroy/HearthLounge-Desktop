@@ -11,6 +11,7 @@ import CardsResult from './CardsResult';
 import DeckList from './DeckList';
 import ManaCrystals from './ManaCrystals';
 import Expansions from './Expansions';
+import Affiliation from './Affiliation';
 
 
  
@@ -28,6 +29,7 @@ class DeckCreator extends Component {
                 <label htmlFor="card-name">Card Name</label>
                 <input value={this.props.term} onChange={(e) => this.props.matchCardTerm(e.target.value)} type="text" name="card-name" id="card-name"/>
                     <HeroesList data={this.props.hero}/>
+                    <Affiliation data={this.props.affiliation}/>
                     <DeckFormat data={this.props.format}/>
                     <Expansions expansion={this.props.expansion} format={this.props.format}/>
                     <ManaCrystals data={this.props.manaCrystals}/>
@@ -63,9 +65,10 @@ class DeckCreator extends Component {
 }
 
 function mapStateToProps(state) {
-    const { term, hero, format, manaCrystals, expansion } = state.FoundCollection;
+    const { term, hero, format, manaCrystals, expansion, affiliation } = state.FoundCollection;
     return {
         User: state.User,
+        affiliation,
         format,
         expansion,
         term,

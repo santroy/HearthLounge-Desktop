@@ -6,6 +6,7 @@ const initialState = {
     term: '',
     hero: { name: "Mage", id: 637 },
     format: { name: "Standard", id: 2 },
+    affiliation: { name: "All" },
     manaCrystals : { 
                     0: { active: false, value: "0" },
                     1: { active: false, value: "1" },

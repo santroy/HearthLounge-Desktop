@@ -3,23 +3,6 @@ import { cardTextMechanicsRegex } from './regex/mechanicRegex';
 import { cardTargetRegex } from './regex/targetRegex';
 import _ from 'lodash';
 
-const manaCurve = {
-    0: 1.65,
-    1: 1.25,
-    2: 1.00,
-    3: 0.95,
-    4: 0.95,
-    5: 0.95,
-    6: 1.00,
-    7: 1.00,
-    8: 1.00,
-    9: 0.95,
-    10: 0.95,
-    12: 0.95,
-    20: 0.95,
-    25: 0.95
-}
-
 const cardTarget = {
     any: { multiplier: 1 },
     enemy: { multiplier: 1.2 },
@@ -138,7 +121,7 @@ const textMechanics = {
 
     replace: { multiplier: 250, value: 1 },
 
-    restoreHealth: { multiplier: 90, value: 1 },
+    restoreHealth: { multiplier: 20, value: 1 },
 
     return: { multiplier: 100, value: 1 },
 
@@ -232,14 +215,47 @@ export default function appraiseCardValue(collection, card) {
     console.log(cardValues, cardTargets);
 
     switch(card.type) {
-        case "Weapon": return  Math.round(( ((card.durability * 60 ) + (card.attack * 70) + cardScore ) / (card.cost + 1) * (manaCurve[card.cost]))* 0.4).toFixed(0);
+        case "Weapon": return  Math.round(( (((card.durability * 60 ) + (card.attack * 70) + cardScore ) / (card.cost + 1)) * (computeManaCurveMultipliers(collection, card.cost))) * 0.4).toFixed(0);
         case "Spell": {
         
-            return Math.round( cardScore / ( (card.cost + 1)  * (manaCurve[card.cost])).toFixed(0));
+            return Math.round( (cardScore / ( (card.cost + 1) ) * (computeManaCurveMultipliers(collection, card.cost))).toFixed(0));
         }
-        case "Minion": return Math.round(( cardScore + ( card.attack * 35 ) + (card.health * 40) / (card.cost + 1) * (manaCurve[card.cost])) * 0.2).toFixed(0);
+        case "Minion": return Math.round((( cardScore + ( card.attack * 35 ) + (card.health * 40) / (card.cost + 1)) * (computeManaCurveMultipliers(collection, card.cost))) * 0.2).toFixed(0);
         default: return 0;
     }
 
 };
 
+function computeManaCurveMultipliers(collection, cardCost) {
+
+    const manaCurveBalancedArchetype = { 0: 0, 1: 2, 2: 5, 3: 6, 4: 7, 5: 5, 6: 3, 7: 2 };
+    const manaCurveCurrentCounts = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+
+    _.each(collection, (card) => {
+        if(card.cost >= 7) {
+            manaCurveCurrentCounts['7'] += card.count;
+        } else {
+            manaCurveCurrentCounts[card.cost] += card.count;
+        }
+    });
+
+    const manaCurveMultipliers = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
+    
+    _.each(manaCurveBalancedArchetype, (manaValue, manaKey) => {
+        const currentManaCrystalNumber = manaValue - manaCurveCurrentCounts[manaKey];
+
+        if(currentManaCrystalNumber > 0) {
+            manaCurveMultipliers[manaKey] = 1.5*(1 + Number((((currentManaCrystalNumber) / (30 - collection.length - 1)) ).toFixed(3)));
+        } else {
+            manaCurveMultipliers[manaKey] = 1.5*(1 - Number(((Math.abs(currentManaCrystalNumber) / (30 - collection.length -1)) ).toFixed(3)));
+        }
+
+        manaCurveMultipliers[manaKey] < 0 ? manaCurveMultipliers[manaKey] = 0 : null;
+
+
+    })
+
+    console.log(manaCurveMultipliers);
+
+    return cardCost >= 7 ? manaCurveMultipliers['7'] : manaCurveMultipliers[cardCost];
+}

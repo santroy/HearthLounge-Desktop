@@ -1,5 +1,6 @@
 import { heroes } from "../../../globals/Heroes";
 import { formats } from "../../../globals/Format";
+import { affiliations } from "../../../globals/Affiliations";
 
 import { ADD_CARD_TO_DECK_LIST, DELETE_CARD_FROM_DECK_LIST } from "../../reducers/deckcreator.reducers/DeckListCreator";
 import { CREATOR_SEARCH_FILTER } from '../../reducers/deckcreator.reducers/FoundCollection';
@@ -68,3 +69,13 @@ export function setExpansion(expansion) {
         payload: { expansion }
     }
 }
+
+export function searchAffiliation(affiliation) {
+
+    return {
+        type: CREATOR_SEARCH_FILTER,
+        payload: { affiliation: { name : affiliation } }
+    }
+
+}
+
