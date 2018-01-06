@@ -66,7 +66,7 @@ app.on('ready', () => {
         setupManager.fixGamePerformance();
     }
     
-    ipcMain.on("hearthstone:installed:request", () => {
+    ipcMain.once("hearthstone:installed:request", () => {
         mainWindow.webContents.send("hearthstone:installed:response", setupManager.isHearthstoneInstalled());
     }); 
 

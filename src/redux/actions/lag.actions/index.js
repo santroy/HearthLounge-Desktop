@@ -1,4 +1,5 @@
-import { CLEAR_LAG_DECK_LIST, ADD_TO_LAG_DECK_LIST, DELETE_FROM_LAG_DECK_LIST } from "../../reducers/lag.reducers/LAGDeckList"
+import { CLEAR_LAG_DECK_LIST, ADD_TO_LAG_DECK_LIST, DELETE_FROM_LAG_DECK_LIST } from "../../reducers/lag.reducers/LAGDeckList";
+import { SELECT_LAG_HERO } from '../../reducers/lag.reducers/LAGHero';
 
 export function addToLagDeckList(card) {
 
@@ -16,8 +17,15 @@ export function deleteFromLagDeckList(data) {
 }
 
 export function clearLagDeckList(card) {
-    console.log("im here");
     return {
         type: CLEAR_LAG_DECK_LIST,
     }
 }
+
+export function selectHero(data) {
+    return {
+        type: SELECT_LAG_HERO,
+        payload: data
+    }
+}
+

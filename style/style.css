@@ -1732,3 +1732,79 @@ svg#logo:hover {
     background-size: 16px 16px;
 }
 
+.lag-class-choose {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    font-family: Opti-Belwe;
+    text-shadow: 2px 0 0 #000, -2px 0 0 #000, 0 2px 0 #000, 0 -2px 0 #000, 1px 1px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+    font-size: 20px;
+}
+
+.lag-class-choose table {
+    width: 100%;
+    height: 95%;
+    box-sizing: border-box;
+}
+
+.lag-class-choose td {
+    cursor: pointer;
+    text-align: center;
+    padding-bottom: 45px;
+    vertical-align: bottom;
+    box-sizing: border-box;
+    width: 33.333%;
+    height: 33.333;
+    background-size: 60px 60px;
+}
+
+.lag-class-info {
+    font-size: 18px;
+    width: 100%;
+    height: 5%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lag-class-choose td:hover {
+    color: rgb(0,169,156);
+}
+
+.lag-druid {
+    background: url(../assets/classes/druid.svg) no-repeat 50% 40%; 
+}
+
+.lag-hunter {
+    background: url(../assets/classes/hunter.svg) no-repeat 50% 40%; 
+}
+
+.lag-mage {
+    background: url(../assets/classes/mage.svg) no-repeat 50% 40%; 
+}
+
+.lag-paladin {
+    background: url(../assets/classes/paladin.svg) no-repeat 50% 40%; 
+}
+
+.lag-priest {
+    background: url(../assets/classes/priest.svg) no-repeat 50% 40%; 
+}
+
+.lag-rogue {
+    background: url(../assets/classes/rogue.svg) no-repeat 50% 40%; 
+}
+
+.lag-shaman {
+    background: url(../assets/classes/shaman.svg) no-repeat 50% 40%; 
+}
+
+.lag-warlock {
+    background: url(../assets/classes/warlock.svg) no-repeat 50% 40%; 
+}
+
+.lag-warrior {
+    background: url(../assets/classes/warrior.svg) no-repeat 50% 40%; 
+}

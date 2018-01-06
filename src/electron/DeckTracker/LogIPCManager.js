@@ -198,14 +198,6 @@ class LogIPCManager {
                 this.context.webContents.send("log:delivery", logParcel);
             }
  
-            if(logsExecuted.cardCreated) {
-                logParcel.label = "card_created";
-                logParcel.data = { name: logsExecuted.cardCreated[1], player: players[[logsExecuted.cardCreated[4]-1]].playerName};
-                logParcel.timeStamp = getTimeStamp();
-                logParcel.id = uniqueLogParcelId++;
-                this.context.webContents.send("log:delivery", logParcel);
-            }
- 
             if(logsExecuted.cardShuffled) {
                 logParcel.label = "card_shuffled";
                 logParcel.data = logsExecuted.cardShuffled[1];

@@ -1,6 +1,5 @@
 const LogRegExr = {
     gameOver: /\[Power\] GameState.DebugPrintPower\(\).*-.*TAG_CHANGE Entity=GameEntity tag=NEXT_STEP value=FINAL_GAMEOVER/,
-    cardCreated: /\[Power\] PowerTaskList.DebugPrintPower\(\).*-.*TAG_CHANGE Entity=\[entityName=(.*) id=.* zone=SETASIDE zonePos=(.*) cardId=(.*) player=(.*)] tag=ZONE value=HAND/,
     drewCard: /\[Zone\].*ZoneChangeList.ProcessChanges\(\).*-.*id=.* local=False \[entityName=(.*) id=.* zone=(.*) zonePos=(.*) cardId=(.*) player=(.*)] zone from (FRIENDLY|OPPOSING) DECK -> FRIENDLY HAND/,
     player: /\[Power\] PowerTaskList.DebugPrintPower\(\).*-.*TAG_CHANGE Entity=(.*) tag=PLAYSTATE value=PLAYING/,
     hero: /\[Zone\] ZoneChangeList.ProcessChanges\(\).*-.*TRANSITIONING card \[entityName=(.*) id=.* zone=PLAY zonePos=.* cardId=.* player=(.*)\] to (FRIENDLY|OPPOSING) PLAY \(Hero\)/,

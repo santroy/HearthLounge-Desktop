@@ -1,6 +1,4 @@
 export const cardTextMechanicsRegex = {
-    // dealItsDamage: /.*\bdeal its damage\b.*/i,
-    // dealThatMuchDamage: /.*\bdeal that much damage\b.*/i,
 
     cardDrawSingle: /.*draws? an?.*\b/i,
     cardDrawNumber: /.*draws? (\d\d?) .*/i,
@@ -11,10 +9,19 @@ export const cardTextMechanicsRegex = {
 
     copy: /.*\bcopy\b.*/i,
 
-    dealDamage: /.*deals? \$?(\d*) (?:extra|damages?).*/i,
-    dealDamageEqual: /.*deals?.*damage.*equal.*/i,
-    dealDamageRandom: /.*deals? (\d)-(\d) damages?.*/i,
-    dealDamageRaise: /.*deals? that much damages?.*/i,
+
+    dealDamage: /.*\$?(\d*) (?:extra|damages?).*/i,
+    dealDamageDouble: /.*(\d)-(\d) damages?.*/i,
+    dealDamageEqual: /.*damage.*equal.*/i,
+    dealDamageRaise: /.*that much damages?.*/i,
+
+
+
+
+
+
+
+
 
     destroy: /.*\bdestroy \D.*\b/i,
     destroyNumber: /.*\bdestroy (\d).*\b/i,
@@ -58,6 +65,8 @@ export const cardTextMechanicsRegex = {
     modifyCostMore: /.*\((\d)\) more.*/i,
 
     multiplyAttribute: /.*\b(?:double|twice)\b.*/i,
+
+    overload: /.*\boverload:.*(\d)\b.*/i,
 
     noDurabilityLoss: /.*\bdoesn't lose durability\b.*/i,
 

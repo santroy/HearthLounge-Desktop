@@ -18,11 +18,15 @@ class DeckTracker extends Component {
         super(props);
         this.handleLogs = handleLogs.bind(this);
         this.isHSInstalled = isHSInstalled.bind(this);
-        ipcRenderer.on('hearthstone:installed:response', this.isHSInstalled);
+        ipcRenderer.once('hearthstone:installed:response', this.isHSInstalled);
     }
 
     componentDidMount() {
         ipcRenderer.send('hearthstone:installed:request');
+    }
+
+    componentWillUnmount() {
+        ipcRenderer.removeAllListeners('hearthstone:installed:response');
     }
  
 

@@ -5,6 +5,7 @@ import { addToLagDeckList } from '../../redux/actions/lag.actions/index'
 import _ from 'lodash';
 import Autosuggest from 'react-autosuggest';
 import appraiseCardValue from '../../mechanics/lag';
+import { standard } from '../../globals/Expansions';
 
 class Card extends Component {
 
@@ -16,6 +17,9 @@ class Card extends Component {
         super(props);
         this.cardNameToCardObj = cardNameToCardObj.bind(this);
         this.cardImageRender = cardImageRender.bind(this);
+        this.lagCollection = null;
+        this.filterCollection = filterCollection.bind(this);
+        this.filterCollection();
         this.state = {
             value: '',
             suggestions: []
@@ -26,7 +30,7 @@ class Card extends Component {
         const inputValue = value.trim().toLowerCase();
         const inputLength = inputValue.length;
       
-        return inputLength === 0 ? [] : Object.values(this.props.allCollection).filter(cards =>
+        return inputLength === 0 ? [] : Object.values(this.lagCollection).filter(cards =>
           cards.name.toLowerCase().slice(0, inputLength) === inputValue
         );
     };
@@ -100,8 +104,16 @@ class Card extends Component {
         }
     }
 
+function filterCollection() {
+    this.lagCollection = _.filter(this.props.allCollection, (card) => {
+        if((card.playerClass == this.props.hero || card.playerClass == 'Neutral' ) && verifyMultiClass(card, this.props.hero) && _.includes(standard, card.cardSet)) {
+            return card;
+        }
+    });
+}
+
 function cardNameToCardObj(cardName) {
-    const cardFound = _.cloneDeep(_.find(this.props.allCollection, { name: cardName }));
+    const cardFound = _.cloneDeep(_.find(this.lagCollection, { name: cardName }));
     return cardFound;
 
 }
@@ -116,6 +128,16 @@ function cardImageRender(cardName) {
         this.activeCard = null;
         return this.props.cardBacks[0].img;
     }
+}
+
+function verifyMultiClass(card, hero) {
+
+    if(_.isEmpty(card.classes)) { 
+        return true; 
+    } else {
+        return _.includes(card.classes, hero);
+    }
+    
 }
 
 export default connect(null, { addToLagDeckList }, null, { withRef: true })(Card);

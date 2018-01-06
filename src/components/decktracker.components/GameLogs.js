@@ -39,12 +39,6 @@ class GameLogs extends Component {
                                     <span style={log.data.player.styles}>{log.data.player.sideText}</span> played <span style={{color: "#d9b38c"}}>{log.data.name}</span>.</li> 
                                 ); 
                             break;
-                            case "card_created":
-                                return( 
-                                    <li key={log.id}>{timeStamp}
-                                    <span style={{color: "#ff9999"}}>{log.data.name}</span> is generated to <span style={{color: "#ff9999"}}>{log.data.player}</span> hand.</li> 
-                                );
-                            break;
                             case "card_shuffled":
                                 return( 
                                     <li key={log.id}>{timeStamp}

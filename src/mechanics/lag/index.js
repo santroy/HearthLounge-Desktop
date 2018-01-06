@@ -1,168 +1,13 @@
 
 import { cardTextMechanicsRegex } from './regex/mechanicRegex';
-import { cardTargetRegex } from './regex/targetRegex';
+import { targetRegex } from './regex/targetRegex';
+import { cardTarget, mechanics, textMechanics } from './LAGCardValues';
 import _ from 'lodash';
-
-const cardTarget = {
-    any: { multiplier: 1 },
-    enemy: { multiplier: 1.2 },
-    friendly: { multiplier: 1.2 },
-    character: { multiplier: 1.1 },
-    characters: { multiplier: 0.9 },
-    hero: { multiplier: 0.8 },
-    minion: { multiplier: 1.1 },
-    minions: { multiplier: 1.2 },
-    all: { multiplier: 1.2 },
-    randomly: { multiplier: 0.8 },
-    your: { multiplier: 1 },
-    //this: { multiplier: 70, value: 1 },
-}
-
-
-const mechanics = {
-    adapt: { name: "Adapt", multiplier: 150, value: 1 },
-    battlecry: { name: "Battlecry", multiplier: 50, value: 1 },
-    charge: { name: "Charge", multiplier: 200, value: 1 },
-    combo: { name: "Combo", multiplier: 50, value: 1 },
-    counter: { name: "Counter", multiplier: 200, value: 1 },
-    deathrattle: { name: "Deathrattle", multiplier: 130, value: 1 },
-    discover: { name: "Discover", multiplier: 150, value: 1 },
-    divineShield: { name: "Divine Shield", multiplier: 100, value: 1 },
-    enrage: { name: "Enrage", multiplier: 80, value: 1 },
-    freeze: { name: "Freeze", multiplier: 50, value: 1 },
-    immune: { name: "Immune", multiplier: 90, value: 1 },
-    inspire: { name: "Inspire", multiplier: 120, value: 1 },
-    lifesteal: { name: "Lifesteal", multiplier: 110, value: 1 },
-    megaWindfury: { name: "Mega Windfury", multiplier: 200, value: 1 },
-    overload: { name: "Overload", multiplier: 30, value: 1 },
-    poisonous: { name: "Poisonous", multiplier: 150, value: 1 },
-    quest: { name: "Quest", multiplier: 200, value: 1 },
-    secret: { name: "Secret", multiplier: 100, value: 1 },
-    silence: { name: "Silence", multiplier: 80, value: 1 },
-    stealth: { name: "Stealth", multiplier: 80, value: 1 },
-    spellDamage: { name: "Spell Damage", multiplier: 60, value: 1 },
-    taunt: { name: "Taunt", multiplier: 100, value: 1 },
-    windfury: { name: "Windfury", multiplier: 90, value: 1 }
-}
-
-const textMechanics = {
-    cardDrawSingle: { multiplier: 100, value: 1 },
-    cardDrawNumber: { multiplier: 100, value: 1 },
-
-    castSpell: { multiplier: 50, value: 1 },
-
-    chooseOne: { multiplier: 50, value: 1 },
-
-    copy: { multiplier: 200, value: 1 },
-
-    dealDamage: { multiplier: 70, value: 1 },
-    dealDamageEqual: { multiplier: 300, value: 1 },
-    dealDamageRandom: { multiplier: 60, value: 1, value2: 1},
-    dealDamageRaise: { multiplier: 210, value: 1 },
-
-    destroy: { multiplier: 250, value: 1 },
-    destroyNumber: { multiplier: 250, value: 1 },
-
-    disableHeroPower: { multiplier: 100, value: 1 },
-
-    discardSingle: { multiplier: -100, value: 1 },
-    discardTwo: { multiplier: -100, value: 2 },
-    discardNumber: { multiplier: -100, value: 1 },
-    discardHand: { multiplier: -300, value: 1 },
-
-    enchantDouble: { multiplier: 100, value: 1 },
-    enchantAttack: { multiplier: 70, value: 1 },
-    enchantHealth: { multiplier: 90, value: 1 },
-
-    elusive: { multiplier: 130, value: 1 },
-
-    equip: { multiplier: 60, value: 1 },
-
-    forgetful: { multiplier: -100, value: 1 },
-
-    gainArmor: { multiplier: 70, value: 1 },
-    gainArmorNumber: { multiplier: 70, value: 1 },
-    gainArmorMuch: { multiplier: 140, value: 1 },
-    gainArmorEqual: { multiplier: 140, value: 1 },
-
-    generate: { multiplier: 250, value: 1 },
-
-    incrementAttributeDouble: { multiplier: 80, value: 1, value2: 1 },
-    incrementAttributeAttack: { multiplier: 70, value: 1 },
-    incrementAttributeHealth: { multiplier: 90, value: 1 },
-    incrementAttributeDurability: { multiplier: 90, value: 1 },
-    incrementAttributeMana: { multiplier: 70, value: 1 },
-
-    joust: { multiplier: 80, value: 1 },
-
-    mindControlEffect: { multiplier: 130, value: 1 },
-
-    modifyCostLess: { multiplier: 100, value: 1 },
-    modifyCostMore: { multiplier: 100, value: 1 },
-
-    multiplyAttribute: { multiplier: 130, value: 1 },
-
-    noDurabilityLoss: { multiplier: 120, value: 1 },
-
-    //permanent: { multiplier: 70, value: 1 },
-
-    putIntoBattlefield: { multiplier: 150, value: 1 },
-
-    putIntoHand: { multiplier: 150, value: 1 },
-    
-
-    reduce: { multiplier: 170, value: 1 },
-
-    resurrect: { multiplier: 220, value: 2 },
-
-    refreshMana: { multiplier: 250, value: 1 },
-
-    removeFromDeck: { multiplier: 100, value: 1 },
-
-    replace: { multiplier: 250, value: 1 },
-
-    restoreHealth: { multiplier: 20, value: 1 },
-
-    return: { multiplier: 100, value: 1 },
-
-    setAttributeHealth: { multiplier: 210, value: 1 },
-    setAttributeAttack: { multiplier: 180, value: 1 },
-
-    shuffleIntoDeck: { multiplier: 250, value: 1 },
-
-    spendMana: { multiplier: 200, value: 1 },
-
-    summonMinionDouble: { multiplier: 80, value: 1, value2: 1 },
-    summonMinionCost: { multiplier: 100, value: 1 },
-    summonMinionCopy: { multiplier: 150, value: 1 },
-
-    transformDouble: { multiplier: 80, value: 1, value2: 1 },
-    transformMore: { multiplier: 150, value: 1 },
-    transformLess: { multiplier: 150, value: 1 },
-
-    transformInHand: { multiplier: 150, value: 1 },
-
-    unlimitedAttacks: { multiplier: 200, value: 1 }
-}
-
-const mechanicsTypes = {
-    //oncontrol
-    areaOfEffect: { multiplier: 70, value: 1 },
-    inHandEffect: { multiplier: 70, value: 1 },
-    onDiscardEffect: { multiplier: 70, value: 1 },
-    onDrawEffect: { multiplier: 70, value: 1 },
-    onGoingEffect: { multiplier: 70, value: 1 },
-    positionalEffect: { multiplier: 70, value: 1 },
-    randomEffect: { multiplier: 70, value: 1 },
-    removal: { multiplier: 70, value: 1 },
-    triggeredEffect: { multiplier: 70, value: 1 }
-}
 
 export default function appraiseCardValue(collection, card) {
 
     let cardValues = {};
     const cardTargets = {};    
-
     let cardScore = 0;
 
     
@@ -173,6 +18,7 @@ export default function appraiseCardValue(collection, card) {
         if(regex.test(card.text)) {
             cardValues[regexName] = _.cloneDeep(textMechanics[regexName]);
             regex.exec(card.text)[1] ? cardValues[regexName].value = Number(regex.exec(card.text)[1]) : null;
+            regex.exec(card.text)[2] ? cardValues[regexName].value2 = Number(regex.exec(card.text)[2]) : null;
         }
 
     });
@@ -192,7 +38,7 @@ export default function appraiseCardValue(collection, card) {
     }
 
     // getting card targets
-    _.each(cardTargetRegex, (regex, regexName) => {
+    _.each(targetRegex, (regex, regexName) => {
 
         if(regex.test(card.text)) {
             cardTargets[regexName] = cardTarget[regexName];
@@ -209,18 +55,30 @@ export default function appraiseCardValue(collection, card) {
 
     // sumup all values 
     _.each(cardValues, (value, key) => {
-        cardScore+= value.multiplier * value.value;
+        if(value.value2) {
+            cardScore+= value.multiplier * (value.value + value.value2);
+        } else cardScore+= value.multiplier * value.value;
     });
+
+    const cardContext = determineCardContext(cardValues, cardTargets);
+    const manaCurve = computeManaCurveMultipliers(collection, card.cost);
+    const instantCast = 2.2;
 
     console.log(cardValues, cardTargets);
 
     switch(card.type) {
-        case "Weapon": return  Math.round(( (((card.durability * 60 ) + (card.attack * 70) + cardScore ) / (card.cost + 1)) * (computeManaCurveMultipliers(collection, card.cost))) * 0.4).toFixed(0);
-        case "Spell": {
-        
-            return Math.round( (cardScore / ( (card.cost + 1) ) * (computeManaCurveMultipliers(collection, card.cost))).toFixed(0));
+
+        case "Weapon": {
+            return Math.round( ( ( (cardContext * (  (cardScore + ( card.attack * 50 ) + (card.durability * 35)) ) / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
+
         }
-        case "Minion": return Math.round((( cardScore + ( card.attack * 35 ) + (card.health * 40) / (card.cost + 1)) * (computeManaCurveMultipliers(collection, card.cost))) * 0.2).toFixed(0);
+        case "Spell": {
+
+            return Math.round( ( ( (cardContext * ( instantCast * cardScore ) ) / ( card.cost + 1 )) ) * manaCurve ).toFixed(0);
+        }
+        case "Minion": {
+            return Math.round( ( ( (cardContext * ( (cardScore + ( card.attack * 30 ) + (card.health * 40)) ) / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
+        }
         default: return 0;
     }
 
@@ -242,12 +100,15 @@ function computeManaCurveMultipliers(collection, cardCost) {
     const manaCurveMultipliers = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, 7: 0 };
     
     _.each(manaCurveBalancedArchetype, (manaValue, manaKey) => {
-        const currentManaCrystalNumber = manaValue - manaCurveCurrentCounts[manaKey];
 
-        if(currentManaCrystalNumber > 0) {
-            manaCurveMultipliers[manaKey] = 1.5*(1 + Number((((currentManaCrystalNumber) / (30 - collection.length - 1)) ).toFixed(3)));
+        const currentManaCrystal = manaValue - manaCurveCurrentCounts[manaKey];
+
+        if(currentManaCrystal > 0) {
+
+             manaCurveMultipliers[manaKey] = (1 + Number((((currentManaCrystal) / (30 - collection.length - 1)) ).toFixed(3)));
+
         } else {
-            manaCurveMultipliers[manaKey] = 1.5*(1 - Number(((Math.abs(currentManaCrystalNumber) / (30 - collection.length -1)) ).toFixed(3)));
+            manaCurveMultipliers[manaKey] = (1 - Number(((Math.abs(currentManaCrystal) / (30 - collection.length - 1)) ).toFixed(3)));
         }
 
         manaCurveMultipliers[manaKey] < 0 ? manaCurveMultipliers[manaKey] = 0 : null;
@@ -255,7 +116,74 @@ function computeManaCurveMultipliers(collection, cardCost) {
 
     })
 
-    console.log(manaCurveMultipliers);
 
     return cardCost >= 7 ? manaCurveMultipliers['7'] : manaCurveMultipliers[cardCost];
+}
+
+
+function determineCardContext(cardValues, cardTargets) {
+
+    const negativeAllyCardTargets = ['your', 'friendly', 'himself', 'this'];
+    const negativeAllyCardEffects =     [ 'dealDamage',
+                                        'dealDamageEqual',
+                                        'dealDamageRandom',
+                                        'dealDamageRaise',
+                                        'destroy',
+                                        'destroyNumber',
+                                        'discardSingle', 
+                                        'discardTwo', 
+                                        'discardNumber',
+                                        'discardHand' ];
+
+    let hasNegativeAllyCardTargets = false, hasNegativeAllyCardEffects = false;
+
+
+    _.each(negativeAllyCardTargets, allyTarget => {
+        if(cardTargets.hasOwnProperty(allyTarget)) hasNegativeAllyCardTargets = true;
+    });
+
+    _.each(negativeAllyCardEffects, allyEffect => {
+        if(cardValues.hasOwnProperty(allyEffect)) hasNegativeAllyCardEffects = true;
+    });
+    
+    
+    if(hasNegativeAllyCardTargets && hasNegativeAllyCardEffects) {
+        return 0.7;
+    }
+
+    const negativeEnemyCardTargets = ['enemy'];
+    const negativeEnemyCardEffects =  [ 'transformLess',
+                                    'enchantDouble',
+                                    'enchantAttack',
+                                    'enchantHealth',
+                                    'generate',
+                                    'incrementAttributeDouble',
+                                    'incrementAttributeAttack',
+                                    'incrementAttributeHealth',
+                                    'incrementAttributeDurability',
+                                    'incrementAttributeMana',
+                                    'modifyCostLess',
+                                    'multiplyAttribute',
+                                    'putIntoBattlefield',
+                                    'putIntoHand',
+                                    'reduce',
+                                    'restoreHealth' ];
+
+    let hasNegativeEnemyCardTargets = false, hasNegativeEnemyCardEffects = false;
+
+    _.each(negativeEnemyCardTargets, enemyTarget => {
+        if(cardTargets.hasOwnProperty(enemyTarget)) hasNegativeEnemyCardTargets = true;
+    });
+
+    _.each(negativeEnemyCardEffects, enemyEffect => {
+        if(cardValues.hasOwnProperty(enemyEffect)) hasNegativeEnemyCardEffects = true;
+    });
+    
+    if(hasNegativeEnemyCardTargets && hasNegativeEnemyCardEffects ) {
+        return 0.7;
+    }
+
+    return 1;
+
+
 }
