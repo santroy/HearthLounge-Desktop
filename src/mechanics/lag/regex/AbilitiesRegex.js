@@ -375,11 +375,36 @@ const textAbilitiesRegex = {
     costEachTotemLess: /.*costs \((\d)\) less for each totem.*?game.*/i,
 
     // multiply attribute
-    // no durability loss
-    // permanent
-    // put into battlefield
-    // put into hand
-    // refresh mana
+
+    doubleAttack: /.*double (?:this|a) minion's attack.*/i,
+    doubleHealth: /.*double a minion's health.*/i,
+    doubleDamageHealing: /.*double the damage adn healing.*/i,
+    doubleTwiceTrigger: /.*trigger twice.*/i,
+    doubleTwiceAdapt: /.*adapt twice.*/i,
+
+    // no durability loss -- empty 
+
+    // permanent -- empty
+
+    // put 
+
+    putBothPlayersRandomMinion: /.*put a random minion.*?each.*?hand into the battlefield.*/i,
+    putMinionDeckToHand: /.*put a 10-cost minion.*?into your hand.*/i,
+    putRandomPirateToHand: /.*put a random pirate.*?into your hand.*/i,
+    putAllDragonFromHand: /.*put all dragons.*into the battlefield.*/i,
+    putEachSecretBattlefield: /.*put one of each secret.*?into the battlefield.*/i,
+    putCopySpellPlayers: /.*put a copy into the other player's hand.*/i,
+    putCopyOpponentCard: /.*put a copy of a random card.*opponent's hand.*/i,
+    putCopyOpponentMinion: /.*put a copy of a random minion.*?opponent's deck.*?into the battlefield.*/i,
+    putRandomHunterSecretBattlefield: /.*put a random hunter secret.*?into the battlefield.*/i,
+    putRandomDemonsToHand: /.*put (\d) random demons.*?from your deck into your hand.*/i,
+    putMinionDeckToBattlefield: /.*put a minion from your deck into the battlefield.*/i,
+
+    // refresh
+
+    refreshHeroPower: /.*refresh your hero power.*/i,
+    refreshMana: /.*refresh your mana crystals.*/i,
+
     // remove from deck
     // replace
     // restore health
