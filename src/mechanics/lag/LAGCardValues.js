@@ -1,4 +1,6 @@
+// Card Target 
 export const cardTarget = {
+
     allMinions: { multiplier: 1.2 },
     allOtherEnemies: { multiplier: 1.2 },
     allOtherMinions: { multiplier: 1.2 },
@@ -28,14 +30,65 @@ export const cardTarget = {
     randomEnemyMinion: { multiplier: 1.2 },
     nonMurclockMinions: { multiplier: 1.2 },
     exceptDragons: { multiplier: 1.2 },
-
     yourOtherMinions: { multiplier: 1.2 },
     yourWeapons: { multiplier: 1.2 },
+    youHave: { multiplier: 1.2 },
+    theyHave: { multiplier: 1.2 },
+    bothPlayers: { multiplier: 1.2 },
+    yourDeck: { multiplier: 1.2 },
+    yourOpponent: { multiplier: 1.2 },
+    eachPlayer: { multiplier: 1.2 },
+    forEach: { multiplier: 1.2 },
+
+    yourMinion: { multiplier: 1.2 },
+    yourHand: { multiplier: 1.2 },
+    otherPlayersHand: { multiplier: 1.2 },
+    yourHero: { multiplier: 1.2 },
+    randomSpell: { multiplier: 1.2 },
+    randomWeapon: { multiplier: 1.2 },
+    randomCard: { multiplier: 1.2 },
+    frozenMinion: { multiplier: 1.2 },
+    opponentsWeapon: { multiplier: 1.2 },
+    minionNumberPlus: { multiplier: 1.2 },
+    yourWeapon: { multiplier: 1.2 },
+    manaCrystals: { multiplier: 1.2 },
+    enemmyMinionNumberLess: { multiplier: 1.2 },
+    minionNumerLess: { multiplier: 1.2 },
+    allMinionsExceptOne: { multiplier: 1.2 },
+    friendlyMinion: { multiplier: 1.2 },
+    them: { multiplier: 1.2 },
+    opponentLRM: { multiplier: 1.2 },
+    pirate: { multiplier: 1.2 },
+    murloc: { multiplier: 1.2 },
+    murlocs: { multiplier: 1.2 },
+    demon: { multiplier: 1.2 },
+    allCards: { multiplier: 1.2 },
+    allDamagedMinion: { multiplier: 1.2 },
+    allMinionsNumberLess: { multiplier: 1.2 },
+    allOneCostSpells: { multiplier: 1.2 },
+    randomEnemyMinionNumerLess: { multiplier: 1.2 },
+    minionSide: { multiplier: 1.2 },
+    heroPowers: { multiplier: 1.2 },
+    dreamCard: { multiplier: 1.2 },
+    twoOneCost: { multiplier: 1.2 },
+    threeOneCost: { multiplier: 1.2 },
+    BDM: { multiplier: 1.2 },
+    divineShieldMinion: { multiplier: 1.2 },
+    weapon: { multiplier: 1.2 },
+    weapons: { multiplier: 1.2 },
+    secret: { multiplier: 1.2 },
+    card: { multiplier: 1.2 },
+    twoRandomCards: { multiplier: 1.2 },
+    wrongEnemy: { multiplier: 1.2 },
+    enemyHero: { multiplier: 1.2 },
+
+
 };
 
 
-
+// Basic Mechanics supported by API
 export const mechanics = {
+
     adapt: { name: "Adapt", multiplier: 30, value: 1 },
     battlecry: { name: "Battlecry", multiplier: 10, value: 1 },
     charge: { name: "Charge", multiplier: 30, value: 1 },
@@ -58,44 +111,67 @@ export const mechanics = {
     spellDamage: { name: "Spell Damage", multiplier: 20, value: 1 },
     taunt: { name: "Taunt", multiplier: 30, value: 1 },
     windfury: { name: "Windfury", multiplier: 10, value: 1 }
+
 }
 
 export const textMechanics = {
 
-    cardDrawSingle: { multiplier: 30, value: 1 },
+    // Card Draw Effects
+    cardDraw: { multiplier: 30, value: 1 },
     cardDrawNumber: { multiplier: 30, value: 1 },
+    cardDrawUntil: { multiplier: 30, value: 1 },
+    cardDrawMinionsNumber: { multiplier: 30, value: 1 },
+    cardDrawTwo: { multiplier: 30, value: 1 },
+    cardDrawUntilNumber: { multiplier: 30, value: 1 },
+    cardDrawDurability: { multiplier: 30, value: 1 },
+    cardDrawChance: { multiplier: 30, value: 1 },
+    cardDrawIt: { multiplier: 30, value: 1 },
+    cardDrawOne: { multiplier: 30, value: 1 },
 
+    // Cast Spell
+    castSpellRandom: { multiplier: 30, value: 1 },
+    castSpell: { multiplier: 30, value: 1 },
+    castSpellElementalInvocation: { multiplier: 30, value: 1 },
+    castSpellEach: { multiplier: 30, value: 1 },
     castSpell: { multiplier: 30, value: 1 },
 
+    // Choose One (Not supported by API)
     chooseOne: { multiplier: 20, value: 1 },
 
-    copy: { multiplier: 40, value: 1 },
+    copyCard: { multiplier: 20, value: 1 },
+    copyCards: { multiplier: 20, value: 1 },
+    copyIt: { multiplier: 20, value: 1 },
+    copyStats: { multiplier: 20, value: 1 },
+    copyPut: { multiplier: 20, value: 1 },
+    copyTheLowestCost: { multiplier: 20, value: 1 },
 
-     dealDamage: { multiplier: 30, value: 1 },
-     dealDamageDouble: { multiplier: 60, value: 1 },
-     dealDamageEqual: { multiplier: 45, value: 1, value2: 1},
-     dealDamageRaise: { multiplier: 45, value: 1 },
+    // Deal Damage
+    dealDamage: { multiplier: 30, value: 1 },
+    dealDamageDouble: { multiplier: 60, value: 1 },
+    dealDamageEqual: { multiplier: 45, value: 1, value2: 1},
+    dealDamageRaise: { multiplier: 45, value: 1 },
 
+    destroy: { multiplier: 45, value: 1 },
+    destroyIt: { multiplier: 45, value: 1 },
+    destroyNumber: { multiplier: 45, value: 1 },
 
-    destroy: { multiplier: 80, value: 1 },
-    destroyNumber: { multiplier: 80, value: 1 },
+    disabled: { multiplier: 30, value: 1 },
 
-    disableHeroPower: { multiplier: 30, value: 1 },
-
-    discardSingle: { multiplier: 10, value: 1 },
-    discardTwo: { multiplier: 10, value: 2 },
-    discardNumber: { multiplier: 10, value: 1 },
-    discardHand: { multiplier: 10, value: 1 },
+    discardSingle: { multiplier: 30, value: 1 },
+    discardNumber: { multiplier: 30, value: 1 },
+    discardOthers: { multiplier: 30, value: 1 },
 
     enchantDouble: { multiplier: 60, value: 1 },
     enchantAttack: { multiplier: 25, value: 1 },
     enchantHealth: { multiplier: 40, value: 1 },
 
+    // Cannot be targeted
     elusive: { multiplier: 40, value: 1 },
 
-    equip: { multiplier: 30, value: 1 },
+    equipStats: { multiplier: 40, value: 1, value2: 1 },
+    equip: { multiplier: 40, value: 1 },
 
-    forgetful: { multiplier: 10, value: 1 },
+    //forgetful: { multiplier: 10, value: 1 },
 
     gainArmor: { multiplier: 15, value: 1 },
     gainArmorNumber: { multiplier: 15, value: 1 },
