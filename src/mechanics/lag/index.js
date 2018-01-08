@@ -1,22 +1,19 @@
-
-import { cardTextMechanicsRegex } from './regex/mechanicRegex';
-import { targetRegex } from './regex/targetRegex';
-import { cardTarget, mechanics, textMechanics } from './LAGCardValues';
+import { mechanics, textAbilities } from './LAGCardValues';
+import { textAbilitiesRegex } from './regex/AbilitiesRegex';
 import _ from 'lodash';
 
 export default function appraiseCardValue(collection, card) {
 
     let cardValues = {};
-    const cardTargets = {};    
     let cardScore = 0;
 
     
     // getting card values from text
 
-    _.each(cardTextMechanicsRegex, (regex, regexName) => {
+    _.each(textAbilitiesRegex, (regex, regexName) => {
 
         if(regex.test(card.text)) {
-            cardValues[regexName] = _.cloneDeep(textMechanics[regexName]);
+            cardValues[regexName] = _.cloneDeep(textAbilities[regexName]);
             regex.exec(card.text)[1] ? cardValues[regexName].value = Number(regex.exec(card.text)[1]) : null;
             regex.exec(card.text)[2] ? cardValues[regexName].value2 = Number(regex.exec(card.text)[2]) : null;
         }
@@ -37,15 +34,6 @@ export default function appraiseCardValue(collection, card) {
 
     }
 
-    // getting card targets
-    _.each(targetRegex, (regex, regexName) => {
-
-        if(regex.test(card.text)) {
-            cardTargets[regexName] = cardTarget[regexName];
-        }
-
-    });
-
     // handle choose one 
     if(!_.isEmpty(cardValues.chooseOne)) {
         let max = _.sortBy(cardValues, [function(o) { return -(o.multiplier * o.value); }]);
@@ -60,24 +48,26 @@ export default function appraiseCardValue(collection, card) {
         } else cardScore+= value.multiplier * value.value;
     });
 
-    const cardContext = determineCardContext(cardValues, cardTargets);
     const manaCurve = computeManaCurveMultipliers(collection, card.cost);
     const instantCast = 2.2;
 
-    console.log(cardValues, cardTargets);
+    console.log(cardValues);
 
     switch(card.type) {
 
         case "Weapon": {
-            return Math.round( ( ( (cardContext * (  (cardScore + ( card.attack * 50 ) + (card.durability * 35)) ) / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
+            return Math.round( ( ( ((  (cardScore + ( card.attack * 50 ) + (card.durability * 35)) ) / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
 
         }
         case "Spell": {
 
-            return Math.round( ( ( (cardContext * ( instantCast * cardScore ) ) / ( card.cost + 1 )) ) * manaCurve ).toFixed(0);
+            return Math.round( ( ( (( instantCast * cardScore ) ) / ( card.cost + 1 )) ) * manaCurve ).toFixed(0);
         }
         case "Minion": {
-            return Math.round( ( ( (cardContext * ( (cardScore + ( card.attack * 30 ) + (card.health * 40)) ) / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
+            return Math.round( ( ( (( (cardScore + ( card.attack * 30 ) + (card.health * 40)) ) / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
+        }
+        case "Hero": {
+            return Math.round( (( (cardScore * 10 / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
         }
         default: return 0;
     }
@@ -116,74 +106,5 @@ function computeManaCurveMultipliers(collection, cardCost) {
 
     })
 
-
     return cardCost >= 7 ? manaCurveMultipliers['7'] : manaCurveMultipliers[cardCost];
-}
-
-
-function determineCardContext(cardValues, cardTargets) {
-
-    const negativeAllyCardTargets = ['your', 'friendly', 'himself', 'this'];
-    const negativeAllyCardEffects =     [ 'dealDamage',
-                                        'dealDamageEqual',
-                                        'dealDamageRandom',
-                                        'dealDamageRaise',
-                                        'destroy',
-                                        'destroyNumber',
-                                        'discardSingle', 
-                                        'discardTwo', 
-                                        'discardNumber',
-                                        'discardHand' ];
-
-    let hasNegativeAllyCardTargets = false, hasNegativeAllyCardEffects = false;
-
-
-    _.each(negativeAllyCardTargets, allyTarget => {
-        if(cardTargets.hasOwnProperty(allyTarget)) hasNegativeAllyCardTargets = true;
-    });
-
-    _.each(negativeAllyCardEffects, allyEffect => {
-        if(cardValues.hasOwnProperty(allyEffect)) hasNegativeAllyCardEffects = true;
-    });
-    
-    
-    if(hasNegativeAllyCardTargets && hasNegativeAllyCardEffects) {
-        return 0.7;
-    }
-
-    const negativeEnemyCardTargets = ['enemy'];
-    const negativeEnemyCardEffects =  [ 'transformLess',
-                                    'enchantDouble',
-                                    'enchantAttack',
-                                    'enchantHealth',
-                                    'generate',
-                                    'incrementAttributeDouble',
-                                    'incrementAttributeAttack',
-                                    'incrementAttributeHealth',
-                                    'incrementAttributeDurability',
-                                    'incrementAttributeMana',
-                                    'modifyCostLess',
-                                    'multiplyAttribute',
-                                    'putIntoBattlefield',
-                                    'putIntoHand',
-                                    'reduce',
-                                    'restoreHealth' ];
-
-    let hasNegativeEnemyCardTargets = false, hasNegativeEnemyCardEffects = false;
-
-    _.each(negativeEnemyCardTargets, enemyTarget => {
-        if(cardTargets.hasOwnProperty(enemyTarget)) hasNegativeEnemyCardTargets = true;
-    });
-
-    _.each(negativeEnemyCardEffects, enemyEffect => {
-        if(cardValues.hasOwnProperty(enemyEffect)) hasNegativeEnemyCardEffects = true;
-    });
-    
-    if(hasNegativeEnemyCardTargets && hasNegativeEnemyCardEffects ) {
-        return 0.7;
-    }
-
-    return 1;
-
-
 }
