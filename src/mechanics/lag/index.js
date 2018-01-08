@@ -64,7 +64,7 @@ export default function appraiseCardValue(collection, card) {
             return Math.round( ( ( (( instantCast * cardScore ) ) / ( card.cost + 1 )) ) * manaCurve ).toFixed(0);
         }
         case "Minion": {
-            return Math.round( ( ( (( (cardScore + ( card.attack * 30 ) + (card.health * 40)) ) / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
+            return Math.round( ( ( (( (cardScore + ( card.attack * statsValue(card.cost, 30)) + (card.health * statsValue(card.cost, 40))) ) / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
         }
         case "Hero": {
             return Math.round( (( (cardScore * 10 / ( card.cost + 1 )) ) * manaCurve )).toFixed(0);
@@ -73,6 +73,16 @@ export default function appraiseCardValue(collection, card) {
     }
 
 };
+
+function statsValue(cost, value) {
+    const costValues = { 0: 5, 1: 3, 2: 1.2, 3: 1.1, 4: 1, 5: 1.1, 6: 1.1, 7: 1 };
+
+    if(cost >= 7 ) {
+        return value;
+    }
+
+    return Math.round(value / costValues[cost]);
+}
 
 function computeManaCurveMultipliers(collection, cardCost) {
 
