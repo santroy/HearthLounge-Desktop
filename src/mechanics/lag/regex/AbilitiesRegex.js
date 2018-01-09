@@ -14,11 +14,12 @@ drawMinions: /.*draw.{1,5}(\d\d?).{1,5}minions.*/i,
 drawTwoCards: /.*draw.{1,5}two.{1,5}cards.*/i,
 drawWeapons: /.*draw.{1,5}(\d\d?).{1,5}weapons.*/i,
 drawUntil: /.*both.{1,5}players.{1,5}draw.{1,5}until.{1,5}they.{1,5}have.{1,5}(\d\d?).{1,5}cards.*/i,
+drawOpponentHalf: /.*they.{1,5}have.{1,5}a.{1,5}50%.*?extra.{1,5}card.*/i,
+drawYouHalf: /.*you.{1,5}have.{1,5}a.{1,5}50%.*?extra.{1,5}card.*/i,
 drawDivineMinion: /.*draw.{1,5}a.{1,5}divine.{1,5}shield.{1,5}minion.*/i,
 drawCardDurability: /.*draw.{1,5}cards.{1,5}equal.{1,5}to.{1,5}its.{1,5}durability.*/i,
 drawMurlocs: /.*draw.{1,5}(\d\d?).{1,5}murlocs.*/i,
 drawCardAndDeal: /.*draw.{1,5}a.{1,5}card.{1,5}and.{1,5}deal.{1,5}damage.{1,5}equal.{1,5}to.{1,5}its.{1,5}cost.*/i,
-drawAnExtraCard: /.*draw.{1,5}an.{1,5}extra.{1,5}card.*/i,
 drawOpponentCards: /.*your.{1,5}opponent.{1,5}draws.{1,5}(\d\d?).{1,5}cards.*/i,
 drawThreeOneCostMinions: /.*draw.{1,5}three.{1,5}1-cost.{1,5}minions.*/i,
 drawTwoOneCostMinions: /.*draw.{1,5}two.{1,5}1-cost.{1,5}minions.*/i,
@@ -63,7 +64,7 @@ dealAllMinions: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}all.{1,5}minions.*
 dealMinion: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}a.{1,5}minion.*/i,
 dealAllEnemyMinions: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}all.{1,5}enemy.{1,5}minions.*/i,
 dealRandomlyEnemyCharacters: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}randomly.*enemy.{1,5}characters.*/i,
-dealDamages: /.*deal.{1,5}(\d\d?).{1,5}damage(?:\.|\;).*/i,
+dealDamages: /.*deal.{1,5}?(\d\d?).{1,5}damage(?:\.|\;).*/i,
 dealAdjacentOnes: /.*(\d).{1,5}damage.{1,5}to.{1,5}adjacent.{1,5}ones.*/i,
 dealUndamagedMinion: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}an.{1,5}undamaged.{1,5}minion.*/i,
 dealUndamagedCharacter: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}an.{1,5}undamaged.{1,5}character.*/i,
@@ -73,7 +74,7 @@ dealNextToIt: /.*deal.{1,5}its.{1,5}damage.{1,5}to.{1,5}the.{1,5}minions.{1,5}ne
 dealYourHero: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}your.{1,5}hero(?:\.|\;).*/i,
 dealThatMuch: /.*deal.{1,5}that.{1,5}much.{1,5}damage.{1,5}to.{1,5}a.{1,5}random.{1,5}enemy.{1,5}minion.*/i,
 dealItsAllEnemyMinions: /.*deal.{1,5}its.{1,5}damage.{1,5}to.{1,5}all.{1,5}enemy.{1,5}minions.*/i,
-dealEnemyMinion: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}an.{1,5}enemy.{1,5}minion.*/i,
+dealEnemyMinion: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,3}an.{1,3}enemy.{1,5}minion.*/i,
 dealRandomEnemyMinion: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}a.{1,5}random.{1,5}enemy.{1,5}minion.*/i,
 dealYourHeroEqualCost: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}your.{1,5}hero.{1,5}equal.{1,5}to.{1,5}its.{1,5}cost.*/i,
 dealTwoRandomEnemyMinions: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}two.{1,5}random.{1,5}enemy.{1,5}minions.*/i,
@@ -112,7 +113,7 @@ dealYourMinions: /.*deal.{1,5}(\d\d?).{1,5}damage.{1,5}to.{1,5}your.{1,5}minions
 // destroy
 
 destroyOpponentWeapon: /.*destroy.*opponent's.{1,5}weapon.*/i,
-destroyEnemyMinion: /.*destroy.{1,5}an.{1,5}enemy.{1,5}minion.*/i,
+destroyEnemyMinion: /.*destroy.{1,5}an.{1,5}enemy.{1,5}minion(?:\.|\;).*/i,
 destroyAttackOrMore: /.*destroy.{1,5}a.{1,5}minion.{1,5}with.{1,5}an.{1,5}attack.{1,5}of.{1,5}(\d\d?).{1,5}or.{1,5}more.*/i,
 destroyAttackOrLess: /.*destroy.{1,5}a.{1,5}minion.{1,5}with.{1,5}(\d\d?).{1,5}or.{1,5}less.*/i,
 destroyAllAttackOrLess: /.*destroy.{1,5}all.{1,5}minions.{1,5}with.{1,5}(\d\d?).{1,5}or.{1,5}less.{1,5}attack.*/i,
@@ -180,11 +181,11 @@ enchantFriendlyDivineShiled: /.*give.{1,5}a.{1,5}friendly.{1,5}minion.{1,5}divin
 enchantCthunDouble: /.*give.{1,5}your.{1,5}c'thun.{1,5}\+(\d)\/\+(\d).*/i,
 enchantBeastImmuneAttackturn: /.*give.{1,5}a.{1,5}friendly.{1,5}beast.{1,5}\+(\d).{1,5}attack.{1,5}and.{1,5}immune.{1,5}this.{1,5}turn.*/i,
 enchantHeroAttackArmorTurn: /.*give.{1,5}your.{1,5}hero.{1,5}\+(\d).{1,5}attack.{1,5}this.{1,5}turn.{1,5}and.{1,5}(\d\d?).{1,5}armor.*/i,
-enchantMinionAttack: /.*give.{1,5}a.{1,5}minion.{1,5}\+(\d).{1,5}attack.*/i,
+enchantMinionAttack: /.*give.{1,5}a.{1,5}minion.{1,5}\+(\d).{1,5}attack(?:\.|\;).*/i,
 enchantMinionWindfury: /.*give.{1,5}a.{1,5}minion.{1,5}windfury.*/i,
 enchantFriendlyMinionWindfury: /.*give.{1,5}a.{1,5}friendly.{1,5}minion.{1,5}windfury.*/i,
 enchantMinionHealth: /.*give.{1,5}a.{1,5}minion.{1,5}\+(\d).{1,5}health.*/i,
-enchantMinionDouble: /.*give.{1,5}a.{1,5}minion.{1,5}\+(\d)\/\+(\d)(?:\.|\;).*/i,
+enchantMinionDouble: /.*give.{1,2}a.{1,2}minion.{1,5}\+(\d)\/\+(\d)(?:\.|\;).*/i,
 enchantRandomFriendlyMinionHealth: /.*give.{1,5}another.{1,5}random.{1,5}friendly.{1,5}minion.{1,5}\+(\d).{1,5}health.*/i,
 enchantMinionsAttackTurn: /.*give.{1,5}your.{1,5}minions.{1,5}\+(\d).{1,5}attack.{1,5}this.{1,5}turn.*/i,
 enchantWeaponDouble: /.*give.{1,5}your.{1,5}weapon.{1,5}\+(\d)\/\+(\d).*/i,
@@ -367,7 +368,7 @@ costAllMinionsMore: /.*all.{1,5}minions.{1,5}cost.{1,5}\((\d)\).{1,5}more.*/i,
 costFreeEnemyNextTurn: /.*enemy.{1,5}spells.{1,5}cost.{1,5}\(0\).{1,5}next.{1,5}turn.*/i,
 costReduceThis: /.*reduce.{1,5}this.{1,5}card's.{1,5}cost.{1,5}by.{1,5}\((\d)\).*/i,
 costSpellsMore: /.*spells.{1,5}cost.{1,5}\((\d)\).{1,5}more.*/i,
-costYourSpellsMore: /.*your.{1,5}spells.{1,5}cost.{1,5}\((\d)\).{1,5}less.*/i,
+costYourSpellsLess: /.*your.{1,5}spells.{1,5}cost.{1,5}\((\d)\).{1,5}less.*/i,
 costOtherClassLess: /.*cost.{1,5}\((\d)\).{1,5}less.{1,5}for.{1,5}each.{1,5}card.*?played.*?another.{1,5}class.*/i,
 costFirstMinionLess: /.*first.{1,5}minion.*?.{1,5}costs.{1,5}\((\d)\).{1,5}less.*/i,
 costSpellLessTurn: /.*next.{1,5}spell.*?this.{1,5}turn.*?costs.{1,5}\((\d)\).{1,5}less.*/i,
@@ -424,6 +425,7 @@ replaceDeckDiscover: /.*replace.{1,5}your.{1,5}hero.{1,5}power.{1,5}and.{1,5}war
 restoreToFullMinion: /.*restore.{1,5}a.{1,5}minion.{1,5}to.{1,5}full.{1,5}health.*/i,
 restoreHealth: /.*restore.{1,5}(\d\d?).{1,5}health(?:\.|\;).*/i,
 restoreHealthHero: /.*restore.{1,5}(\d\d?).{1,5}health.{1,5}to.{1,5}your.{1,5}hero.*/i,
+restoreHealthEachHero: /.*restore.{1,5}(\d\d?).{1,5}health.{1,5}to.{1,5}each.{1,5}hero.*/i,
 restoreHealthMinionHero: /.*restore.{1,5}(\d\d?).{1,5}health.{1,5}to.{1,5}a.{1,5}minion.{1,5}and.{1,5}your.{1,5}hero.*/i,
 restoreAllMinions: /.*restore.{1,5}(\d\d?).{1,5}health.{1,5}to.{1,5}all.{1,5}minions.*/i,
 restoreEnemyHero: /.*restore.{1,5}(\d\d?).{1,5}health.{1,5}to.{1,5}the.{1,5}enemy.{1,5}hero.*/i,
@@ -513,7 +515,7 @@ summonRandomCost: /.*summon.{1,5}a.{1,5}random.{1,5}(\d\d?)\-cost.{1,5}minion.*/
 summonEnemyRandomCost: /.*summon.{1,5}a.{1,5}random.{1,5}(\d\d?)\-cost.{1,5}minion.{1,5}for.{1,5}your.{1,5}opponent.*/i,
 summonThatMany: /.*summon.{1,5}that.{1,5}many.{1,5}(\d\d?)\/(\d\d?).*/i,
 summonRadomMinionMuch: /.*summon.{1,5}a.{1,5}random.{1,5}minion.{1,5}that.{1,5}costs.{1,5}that.{1,5}much.*/i,
-summonTwoMinionDouble: /.*summon.{1,5}two.{1,5}(\d\d?)\/(\d\d?).*?for.{1,5}your.{1,5}opponent.*/i,
+summonTwoMinionDoubleEnemy: /.*summon.{1,5}two.{1,5}(\d\d?)\/(\d\d?).*?for.{1,5}your.{1,5}opponent.*/i,
 summonMinionEqualArmor: /.*summon.{1,5}a.{1,5}random.{1,5}minion.*?equal.{1,5}to.{1,5}your.{1,5}armor.*/i,
 summonHandAttackMinion: /.*summon.{1,5}a.{1,5}minion.{1,5}from.{1,5}your.{1,5}hand.{1,5}with.{1,5}(\d).{1,5}or.{1,5}more.{1,5}attack.*/i,
 summonTauntDied: /.*summon.{1,5}your.{1,5}taunt.{1,5}minions.{1,5}that.{1,5}died.{1,5}this.{1,5}game.*/i,
@@ -537,22 +539,22 @@ summonRandomBasicTotem: /.*summon.{1,5}a.{1,5}random.{1,5}basic.{1,5}totem.*/i,
 
 // transform
 
-tranformAllEnemyMinionsLess: /.*transform.{1,5}all.{1,5}enemy.{1,5}minions.*?cost.{1,5}\((\d)\).{1,5}less.*/i,
-tranformInto: /.*transform.{1,5}into.{1,5}a.{1,5}(\d\d?)\/(\d\d?).*/i,
-tranformIntoFriendlyMinion: /.*transform.{1,5}a.{1,5}friendly.{1,5}minion.{1,5}into.{1,5}a.{1,5}(\d\d?)\/(\d\d?).*/i,
-tranformIntoMinion: /.*transform.{1,5}a.{1,5}minion.{1,5}into.{1,5}a.{1,5}(\d\d?)\/(\d\d?).*/i,
-tranformManaCrystals: /.*transform.{1,5}your.{1,5}mana.{1,5}crystals.{1,5}into.{1,5}(\d\d?)\/(\d\d?).*/i,
-tranformWithCharge: /.*transform.*?with.{1,5}charge.*/i,
-tranformWithTaunt: /.*transform.*?with.{1,5}taunt.*/i,
-tranformWithPoisonous: /.*transform.*?with.{1,5}poisonous.*/i,
-tranformWithStealth: /.*transform.*?with.{1,5}stealth.*/i,
-tranformAllMinionsMore: /.*transform.{1,5}your.{1,5}minions.*?cost.{1,5}\((\d)\).{1,5}more.*/i,
-tranformWeapon: /.*transform.{1,5}it.{1,5}into.{1,5}a.{1,5}new.{1,5}weapon.*/i,
-tranformItInto: /.*transform.{1,5}it.{1,5}into.{1,5}a.{1,5}(\d\d?)\/(\d\d?).*/i,
-tranformHandRandomMinion: /.*each.{1,5}turn.{1,5}this.{1,5}is.*?transform.*?random.{1,5}minion.*/i,
-tranformHandRandomMageSpell: /.*each.{1,5}turn.{1,5}this.{1,5}is.*?transform.*?random.{1,5}mage.{1,5}spell.*/i,
-tranformAnotherRandom: /.*transform.{1,5}another.{1,5}random.{1,5}minion.*/i,
-tranformRepeatableMore: /.*transform.{1,5}a.{1,5}friendly.{1,5}minion.{1,5}into.{1,5}one.{1,5}that.*?repeatable.*/i,
+transformAllEnemyMinionsLess: /.*transform.{1,5}all.{1,5}enemy.{1,5}minions.*?cost.{1,5}\((\d)\).{1,5}less.*/i,
+transformInto: /.*transform.{1,2}into.{1,5}a.{1,5}(\d\d?)\/(\d\d?).*/i,
+transformIntoFriendlyMinion: /.*transform.{1,5}a.{1,5}friendly.{1,5}minion.{1,5}into.{1,5}a.{1,5}(\d\d?)\/(\d\d?).*/i,
+transformIntoMinion: /.*transform.{1,5}a.{1,5}minion.{1,5}into.{1,5}a.{1,5}(\d\d?)\/(\d\d?).*/i,
+transformManaCrystals: /.*transform.{1,5}your.{1,5}mana.{1,5}crystals.{1,5}into.{1,5}(\d\d?)\/(\d\d?).*/i,
+transformWithCharge: /.*transform.*?with.{1,5}charge.*/i,
+transformWithTaunt: /.*transform.*?with.{1,5}taunt.*/i,
+transformWithPoisonous: /.*transform.*?with.{1,5}poisonous.*/i,
+transformWithStealth: /.*transform.*?with.{1,5}stealth.*/i,
+transformAllMinionsMore: /.*transform.{1,5}your.{1,5}minions.*?cost.{1,5}\((\d)\).{1,5}more.*/i,
+transformWeapon: /.*transform.{1,5}it.{1,5}into.{1,5}a.{1,5}new.{1,5}weapon.*/i,
+transformItInto: /.*transform.{1,5}it.{1,5}into.{1,5}a.{1,5}(\d\d?)\/(\d\d?).*/i,
+transformHandRandomMinion: /.*each.{1,5}turn.{1,5}this.{1,5}is.*?transform.*?random.{1,5}minion.*/i,
+transformHandRandomMageSpell: /.*each.{1,5}turn.{1,5}this.{1,5}is.*?transform.*?random.{1,5}mage.{1,5}spell.*/i,
+transformAnotherRandom: /.*transform.{1,5}another.{1,5}random.{1,5}minion.*/i,
+transformRepeatableMore: /.*transform.{1,5}a.{1,5}friendly.{1,5}minion.{1,5}into.{1,5}one.{1,5}that.*?repeatable.*/i,
 
 // unlimited attacks
 
@@ -561,9 +563,25 @@ unlimitedAttacks: /.*unlimited.{1,5}attacks.{1,5}each.{1,5}turns.*/i,
 // additionals
 // ----------------------------
 
+// have
+
+haveAdjacentMinionsAttack: /.*adjacent.{1,3}minions.{1,3}have.{1,3}\+(\d).{1,3}attack.*/i,
+
+// can't attack
+
+cannotAttack: /.*can't.{1,3}attack.*/i,
+
 // choose one
 
 chooseOne: /.*choose.{1,5}one.*/i,
+
+// counter
+
+counterSpell: /.*counter.{1,5}it.*/i,
+
+// freeze 
+
+freezeAllEnemyMinions: /.*freeze.{1,5}all.{1,5}enemy.{1,5}minions.*/i,
 
 // overload
 
@@ -579,7 +597,11 @@ recruitBeast: /.*recruit.{1,5}a.{1,5}beast.*/i,
 recruitDemon: /.*recruit.{1,5}a.{1,5}demon.*/i,
 recruitThreeOneCostMinions: /.*recruit.{1,5}three.{1,5}1-cost.{1,5}minions.*/i,
 recruitCostMinion: /.*recruit.{1,5}an.{1,5}8-cost.{1,5}minion.*/i,
-recruitOTT: /.*recruit.{1,5}1,.{1,5}2,.{1,5}and.{1,5}3-attack.{1,5}minion.*/i,
+recruitOTT: /.*recruit.{1,5}a.{1,5}1.{1,5}2.{1,5}and.{1,5}3-attack.{1,5}minion.*/i,
 
+
+// api bugs
+
+lesserMageUpgrade: /.*play 2 elementals to_upgrade.*/i,
 
 }
