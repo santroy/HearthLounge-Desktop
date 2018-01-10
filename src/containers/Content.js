@@ -41,7 +41,7 @@ class Content extends Component {
     takeIstanceOf(ComponentType) {
 
         if(!(_.isEmpty(this.props.allCollection))) {
-
+            console.log(this);
             switch(ComponentType) {
                 case HOME_COMPONENT: {
                     if(!this.welcomeComponent) {
@@ -79,6 +79,7 @@ class Content extends Component {
     }
 
     render() {
+
         return(
             <div>
                 {loadScreen(this.props.allCollection)}

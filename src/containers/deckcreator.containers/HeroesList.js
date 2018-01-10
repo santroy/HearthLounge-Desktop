@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { heroes, heroesDropdown } from '../../globals/Heroes';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { searchHero } from '../../redux/actions/deckcreator.actions';
+import { searchHero, clearCreatorDeckList } from '../../redux/actions/deckcreator.actions';
 import _ from 'lodash';
 
 class HeroesList extends Component {
@@ -21,7 +21,12 @@ class HeroesList extends Component {
         return(
             <div>
                 <label htmlFor="hero-name">Hero</label>
-                <select value={this.props.data.name} onChange={(e) => this.props.searchHero(e.target.value)} id="hero-name" name="hero-name">
+                <select value={this.props.data.name} onChange={(e) => 
+                    { 
+                        this.props.searchHero(e.target.value);
+                        this.props.clearCreatorDeckList();
+                    }
+                    } id="hero-name" name="hero-name">
                     {heroesList}
                 </select>
             </div>
@@ -31,5 +36,5 @@ class HeroesList extends Component {
 
 
 
-export default connect(null, { searchHero })(HeroesList);
+export default connect(null, { searchHero, clearCreatorDeckList })(HeroesList);
 

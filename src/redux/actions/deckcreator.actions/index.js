@@ -2,7 +2,7 @@ import { heroes } from "../../../globals/Heroes";
 import { formats } from "../../../globals/Format";
 import { affiliations } from "../../../globals/Affiliations";
 
-import { ADD_CARD_TO_DECK_LIST, DELETE_CARD_FROM_DECK_LIST } from "../../reducers/deckcreator.reducers/DeckListCreator";
+import { ADD_CARD_TO_DECK_LIST, DELETE_CARD_FROM_DECK_LIST, CLEAR_CREATOR_DECK_LIST } from "../../reducers/deckcreator.reducers/DeckListCreator";
 import { CREATOR_SEARCH_FILTER } from '../../reducers/deckcreator.reducers/FoundCollection';
 
 export function matchCardTerm(data) {
@@ -16,6 +16,12 @@ export function matchCardTerm(data) {
     return {
         type: DELETE_CARD_FROM_DECK_LIST,
         payload: data
+    }
+}
+
+export function clearCreatorDeckList() {
+    return {
+        type: CLEAR_CREATOR_DECK_LIST,
     }
 }
 

@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 export const ADD_CARD_TO_DECK_LIST = "add_card_to_deck_list";
 export const DELETE_CARD_FROM_DECK_LIST = "delete_card_from_deck_list";
+export const CLEAR_CREATOR_DECK_LIST = "clear_creator_deck_list";
 
 export default function(state = [], action) 
 {
@@ -43,6 +44,9 @@ export default function(state = [], action)
                 delete action.payload.count;
                 return deckListOmittedCard;
             }
+
+        case CLEAR_CREATOR_DECK_LIST: 
+            return state = [];
             
         
         default:
