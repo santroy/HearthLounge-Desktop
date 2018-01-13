@@ -2,6 +2,7 @@ import { CLEAR_CURRENT_DECK, GET_CURRENT_DECK_DECODED, DECREASE_CARD_FROM_DECK, 
 import { CLEAR_LOGS, FETCH_LOGS } from '../../reducers/decktracker.reducers/Logs';
 import { DECK_TRACKER_BUTTON_STATE } from '../../reducers/decktracker.reducers/DeckTrackerPanel';
 import { HEARTHSTONE_INSTALLED } from '../../reducers/decktracker.reducers/DTErrors';
+import _ from 'lodash';
 
 export function collectLogs(data) {
     return {

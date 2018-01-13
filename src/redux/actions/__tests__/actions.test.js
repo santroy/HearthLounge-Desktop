@@ -1,5 +1,5 @@
 import * as actions from '../index.js';
-import { HOME_COMPONENT } from '../../reducers/SelectFeatureMenu';
+import { HOME_COMPONENT, CREATE_DECK_COMPONENT, LOUNGE_ARENA_GUIDER_COMPONENT, DECK_TRACKER_COMPONENT } from '../../reducers/SelectFeatureMenu';
 import axios from 'axios';
 import lowerCase from 'lodash/lowerCase';
 
@@ -12,23 +12,42 @@ import { GET_GAME_INFO } from '../../reducers/GameInfo';
 import { GET_CARD_BACKS } from '../../reducers/CardBacks';
 
 describe('#selectFeatureMenu', () =>{
-  const testActions = (action, type, key, state) =>{
+  const testActions = (action, type, key) =>{
     test(`should create an action to ${lowerCase(type)}`, () =>{
       if(key && state !== undefined) {
         const expectedAction = {
           type: type,
         };
         expect(action(type)).toEqual(expectedAction);
-      } else {
-        const expectedAction = {
-          type: type
-        };
-        expect(action(type)).toEqual(expectedAction);
-      }
+      } 
     })
   };
 
   testActions(actions.selectFeatureMenu, HOME_COMPONENT);
+  testActions(actions.selectFeatureMenu, CREATE_DECK_COMPONENT);
+  testActions(actions.selectFeatureMenu, LOUNGE_ARENA_GUIDER_COMPONENT);
+  testActions(actions.selectFeatureMenu, DECK_TRACKER_COMPONENT);
+});
+
+
+describe('#goHome', () =>{
+    const testActions = (action, type, key) =>{
+      test(`should create an action to ${lowerCase(type)}`, () =>{
+        if(key && state !== undefined) {
+          const expectedAction = {
+            type: type,
+          };
+          expect(action(type)).toEqual(expectedAction);
+        } else {
+          const expectedAction = {
+            type: type
+          };
+          expect(action(type)).toEqual(expectedAction);
+        }
+      })
+    };
+  
+    testActions(actions.goHome, HOME_COMPONENT);
 });
 
 

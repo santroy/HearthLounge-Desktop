@@ -5,6 +5,8 @@ import { affiliations } from "../../../globals/Affiliations";
 import { ADD_CARD_TO_DECK_LIST, DELETE_CARD_FROM_DECK_LIST, CLEAR_CREATOR_DECK_LIST } from "../../reducers/deckcreator.reducers/DeckListCreator";
 import { CREATOR_SEARCH_FILTER } from '../../reducers/deckcreator.reducers/FoundCollection';
 
+import _ from 'lodash';
+
 export function matchCardTerm(data) {
     return { 
         type: CREATOR_SEARCH_FILTER,
