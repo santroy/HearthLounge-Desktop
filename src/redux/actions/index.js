@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { FETCH_LOGS, CLEAR_LOGS } from '../reducers/decktracker.reducers/Logs';
 import { GET_ALL_COLLECTION } from '../reducers/AllCollection';
 import { GET_GAME_INFO } from '../reducers/GameInfo';
 import { GET_CARD_BACKS } from '../reducers/CardBacks';
@@ -14,16 +13,34 @@ export function selectFeatureMenu(componentName) {
     }
 }
 
-export function getAllCollection() {
-    const instance = axios.create({
-        method: 'get',
-        baseURL: `${API_URL}/cards?collectible=1`,
-        headers: {'X-Mashape-Key': API_KEY,
-                  'Accept' : 'application/json'
-    }
-      });
+export const allCollectionInstance = axios.create({
+    method: 'get',
+    baseURL: `${API_URL}/cards?collectible=1`,
+    headers: {'X-Mashape-Key': API_KEY,
+              'Accept' : 'application/json'
+}
+  });
 
-      const request = instance.request();
+export const gameInfoInstance = axios.create({
+    method: 'get',
+    baseURL: `${API_URL}/info`,
+    headers: {'X-Mashape-Key': API_KEY,
+              'Accept' : 'application/json'
+}
+  });
+
+export const cardBacksInstance = axios.create({
+    method: 'get',
+    baseURL: `${API_URL}/cardbacks`,
+    headers: {'X-Mashape-Key': API_KEY,
+              'Accept' : 'application/json'
+}
+});
+
+export function getAllCollection() {
+
+
+      const request = allCollectionInstance.request();
           return {
               type: GET_ALL_COLLECTION,
               payload: request
@@ -31,15 +48,8 @@ export function getAllCollection() {
 }
 
 export function getGameInfo() {
-    const instance = axios.create({
-        method: 'get',
-        baseURL: `${API_URL}/info`,
-        headers: {'X-Mashape-Key': API_KEY,
-                  'Accept' : 'application/json'
-    }
-      });
 
-      const request = instance.request();
+      const request = gameInfoInstance.request();
           return {
               type: GET_GAME_INFO,
               payload: request
@@ -47,15 +57,8 @@ export function getGameInfo() {
 }
 
 export function getCardBacks() {
-    const instance = axios.create({
-        method: 'get',
-        baseURL: `${API_URL}/cardbacks`,
-        headers: {'X-Mashape-Key': API_KEY,
-                  'Accept' : 'application/json'
-    }
-      });
 
-      const request = instance.request();
+      const request = cardBacksInstance.request();
           return {
               type: GET_CARD_BACKS,
               payload: request

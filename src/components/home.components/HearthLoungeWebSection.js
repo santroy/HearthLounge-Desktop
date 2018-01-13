@@ -8,7 +8,7 @@ const HearthLoungeWebSection = (props) => {
             <div className="hearth-lounge-web-section">
 
                 <div className="hearth-lounge-decks">
-                    <div onClick={() => { openLink('https://vfujin.github.io/HearthLounge') }} className="hearth-lounge-decks-content">Explore best decks</div>
+                    <div onClick={() => { openLink('https://vfujin.github.io/HearthLounge/decks') }} className="hearth-lounge-decks-content">Explore best decks</div>
                 </div>
                 <div className="hearth-lounge-cards">
                     <div onClick={() => { openLink('https://vfujin.github.io/cards') }} className="hearth-lounge-cards-content">Look at cards</div>

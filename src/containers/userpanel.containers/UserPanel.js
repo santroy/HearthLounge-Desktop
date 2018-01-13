@@ -14,9 +14,9 @@ class UserPanel extends Component {
             <div className="panel">
                 <div className="socials">
                     <ul>
-                        <li onClick={() => openLink('http://www.youtube.com/')}></li>
-                        <li onClick={() => openLink('http://www.reddit.com/')}></li>
-                        <li onClick={() => openLink('http://www.facebook.com/')}></li>
+                        <li onClick={() => openLink('https://www.youtube.com/user/PlayHearthstone/videos')}></li>
+                        <li onClick={() => openLink('https://www.reddit.com/r/hearthstone/')}></li>
+                        <li onClick={() => openLink('https://www.facebook.com/Hearthstonepl/')}></li>
                     </ul>
                 </div>
                 {_.isEmpty(this.props.User) ? <LoginSection/> : <UserSection user={this.props.User}/> }

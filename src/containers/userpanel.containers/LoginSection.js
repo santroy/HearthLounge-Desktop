@@ -44,7 +44,7 @@ class LoginSection extends Component {
             <div>
                 <div className="login-buttons">
                     <button className="submit-login" onClick={this.logIn}>Sign In</button>
-                    <button className="submit-create" onClick={this.openLink('https://github.com/vFujin/HearthLounge')}>Sign Up</button>
+                    <button className="submit-create" onClick={this.openLink('https://vfujin.github.io/HearthLounge/sign-up')}>Sign Up</button>
                 </div>
 
                 <div className="login-inputs">
